@@ -1,0 +1,3 @@
+^\.github$
+^codecov\.yml$
+inst/doc

@@ -1,0 +1,27 @@
+Package: myPkg
+Title: Demonstration of a Bioconductor Package
+Description: This package does this and that. These sentences should be 
+    long enough not to trigger BiocCheck warnings. 
+    So here is the third sentence. 
+Version: 0.99.0
+Date: 2023-08-21
+Authors@R: 
+    c(person("Jacques", "Serizay", , "jacquesserizay@gmail.com",
+        role = c("aut", "cre")
+    ))
+License: Artistic-2.0
+URL: https://github.com/js2264/myPkg
+BugReports: https://github.com/js2264/myPkg/issues
+biocViews: Software,
+    Infrastructure
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    BiocStyle,
+    covr,
+    knitr,
+    rmarkdown,
+    sessioninfo,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
