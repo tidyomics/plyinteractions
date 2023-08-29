@@ -1,5 +1,5 @@
-Package: myPkg
-Title: Demonstration of a Bioconductor Package
+Package: plyinteractions
+Title: Extending tidy verbs to genomic interactions
 Description: This package does this and that. These sentences should be 
     long enough not to trigger BiocCheck warnings. 
     So here is the third sentence. 
@@ -10,8 +10,8 @@ Authors@R:
         role = c("aut", "cre")
     ))
 License: Artistic-2.0
-URL: https://github.com/js2264/myPkg
-BugReports: https://github.com/js2264/myPkg/issues
+URL: https://github.com/js2264/plyinteractions
+BugReports: https://github.com/js2264/plyinteractions/issues
 biocViews: Software,
     Infrastructure
 Encoding: UTF-8

@@ -1,4 +1,4 @@
-# myPkg
+# plyinteractions
 
 <!-- badges: start -->
 <!-- badges: end -->
