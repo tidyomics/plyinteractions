@@ -1,8 +1,9 @@
 Package: plyinteractions
 Title: Extending tidy verbs to genomic interactions
-Description: This package does this and that. These sentences should be 
-    long enough not to trigger BiocCheck warnings. 
-    So here is the third sentence. 
+Description: A dplyr-like interface for interacting with the common Bioconductor 
+    class GInteractions. By providing a grammatical
+    and consistent way of manipulating these classes their accessiblity for new
+    Bioconductor users is hopefully increased.
 Version: 0.99.0
 Date: 2023-08-21
 Authors@R: 
@@ -16,6 +17,12 @@ biocViews: Software,
     Infrastructure
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+Imports:
+    InteractionSet,
+    GenomicRanges,
+    IRanges,
+    S4Vectors,
+    rlang
 Suggests: 
     BiocStyle,
     covr,
@@ -25,3 +32,4 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+RoxygenNote: 7.2.3
