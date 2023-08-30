@@ -6,3 +6,7 @@ dplyr::mutate
 #' @rdname tidyverse-reexports
 #' @export
 dplyr::slice
+
+#' @rdname tidyverse-reexports
+#' @export
+dplyr::select

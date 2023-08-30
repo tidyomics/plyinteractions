@@ -5,6 +5,7 @@
 \alias{reexports}
 \alias{mutate}
 \alias{slice}
+\alias{select}
 \title{Objects exported from other packages.}
 \keyword{internal}
 \description{
@@ -12,6 +13,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{mutate}}, \code{\link[dplyr]{slice}}}
+  \item{dplyr}{\code{\link[dplyr]{mutate}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{slice}}}
 }}
 

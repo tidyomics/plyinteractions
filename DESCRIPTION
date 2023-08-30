@@ -24,7 +24,8 @@ Imports:
     S4Vectors,
     rlang, 
     dplyr, 
-    tibble, 
+    tibble,
+    tidyselect,  
     methods
 Suggests: 
     BiocStyle,

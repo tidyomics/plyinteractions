@@ -14,9 +14,9 @@
     if (length(quosures) > 0) {
         invalid_args <- names(quosures) %in% protected_names
         if (any(invalid_args)) {
-        stop(paste("GInteractions columns named ",
+        stop(paste0("Core GInteractions columns (",
                 paste(protected_names, collapse = ", "), 
-                "cannot be modified with `mutate`."),
+                ") cannot be accessed yet."),
             call. = FALSE)
         }
     }
@@ -33,3 +33,4 @@
         })
     }
 }
+
