@@ -28,6 +28,7 @@ Imports:
     tidyselect,  
     methods
 Suggests: 
+    HiContactsData, 
     BiocStyle,
     covr,
     knitr,

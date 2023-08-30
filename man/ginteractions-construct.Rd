@@ -95,6 +95,20 @@ data.frame(type = "cis", count = 3) |>
     seqnames1 = 'chr1', start1 = 1, end1 = 10,
     seqnames2 = 'chr1', start2 = 40, end2 = 50
   )
+
+####################################################################
+# 4. GInteractions from a real like pairs files
+####################################################################
+
+pairsf <- HiContactsData::HiContactsData('yeast_wt', 'pairs.gz')
+pairs <- read.table(pairsf, comment.char = '#', header = FALSE)
+head(pairs)
+pairs |> 
+  as_ginteractions(
+    seqnames1 = V2, start1 = V3, width1 = 1, strand1 = V6, 
+    seqnames2 = V4, start2 = V5, width2 = 1, strand2 = V7,
+    starts.in.df.are.0based = TRUE
+  )
 }
 \seealso{
 \code{\link[InteractionSet:GInteractions-class]{InteractionSet::GInteractions()}}
