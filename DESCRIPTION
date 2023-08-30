@@ -22,7 +22,9 @@ Imports:
     GenomicRanges,
     IRanges,
     S4Vectors,
-    rlang
+    rlang, 
+    dplyr, 
+    tibble
 Suggests: 
     BiocStyle,
     covr,
