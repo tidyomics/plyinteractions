@@ -6,12 +6,17 @@
 #' By default other columns in .data are placed into the mcols (metadata
 #' columns) slot of the returned object.
 #'
-#' @param .data a [data.frame()], [DataFrame()] or `tibble()` to
+#' @param .data A [data.frame()], [DataFrame()] or `tibble()` to
 #' construct a GInteractions object from.
 #' @param ... Optional named arguments specifying which the columns in .data
 #' containin the core components a GInteractions object.
-#' @param keep_mcols place the remaining columns into the metadata columns slot
-#' (default=TRUE).
+#' @param keep.extra.columns TRUE or FALSE (the default). If TRUE, the columns 
+#' in df that are not used to form the genomic ranges of the returned GRanges 
+#' object are then returned as metadata columns on the object. Otherwise, they 
+#' are ignored.
+#' @param starts.in.df.are.0based TRUE or FALSE (the default). If TRUE, then 
+#' the start positions of the genomic ranges in df are considered to be 
+#' 0-based and are converted to 1-based in the returned GRanges object. 
 #'
 #' @return a GInteractions object.
 #' 
@@ -30,23 +35,7 @@
 #' 
 #' @examples
 #' ####################################################################
-#' # 1. GInteractions from standard pairs files imported into a data.frame
-#' ####################################################################
-#' 
-#' pairs <- read.table(text = "
-#' EAS139:136:FC706VJ:2:2104:23462:197393 chr1 10000 chr1 20000 + +
-#' EAS139:136:FC706VJ:2:8762:23765:128766 chr1 50000 chr1 70000 + +
-#' EAS139:136:FC706VJ:2:2342:15343:9863 chr1 60000 chr2 10000 + +
-#' EAS139:136:FC706VJ:2:1286:25:275154 chr1 30000 chr3 40000 + -", 
-#' col.names = c("readID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
-#' pairs |> 
-#'   as_ginteractions(
-#'     seqnames1 = chr1, start1 = pos1, end1 = pos1, 
-#'     seqnames2 = chr2, start2 = pos2, end2 = pos2
-#'   )
-#' 
-#' ####################################################################
-#' # 2. GInteractions from bedpe files imported into a data.frame
+#' # 1. GInteractions from bedpe files imported into a data.frame
 #' ####################################################################
 #' 
 #' bedpe <- read.table(text = "
@@ -57,6 +46,27 @@
 #'   "chrom2", "start2", "end2", "name", "score", "strand1", "strand2"))
 #' bedpe |> 
 #'   as_ginteractions(seqnames1 = chrom1, seqnames2 = chrom2)
+#' 
+#' ####################################################################
+#' # 2. GInteractions from standard pairs files imported into a data.frame
+#' ####################################################################
+#' 
+#' # Note how the pairs are 0-based and no "end" field is provided 
+#' # (the standard pairs file format does not have "end" fields)
+#' # We can provide width1 and width2 to fix this problem. 
+#' 
+#' pairs <- read.table(text = "
+#' EAS139:136:FC706VJ:2:2104:23462:197393 chr1 10000 chr1 20000 + +
+#' EAS139:136:FC706VJ:2:8762:23765:128766 chr1 50000 chr1 70000 + +
+#' EAS139:136:FC706VJ:2:2342:15343:9863 chr1 60000 chr2 10000 + +
+#' EAS139:136:FC706VJ:2:1286:25:275154 chr1 30000 chr3 40000 + -", 
+#' col.names = c("readID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
+#' pairs |> 
+#'   as_ginteractions(
+#'     seqnames1 = chr1, start1 = pos1, width1 = 1000, 
+#'     seqnames2 = chr2, start2 = pos2, width2 = 1000, 
+#'     starts.in.df.are.0based = TRUE
+#'   )
 #' 
 #' ####################################################################
 #' # 3. GInteractions from data.frame with extra fields
@@ -82,22 +92,30 @@
 #'     seqnames2 = 'chr1', start2 = 40, end2 = 50
 #'   )
 #' @export
-as_ginteractions <- function(.data, ..., keep_mcols = TRUE) UseMethod("as_ginteractions")
+as_ginteractions <- function(
+    .data, ..., keep.extra.columns = TRUE, starts.in.df.are.0based = FALSE
+) UseMethod("as_ginteractions")
 
 #' @export
-as_ginteractions.default <- function(.data, ..., keep_mcols = TRUE) {
-    as_ginteractions.data.frame(as.data.frame(.data), ...)
+as_ginteractions.default <- function(
+    .data, ..., keep.extra.columns = TRUE, starts.in.df.are.0based = FALSE
+) {
+    as_ginteractions.data.frame(
+        as.data.frame(.data), ..., keep.extra.columns, starts.in.df.are.0based
+    )
 }
 
 #' @export
-as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
+as_ginteractions.data.frame <- function(
+    .data, ..., keep.extra.columns = TRUE, starts.in.df.are.0based = FALSE
+) {
 
     quosures <- rlang::quos(...)
     col_names <- names(.data)
 
     # Check that named arguments are only here to define bare GI, not mcols
-    valid_names <- c("seqnames1", "start1", "end1", 
-        "seqnames2", "start2", "end2", "strand1", "strand2")
+    valid_names <- c("seqnames1", "start1", "end1", "width1", "strand1", 
+        "seqnames2", "start2", "end2", "width2", "strand2")
     .check_allowed_names(quosures, valid_names)
 
     # Parse quosures
@@ -108,17 +126,28 @@ as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
     }
 
     # Check that all required fields are found: 
-    required_names <- c("seqnames1", "start1", "end1", 
-        "seqnames2", "start2", "end2")
+    required_names <- c("seqnames1", "start1", "seqnames2", "start2")
     for (name in required_names) {
-        if (!(any(name %in% names(rd)) | any(name %in% names(.data)))) {
+        if (!(any(name %in% c(names(rd), names(.data))))) {
             stop(paste0(name, " column is required for GInteractions."), call. = FALSE)
+        }
+    }
+    
+    # Look for end*/width* fields
+    for (name in c('end1', 'end2')) {
+        if (!(any(name %in% c(names(rd), names(.data))))) {
+            if (!(any(gsub("end", "width", name) %in% c(names(rd), names(.data))))) {
+                stop(
+                    "Please provide end/width information.", 
+                    call. = FALSE
+                )
+            }
         }
     }
 
     # If strands are not provided, add "*" by default
     for (name in c("strand1", "strand2")) {
-        if (!(any(name %in% names(rd)) | any(name %in% names(.data)))) {
+        if (!(any(name %in% c(names(rd), names(.data))))) {
             rd[[name]] <- "*"
         }
     }
@@ -126,21 +155,22 @@ as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
     # First generate quos for core parts of class
     core_gi <- rlang::quos(
         seqnames1 = .data$seqnames1, start1 = .data$start1, end1 = .data$end1, 
-        strand1 = .data$strand1,
+        width1 = .data$width1, strand1 = .data$strand1,
         seqnames2 = .data$seqnames2, start2 = .data$start2, end2 = .data$end2, 
-        strand2 = .data$strand2
+        width2 = .data$width2, strand2 = .data$strand2
     )
+
     # Then modify the core_gi using rd
-    gi <- .gi_construct(.data, rd, col_names, core_gi)
+    gi <- .gi_construct(.data, rd, col_names, core_gi, starts.in.df.are.0based)
 
     # Add extra columns from .data 
-    if (keep_mcols) {
+    if (keep.extra.columns) {
         return(.make_mcols(.data, gi, col_names, quosures, core_gi))
     }
     gi
 }
 
-.gi_construct <- function(.data, rd, col_names, core_gi) {
+.gi_construct <- function(.data, rd, col_names, core_gi, starts.in.df.are.0based) {
 
     ## Check that all required columns are found, either in .data or ...
     match_cols_i <- names(core_gi) %in% col_names
@@ -148,7 +178,7 @@ as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
     if (sum(c(match_cols_i, match_quosures_i)) < 8) {
         stop("Unable to construct GInteractions from .data. 
             Specify the column name used for each required field: 
-            seqnames1, start1, end1, strand1, seqnames2, start2, end2, strand2",
+            seqnames1, start1, end/wdith1, strand1, seqnames2, start2, end/wdith2, strand2",
                 call. = FALSE)
     }
 
@@ -162,11 +192,19 @@ as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
         gi <- rd[names(rd) %in% names(core_gi)]
     }
 
+    if (starts.in.df.are.0based) 
+        gi[['start1']] <- gi[['start1']] + 1
+    if (!is.null(gi[['width1']]) & is.null(gi[['end1']])) 
+        gi[['end1']] <- gi[['start1']] + gi[['width1']] - 1
     an1 <- GenomicRanges::GRanges(
         seqnames = gi$seqnames1, strand = gi$strand1, range = IRanges::IRanges(
             start = gi$start1, end = gi$end1
         )
     )
+    if (starts.in.df.are.0based) 
+        gi[['start2']] <- gi[['start2']] + 1
+    if (!is.null(gi[['width2']]) & is.null(gi[['end2']])) 
+        gi[['end2']] <- gi[['start2']] + gi[['width2']] - 1
     an2 <- GenomicRanges::GRanges(
         seqnames = gi$seqnames2, strand = gi$strand2, range = IRanges::IRanges(
             start = gi$start2, end = gi$end2
@@ -174,7 +212,7 @@ as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
     )
     gi <- InteractionSet::GInteractions(an1, an2)
 
-  return(gi)
+    return(gi)
 
 }
 

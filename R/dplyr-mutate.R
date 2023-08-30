@@ -46,8 +46,8 @@ mutate.GInteractions <- function(.data, ...) {
     #       %%%% 2. Compare against seqinfo, ... 
     #        
     #       %%%% Alternatively, could rely on plyranges ... 
-    protected_names <- c("seqnames1", "start1", "end1", "strand1", 
-        "seqnames2", "start2", "end2", "strand2")
+    protected_names <- c("seqnames1", "start1", "end1", "width1", "strand1", 
+        "seqnames2", "start2", "end2", "width2", "strand2")
     .check_protected_names(quosures, protected_names)
 
     # Mutate metadata columns using dplyr::mutate

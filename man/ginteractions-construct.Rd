@@ -4,17 +4,28 @@
 \alias{as_ginteractions}
 \title{Construct a GInteractions object from a tibble, DataFrame or data.frame}
 \usage{
-as_ginteractions(.data, ..., keep_mcols = TRUE)
+as_ginteractions(
+  .data,
+  ...,
+  keep.extra.columns = TRUE,
+  starts.in.df.are.0based = FALSE
+)
 }
 \arguments{
-\item{.data}{a \code{\link[=data.frame]{data.frame()}}, \code{\link[=DataFrame]{DataFrame()}} or \code{tibble()} to
+\item{.data}{A \code{\link[=data.frame]{data.frame()}}, \code{\link[=DataFrame]{DataFrame()}} or \code{tibble()} to
 construct a GInteractions object from.}
 
 \item{...}{Optional named arguments specifying which the columns in .data
 containin the core components a GInteractions object.}
 
-\item{keep_mcols}{place the remaining columns into the metadata columns slot
-(default=TRUE).}
+\item{keep.extra.columns}{TRUE or FALSE (the default). If TRUE, the columns
+in df that are not used to form the genomic ranges of the returned GRanges
+object are then returned as metadata columns on the object. Otherwise, they
+are ignored.}
+
+\item{starts.in.df.are.0based}{TRUE or FALSE (the default). If TRUE, then
+the start positions of the genomic ranges in df are considered to be
+0-based and are converted to 1-based in the returned GRanges object.}
 }
 \value{
 a GInteractions object.
@@ -28,23 +39,7 @@ columns) slot of the returned object.
 }
 \examples{
 ####################################################################
-# 1. GInteractions from standard pairs files imported into a data.frame
-####################################################################
-
-pairs <- read.table(text = "
-EAS139:136:FC706VJ:2:2104:23462:197393 chr1 10000 chr1 20000 + +
-EAS139:136:FC706VJ:2:8762:23765:128766 chr1 50000 chr1 70000 + +
-EAS139:136:FC706VJ:2:2342:15343:9863 chr1 60000 chr2 10000 + +
-EAS139:136:FC706VJ:2:1286:25:275154 chr1 30000 chr3 40000 + -", 
-col.names = c("readID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
-pairs |> 
-  as_ginteractions(
-    seqnames1 = chr1, start1 = pos1, end1 = pos1, 
-    seqnames2 = chr2, start2 = pos2, end2 = pos2
-  )
-
-####################################################################
-# 2. GInteractions from bedpe files imported into a data.frame
+# 1. GInteractions from bedpe files imported into a data.frame
 ####################################################################
 
 bedpe <- read.table(text = "
@@ -55,6 +50,27 @@ col.names = c(
   "chrom2", "start2", "end2", "name", "score", "strand1", "strand2"))
 bedpe |> 
   as_ginteractions(seqnames1 = chrom1, seqnames2 = chrom2)
+
+####################################################################
+# 2. GInteractions from standard pairs files imported into a data.frame
+####################################################################
+
+# Note how the pairs are 0-based and no "end" field is provided 
+# (the standard pairs file format does not have "end" fields)
+# We can provide width1 and width2 to fix this problem. 
+
+pairs <- read.table(text = "
+EAS139:136:FC706VJ:2:2104:23462:197393 chr1 10000 chr1 20000 + +
+EAS139:136:FC706VJ:2:8762:23765:128766 chr1 50000 chr1 70000 + +
+EAS139:136:FC706VJ:2:2342:15343:9863 chr1 60000 chr2 10000 + +
+EAS139:136:FC706VJ:2:1286:25:275154 chr1 30000 chr3 40000 + -", 
+col.names = c("readID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
+pairs |> 
+  as_ginteractions(
+    seqnames1 = chr1, start1 = pos1, width1 = 1000, 
+    seqnames2 = chr2, start2 = pos2, width2 = 1000, 
+    starts.in.df.are.0based = TRUE
+  )
 
 ####################################################################
 # 3. GInteractions from data.frame with extra fields
