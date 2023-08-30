@@ -39,45 +39,48 @@
 #' EAS139:136:FC706VJ:2:2342:15343:9863 chr1 60000 chr2 10000 + +
 #' EAS139:136:FC706VJ:2:1286:25:275154 chr1 30000 chr3 40000 + -", 
 #' col.names = c("readID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
-#' as_ginteractions(
-#'   pairs, seqnames1 = chr1, start1 = pos1, end1 = pos1, 
-#'   seqnames2 = chr2, start2 = pos2, end2 = pos2
-#' )
+#' pairs |> 
+#'   as_ginteractions(
+#'     seqnames1 = chr1, start1 = pos1, end1 = pos1, 
+#'     seqnames2 = chr2, start2 = pos2, end2 = pos2
+#'   )
 #' 
 #' ####################################################################
 #' # 2. GInteractions from bedpe files imported into a data.frame
 #' ####################################################################
 #' 
 #' bedpe <- read.table(text = "
-#' chr1	100	200	chr1	5000	5100	bedpe_example1	30	+	-
-#' chr1	1000	5000	chr1	3000	3800	bedpe_example2	100	+	-",
+#' chr1 100 200 chr1 5000 5100 bedpe_example1 30 + -
+#' chr1 1000 5000 chr1 3000 3800 bedpe_example2 100 + -",
 #' col.names = c(
 #'   "chrom1", "start1", "end1", 
 #'   "chrom2", "start2", "end2", "name", "score", "strand1", "strand2"))
-#' as_ginteractions(bedpe, seqnames1 = chrom1, seqnames2 = chrom2)
+#' bedpe |> 
+#'   as_ginteractions(seqnames1 = chrom1, seqnames2 = chrom2)
 #' 
 #' ####################################################################
 #' # 3. GInteractions from data.frame with extra fields
 #' ####################################################################
 #' 
 #' df <- read.table(text = "
-#' chr1	100	200	chr1	5000	5100
-#' chr1	1000	5000	chr1	3000	3800",
+#' chr1 100 200 chr1 5000 5100
+#' chr1 1000 5000 chr1 3000 3800",
 #' col.names = c("chr1", "start1", "end1", "chr2", "start2", "end2"))
-#' as_ginteractions(df, seqnames1 = chr1, seqnames2 = chr2)
+#' df |> 
+#'   as_ginteractions(seqnames1 = chr1, seqnames2 = chr2)
 #' 
 #' df <- read.table(text = "
-#' chr1	100	200	chr1	5000	5100
-#' chr1	1000	5000	chr1	3000	3800",
+#' chr1 100 200 chr1 5000 5100
+#' chr1 1000 5000 chr1 3000 3800",
 #' col.names = c("chr1", "start1", "end1", "chr2", "start2", "end2"))
-#' as_ginteractions(df, seqnames1 = chr1, seqnames2 = chr2, strand1 = '+', strand2 = '-')
+#' df |> 
+#'   as_ginteractions(seqnames1 = chr1, seqnames2 = chr2, strand1 = '+', strand2 = '-')
 #' 
-#' df <- data.frame(type = "cis", count = 3)
-#' as_ginteractions(
-#'   df, 
-#'   seqnames1 = 'chr1', start1 = 1, end1 = 10,
-#'   seqnames2 = 'chr1', start2 = 40, end2 = 50
-#' )
+#' data.frame(type = "cis", count = 3) |> 
+#'   as_ginteractions(
+#'     seqnames1 = 'chr1', start1 = 1, end1 = 10,
+#'     seqnames2 = 'chr1', start2 = 40, end2 = 50
+#'   )
 #' @export
 as_ginteractions <- function(.data, ..., keep_mcols = TRUE) UseMethod("as_ginteractions")
 
@@ -89,14 +92,17 @@ as_ginteractions.default <- function(.data, ..., keep_mcols = TRUE) {
 #' @export
 as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
 
-    # Check and parse quosures
-    dots <- rlang::quos(...)
+    quosures <- rlang::quos(...)
     col_names <- names(.data)
+
+    # Check that named arguments are only here to define bare GI, not mcols
     valid_names <- c("seqnames1", "start1", "end1", 
         "seqnames2", "start2", "end2", "strand1", "strand2")
-    .check_names(dots, valid_names)
-    if (length(dots) > 0) {
-        rd <- lapply(dots, rlang::eval_tidy,  data = .data)
+    .check_allowed_names(quosures, valid_names)
+
+    # Parse quosures
+    if (length(quosures) > 0) {
+        rd <- lapply(quosures, rlang::eval_tidy,  data = .data)
     } else {
         rd <- NULL
     }
@@ -117,38 +123,29 @@ as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
         }
     }
 
-    # GInteractions constructor generate quos for core parts of class
+    # First generate quos for core parts of class
     core_gi <- rlang::quos(
         seqnames1 = .data$seqnames1, start1 = .data$start1, end1 = .data$end1, 
         strand1 = .data$strand1,
         seqnames2 = .data$seqnames2, start2 = .data$start2, end2 = .data$end2, 
         strand2 = .data$strand2
     )
+    # Then modify the core_gi using rd
     gi <- .gi_construct(.data, rd, col_names, core_gi)
 
+    # Add extra columns from .data 
     if (keep_mcols) {
-        return(.make_mcols(.data, gi, col_names, dots, core_gi))
+        return(.make_mcols(.data, gi, col_names, quosures, core_gi))
     }
     gi
-}
-
-.check_names <- function(dots, valid_names) {
-    if (length(dots) > 0) {
-        valid_args <- names(dots) %in% valid_names
-        if (any(!valid_args)) {
-        stop(paste("Named arguments must be ",
-                    paste(valid_names, collapse = ", "), "."),
-            .call = FALSE)
-        }
-    }
 }
 
 .gi_construct <- function(.data, rd, col_names, core_gi) {
 
     ## Check that all required columns are found, either in .data or ...
     match_cols_i <- names(core_gi) %in% col_names
-    match_dots_i <- names(core_gi) %in% names(rd)
-    if (sum(c(match_cols_i, match_dots_i)) < 8) {
+    match_quosures_i <- names(core_gi) %in% names(rd)
+    if (sum(c(match_cols_i, match_quosures_i)) < 8) {
         stop("Unable to construct GInteractions from .data. 
             Specify the column name used for each required field: 
             seqnames1, start1, end1, strand1, seqnames2, start2, end2, strand2",
@@ -156,7 +153,7 @@ as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
     }
 
     ## Build GInteractions
-    remain_cols <- match_cols_i & !match_dots_i
+    remain_cols <- match_cols_i & !match_quosures_i
     remain_core <- core_gi[remain_cols]
     if (length(remain_core) > 0) {
         gi <- lapply(core_gi[match_cols_i], rlang::eval_tidy, data = .data)
@@ -181,8 +178,8 @@ as_ginteractions.data.frame <- function(.data, ..., keep_mcols = TRUE) {
 
 }
 
-.make_mcols <- function(.data, gi, col_names, dots, core) {
-    old_cols <- unlist(lapply(dots, rlang::quo_name))
+.make_mcols <- function(.data, gi, col_names, quosures, core) {
+    old_cols <- unlist(lapply(quosures, rlang::quo_name))
     remain_cols <- !(col_names %in% c(old_cols, names(core)))
     if (any(remain_cols)) {
         S4Vectors::mcols(gi) <- .data[, remain_cols, drop = FALSE]

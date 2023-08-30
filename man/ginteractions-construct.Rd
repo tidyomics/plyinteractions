@@ -37,45 +37,48 @@ EAS139:136:FC706VJ:2:8762:23765:128766 chr1 50000 chr1 70000 + +
 EAS139:136:FC706VJ:2:2342:15343:9863 chr1 60000 chr2 10000 + +
 EAS139:136:FC706VJ:2:1286:25:275154 chr1 30000 chr3 40000 + -", 
 col.names = c("readID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
-as_ginteractions(
-  pairs, seqnames1 = chr1, start1 = pos1, end1 = pos1, 
-  seqnames2 = chr2, start2 = pos2, end2 = pos2
-)
+pairs |> 
+  as_ginteractions(
+    seqnames1 = chr1, start1 = pos1, end1 = pos1, 
+    seqnames2 = chr2, start2 = pos2, end2 = pos2
+  )
 
 ####################################################################
 # 2. GInteractions from bedpe files imported into a data.frame
 ####################################################################
 
 bedpe <- read.table(text = "
-chr1	100	200	chr1	5000	5100	bedpe_example1	30	+	-
-chr1	1000	5000	chr1	3000	3800	bedpe_example2	100	+	-",
+chr1 100 200 chr1 5000 5100 bedpe_example1 30 + -
+chr1 1000 5000 chr1 3000 3800 bedpe_example2 100 + -",
 col.names = c(
   "chrom1", "start1", "end1", 
   "chrom2", "start2", "end2", "name", "score", "strand1", "strand2"))
-as_ginteractions(bedpe, seqnames1 = chrom1, seqnames2 = chrom2)
+bedpe |> 
+  as_ginteractions(seqnames1 = chrom1, seqnames2 = chrom2)
 
 ####################################################################
 # 3. GInteractions from data.frame with extra fields
 ####################################################################
 
 df <- read.table(text = "
-chr1	100	200	chr1	5000	5100
-chr1	1000	5000	chr1	3000	3800",
+chr1 100 200 chr1 5000 5100
+chr1 1000 5000 chr1 3000 3800",
 col.names = c("chr1", "start1", "end1", "chr2", "start2", "end2"))
-as_ginteractions(df, seqnames1 = chr1, seqnames2 = chr2)
+df |> 
+  as_ginteractions(seqnames1 = chr1, seqnames2 = chr2)
 
 df <- read.table(text = "
-chr1	100	200	chr1	5000	5100
-chr1	1000	5000	chr1	3000	3800",
+chr1 100 200 chr1 5000 5100
+chr1 1000 5000 chr1 3000 3800",
 col.names = c("chr1", "start1", "end1", "chr2", "start2", "end2"))
-as_ginteractions(df, seqnames1 = chr1, seqnames2 = chr2, strand1 = '+', strand2 = '-')
+df |> 
+  as_ginteractions(seqnames1 = chr1, seqnames2 = chr2, strand1 = '+', strand2 = '-')
 
-df <- data.frame(type = "cis", count = 3)
-as_ginteractions(
-  df, 
-  seqnames1 = 'chr1', start1 = 1, end1 = 10,
-  seqnames2 = 'chr1', start2 = 40, end2 = 50
-)
+data.frame(type = "cis", count = 3) |> 
+  as_ginteractions(
+    seqnames1 = 'chr1', start1 = 1, end1 = 10,
+    seqnames2 = 'chr1', start2 = 40, end2 = 50
+  )
 }
 \seealso{
 \code{\link[InteractionSet:GInteractions-class]{InteractionSet::GInteractions()}}
