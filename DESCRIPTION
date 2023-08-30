@@ -18,7 +18,10 @@ biocViews: Software,
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports:
+    plyranges, 
     InteractionSet,
+    GenomeInfoDb, 
+    BiocGenerics, 
     GenomicRanges,
     IRanges,
     S4Vectors,
