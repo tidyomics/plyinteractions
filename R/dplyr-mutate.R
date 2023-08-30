@@ -19,9 +19,22 @@
 #' col.names = c("chr1", "start1", "end1", "chr2", "start2", "end2")) |> 
 #'   as_ginteractions(seqnames1 = chr1, seqnames2 = chr2)
 #'   
+#' ####################################################################
+#' # 1. Add metadata columns to a GInteractions object
+#' ####################################################################
+#' 
 #' gi |> 
 #'   mutate(type = 'cis', score = runif(2)) |> 
 #'   mutate(type2 = type)
+#' 
+#' ####################################################################
+#' # 2. More complex, nested or inplace changes
+#' ####################################################################
+#' 
+#' gi |> 
+#'   mutate(type = 'cis', score = runif(2)) |> 
+#'   mutate(type2 = type) |> 
+#'   mutate(count = c(1, 2), score = count * 2, new_col = paste0(type2, score))
 #' @export
 mutate.GInteractions <- function(.data, ...) {
 

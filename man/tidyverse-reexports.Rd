@@ -4,13 +4,14 @@
 \name{reexports}
 \alias{reexports}
 \alias{mutate}
-\title{Objects exported from other packages}
+\alias{slice}
+\title{Objects exported from other packages.}
 \keyword{internal}
 \description{
 These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{mutate}}}
+  \item{dplyr}{\code{\link[dplyr]{mutate}}, \code{\link[dplyr]{slice}}}
 }}
 

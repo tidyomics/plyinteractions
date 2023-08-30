@@ -21,3 +21,15 @@
         }
     }
 }
+
+#' @importFrom methods is
+
+.check_indices <- function(quosures) {
+    if (length(quosures) > 0) {
+        res <- lapply(quosures, function(quo) {
+            if(!methods::is(eval_tidy(quo), "numeric")) stop(
+                "Provided slicing indices are not numeric."
+            )
+        })
+    }
+}
