@@ -1,21 +1,20 @@
 #' Objects exported from other packages.
-#' 
-#' @rdname tidyverse-reexports
+#' @noRd
 #' @export
 dplyr::mutate
 
-#' @rdname tidyverse-reexports
+#' @noRd
 #' @export
 dplyr::slice
 
-#' @rdname tidyverse-reexports
+#' @noRd
 #' @export
 dplyr::select
 
-#' @rdname tidyverse-reexports
+#' @noRd
 #' @export
 dplyr::filter
 
-#' @rdname tidyverse-reexports
+#' @noRd
 #' @export
 dplyr::arrange

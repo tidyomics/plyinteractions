@@ -48,7 +48,7 @@
         SIMPLIFY = FALSE
     )
     Filter(function(x) {
-        fun = try(x@default, silent = TRUE)
+        fun <- try(x@default, silent = TRUE)
         if (is(fun, "try-error")) FALSE
         !is.primitive(fun)
     },
