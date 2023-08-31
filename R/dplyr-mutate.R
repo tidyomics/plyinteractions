@@ -70,15 +70,7 @@ mutate.GInteractions <- function(.data, ...) {
     quosures <- rlang::enquos(..., .named = TRUE)
 
     ## Put each quosure in an environment with the required generic 
-    scoped_quosures <- rlang::quos()
-    for (i in seq_along(quosures)) {
-        scoped_quosures[[i]] <- rlang::quo_set_env(
-            quosures[[i]],
-            env = scope_plyinteractions(
-                rlang::quo_get_env(quosures[[i]]), plyinteractions_generics()
-            )
-        )
-    }
+    scoped_quosures <- .scope_quos(quosures) 
     names(scoped_quosures) <- names(quosures)
 
     ## Check that all quosures are named 
@@ -88,7 +80,7 @@ mutate.GInteractions <- function(.data, ...) {
     }
 
     ## tidyeval quosures in a scoped env. This takes care of all the tidy eval. 
-    overscope <- overscope_ranges.GInteractions(.data)
+    overscope <- .overscope_ginteractions(.data)
     evaled_quosures <- vector("list", length(scoped_quosures))
     names(evaled_quosures) <- names(scoped_quosures)
     for (i in seq_along(scoped_quosures)) {

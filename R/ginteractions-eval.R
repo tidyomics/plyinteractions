@@ -6,9 +6,20 @@
 # GInteractions. The trick was to tweak S4Vectors::as.env when 
 # passing `GInteractions` objects to it. 
 
+.scope_quos <- function(quos) {
+    scoped_quosures <- rlang::quos()
+    for (i in seq_along(quos)) {
+        scoped_quosures[[i]] <- rlang::quo_set_env(
+            quos[[i]],
+            env = .scope_ginteractions(
+                rlang::quo_get_env(quos[[i]]), .plyinteractions_generics()
+            )
+        )
+    }
+    return(scoped_quosures)
+}
 
-## Copy from plyranges since it's not exported
-scope_plyinteractions <- function(env, generics) {
+.scope_ginteractions <- function(env, generics) {
     tail <- env
     nms <- character(0)
     # recurse through parent environments until we get to the empty env
@@ -26,9 +37,7 @@ scope_plyinteractions <- function(env, generics) {
 
 #' @importFrom methods getGeneric
 #' @importFrom methods getGenerics
-#' 
-## Copy from plyranges since it's not exported
-plyinteractions_generics <- function(
+.plyinteractions_generics <- function(
     pkgs = c("BiocGenerics", "IRanges", "S4Vectors", "plyinteractions")
 ) {
     pkgs <- lapply(pkgs, asNamespace)
@@ -46,8 +55,7 @@ plyinteractions_generics <- function(
     fn)
 }
 
-#' @importFrom plyranges overscope_ranges
-overscope_ranges.GInteractions <- function(x, envir = parent.frame()) {
+.overscope_ginteractions <- function(x, envir = parent.frame()) {
     
     ## This is tricky, normally S4Vectors gets accessors from the 
     ## package defining the class (ie. accessors defined in InteractionSet
