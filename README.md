@@ -13,10 +13,13 @@ and [`rlang`](https://rlang.r-lib.org/).
 
 The operations currently available for `GInteractions` objects are: 
 
-- Modify genomic interactions with `mutate`;
+- Modify genomic interactions with `mutate`; 
+- Subset genomic interactions with `filter` using
+[`<data-masking>`](https://rlang.r-lib.org/reference/args_data_masking.html) 
+and logical expressions; 
 - Pick out any columns from the associated metadata with `select` 
-using [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html);
-- Subset using indices with `slice`;
+using [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html); 
+- Subset using indices with `slice`. 
 
 ## Installation
 

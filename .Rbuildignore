@@ -1,3 +1,5 @@
 ^\.github$
 ^codecov\.yml$
-inst/doc
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

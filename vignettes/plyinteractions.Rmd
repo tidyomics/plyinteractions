@@ -33,7 +33,6 @@ library(plyinteractions)
 library("RefManageR")
 bib <- c(
     R = citation(),
-    tidyverse = citation("tidyverse")[1],
     InteractionSet = citation("InteractionSet")[1],
     BiocStyle = citation("BiocStyle")[1],
     knitr = citation("knitr")[1],
@@ -44,8 +43,6 @@ bib <- c(
     dplyr = citation("dplyr")[1],
     rlang = citation("rlang")[1],
     plyranges = citation("plyranges")[1],
-    devtools = citation("devtools")[1],
-    usethis = citation("usethis")[1],
     plyinteractions = citation("plyinteractions")[1]
 )
 ```
@@ -79,6 +76,7 @@ library(InteractionSet)
 anchor1 <- GRanges("chr1:10-20:+")
 anchor2 <- GRanges("chr1:50-60:-")
 gi <- GInteractions(anchor1, anchor2)
+
 gi
 ```
 
@@ -87,7 +85,7 @@ gi
 `r Biocpkg("plyinteractions")` provides a consistent interface for importing 
 genomic interactions from `pairs` and `bedpe` files into GInteractions in R, 
 following grammar of tidy data manipulation defined in the 
-`r CRANpkg("tidyverse")` ecosystem `r Citep(bib[["tidyverse"]])`. 
+`r CRANpkg("tidyverse")` ecosystem. 
 
 Tidy genomic data maniuplation implies that we first parse genomic 
 files stored on disk as tabular data frames. 
@@ -95,6 +93,7 @@ files stored on disk as tabular data frames.
 ```{r "start", message=FALSE}
 bedpe_file <- system.file("tests", "test.bedpe", package = "rtracklayer")
 bedpe_df <- read.delim(bedpe_file, header = FALSE, sep = '\t')
+
 bedpe_df
 ```
 
@@ -109,6 +108,7 @@ gi <- bedpe_df |>
         seqnames2 = V4, start2 = V5, end2 = V6, strand2 = V10, 
         starts.in.df.are.0based = TRUE
     )
+
 gi
 ```
 
@@ -125,7 +125,7 @@ tibble::as_tibble(gi)
 
 ## Manipulating `GInteractions`
 
-`r Biocpkg("plyinteractions")`provides a set of verbs for developing 
+`r Biocpkg("plyinteractions")` provides a set of verbs for developing 
 analysis pipelines based on `GInteractions` objects that represent genomic 
 interactions. 
 
@@ -135,7 +135,9 @@ interactions.
 
 ```{r}
 gi |> mutate(cis = seqnames1 == seqnames2)
+
 gi |> mutate(both_chr = paste(seqnames1, seqnames2, sep = "_"))
+
 gi |> mutate(start1 = 1)
 ```
 
@@ -145,7 +147,9 @@ gi |> mutate(start1 = 1)
 
 ```{r}
 gi |> filter(seqnames1 == 'chr11')
+
 gi |> filter(start1 >= 1e8)
+
 gi |> filter(seqnames1 == seqnames2)
 ```
 
@@ -155,7 +159,9 @@ gi |> filter(seqnames1 == seqnames2)
 
 ```{r}
 gi |> select(V7)
+
 gi |> select(contains("8"))
+
 gi |> select(starts_with("V"))
 ```
 
@@ -189,11 +195,11 @@ citation("plyinteractions")
 
 # Acknowledgments
 
-The `r Biocpkg("plyinteractions")` package `r Citep(bib[["plyinteractions"]])`
+The `r Biocpkg("plyinteractions")` package 
 introduces tidy methods for the `GInteractions` class defined in the 
 `r Biocpkg("InteractionSet")` package `r Citep(bib[["InteractionSet"]])`. 
 
-The `r Biocpkg("plyinteractions")` package `r Citep(bib[["plyinteractions"]])`
+The `r Biocpkg("plyinteractions")` package 
 follows tidy principles defined for tabular data and genomic ranges:
 
 * `r CRANpkg("dplyr")` `r Citep(bib[["dplyr"]])`
@@ -204,8 +210,8 @@ The `r Biocpkg("plyinteractions")` package `r Citep(bib[["plyinteractions"]])`
 was written using the following resources:
 
 * R `r Citep(bib[["R"]])`
-* `r CRANpkg("devtools")` `r Citep(bib[["devtools"]])`
-* `r CRANpkg("usethis")` `r Citep(bib[["usethis"]])`
+* `r CRANpkg("devtools")`
+* `r CRANpkg("usethis")`
 
 Supporting documentation was generated using the following resources: 
 

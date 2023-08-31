@@ -1,0 +1,21 @@
+url: ~
+
+home:
+    title: Extending tidy verbs to genomic interactions
+    sidebar:
+        structure: [links, license, community, citation, authors, dev, toc]
+
+authors:
+    Jacques Serizay:
+        href: https://jserizay.com
+    Eric Scott Davis:
+        
+development:
+    mode: auto
+
+template:
+    bootstrap: 5
+    bslib:
+        primary: "#0054AD"
+        border-radius: 0.5rem
+        btn-border-radius: 0.25rem
