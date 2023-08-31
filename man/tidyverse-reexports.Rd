@@ -6,6 +6,7 @@
 \alias{mutate}
 \alias{slice}
 \alias{select}
+\alias{filter}
 \title{Objects exported from other packages.}
 \keyword{internal}
 \description{

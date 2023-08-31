@@ -10,3 +10,8 @@ dplyr::slice
 #' @rdname tidyverse-reexports
 #' @export
 dplyr::select
+
+#' @rdname tidyverse-reexports
+#' @export
+dplyr::filter
+
