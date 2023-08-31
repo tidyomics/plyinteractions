@@ -7,6 +7,7 @@
 \alias{slice}
 \alias{select}
 \alias{filter}
+\alias{arrange}
 \title{Objects exported from other packages.}
 \keyword{internal}
 \description{
@@ -14,6 +15,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{mutate}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{slice}}}
+  \item{dplyr}{\code{\link[dplyr]{arrange}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{slice}}}
 }}
 

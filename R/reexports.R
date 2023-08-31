@@ -1,4 +1,5 @@
 #' Objects exported from other packages.
+#' 
 #' @rdname tidyverse-reexports
 #' @export
 dplyr::mutate
@@ -15,3 +16,6 @@ dplyr::select
 #' @export
 dplyr::filter
 
+#' @rdname tidyverse-reexports
+#' @export
+dplyr::arrange
