@@ -11,7 +11,6 @@
 #'
 #' @importFrom tibble as_tibble
 #' @importFrom rlang `:=`
-#' @importFrom dplyr mutate
 #' 
 #' @examples
 #' gi <- read.table(text = "

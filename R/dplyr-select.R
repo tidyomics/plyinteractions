@@ -6,7 +6,6 @@
 #' @return a GInteractions object.
 #'
 #' @importFrom tidyselect eval_select
-#' @importFrom dplyr select
 #' 
 #' @rdname ginteractions-select
 #' 

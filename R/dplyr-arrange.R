@@ -6,8 +6,6 @@
 #'
 #' @return a GInteractions object.
 #'
-#' @importFrom dplyr arrange
-#' 
 #' @rdname ginteractions-arrange
 #' 
 #' @examples

@@ -4,8 +4,6 @@
 #' @param ... Integer indicating rows to keep.
 #'
 #' @return a GInteractions object.
-#'
-#' @importFrom dplyr slice
 #' 
 #' @rdname ginteractions-slice
 #' 

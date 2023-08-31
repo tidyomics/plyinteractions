@@ -7,8 +7,6 @@
 #' Only rows for which all conditions evaluate to TRUE are kept.
 #'
 #' @return a GInteractions object.
-#'
-#' @importFrom dplyr filter
 #' 
 #' @rdname ginteractions-filter
 #' 

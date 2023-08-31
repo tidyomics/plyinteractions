@@ -1,20 +1,6 @@
-#' Objects exported from other packages.
-#' @noRd
-#' @export
-dplyr::mutate
-
-#' @noRd
-#' @export
-dplyr::slice
-
-#' @noRd
-#' @export
-dplyr::select
-
-#' @noRd
-#' @export
-dplyr::filter
-
-#' @noRd
-#' @export
-dplyr::arrange
+#' @name reexports
+#' @return dplyr functions return tabular data frames
+#' @examples
+#' # Check dplyr package for examples
+#' 1 + 1
+NULL
