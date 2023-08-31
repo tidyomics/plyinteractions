@@ -1,0 +1,233 @@
+---
+title: "plyinteractions"
+output: 
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    code_folding: show
+date: "`r doc_date()`"
+package: "`r pkg_ver('plyinteractions')`"
+vignette: >
+  %\VignetteIndexEntry{plyinteractions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
+)
+```
+
+```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
+## Pre-load libraries
+library(GenomicRanges)
+library(InteractionSet)
+library(plyinteractions)
+
+## Bib setup
+library("RefManageR")
+bib <- c(
+    R = citation(),
+    tidyverse = citation("tidyverse")[1],
+    InteractionSet = citation("InteractionSet")[1],
+    BiocStyle = citation("BiocStyle")[1],
+    knitr = citation("knitr")[1],
+    RefManageR = citation("RefManageR")[1],
+    rmarkdown = citation("rmarkdown")[1],
+    sessioninfo = citation("sessioninfo")[1],
+    testthat = citation("testthat")[1],
+    dplyr = citation("dplyr")[1],
+    rlang = citation("rlang")[1],
+    plyranges = citation("plyranges")[1],
+    devtools = citation("devtools")[1],
+    usethis = citation("usethis")[1],
+    plyinteractions = citation("plyinteractions")[1]
+)
+```
+
+The `r Biocpkg("plyinteractions")` package
+introduces tidy methods for the `GInteractions` class defined in the 
+`r Biocpkg("InteractionSet")` package `r Citep(bib[["InteractionSet"]])`. 
+
+# Install `plyinteractions`
+
+`r Biocpkg("plyinteractions")` is a `R` package available via 
+[Bioconductor](http://bioconductor.org). 
+You can install `r Biocpkg("plyinteractions")` by using the following 
+commands in your `R` session:
+
+```{r "install", eval = FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+}
+BiocManager::install("plyinteractions")
+```
+
+# Quick start to using `plyinteractions`
+
+`GInteractions` are objects describing interactions between pairs of genomic 
+ranges: 
+
+```{r}
+library(GenomicRanges)
+library(InteractionSet)
+anchor1 <- GRanges("chr1:10-20:+")
+anchor2 <- GRanges("chr1:50-60:-")
+gi <- GInteractions(anchor1, anchor2)
+gi
+```
+
+## Importing genomic interactions in R
+
+`r Biocpkg("plyinteractions")` provides a consistent interface for importing 
+genomic interactions from `pairs` and `bedpe` files into GInteractions in R, 
+following grammar of tidy data manipulation defined in the 
+`r CRANpkg("tidyverse")` ecosystem `r Citep(bib[["tidyverse"]])`. 
+
+Tidy genomic data maniuplation implies that we first parse genomic 
+files stored on disk as tabular data frames. 
+
+```{r "start", message=FALSE}
+bedpe_file <- system.file("tests", "test.bedpe", package = "rtracklayer")
+bedpe_df <- read.delim(bedpe_file, header = FALSE, sep = '\t')
+bedpe_df
+```
+
+Genomic interactions in tabular format are not easy to manipulate.
+We can easily parse a `data.frame` into a `GInteractions` object using 
+the `as_ginteractions` function. 
+
+```{r}
+gi <- bedpe_df |> 
+    as_ginteractions(
+        seqnames1 = V1, start1 = V2, end1 = V3, strand1 = V9, 
+        seqnames2 = V4, start2 = V5, end2 = V6, strand2 = V10, 
+        starts.in.df.are.0based = TRUE
+    )
+gi
+```
+
+The columns containing information for core fields of the future `GInteractions` 
+object (e.g. `seqnames1`, `strand2`, ...) can be specified using the 
+`key = value` (supported by quasiquotation). 
+
+The reverse operation to coerce `GInteractions` back to a tabular form is 
+also possible using the `as_tibble` function from the `tibble` package: 
+
+```{r}
+tibble::as_tibble(gi)
+```
+
+## Manipulating `GInteractions`
+
+`r Biocpkg("plyinteractions")`provides a set of verbs for developing 
+analysis pipelines based on `GInteractions` objects that represent genomic 
+interactions. 
+
+### Mutating columns 
+
+`mutate` supports accessing other existing columns:
+
+```{r}
+gi |> mutate(cis = seqnames1 == seqnames2)
+gi |> mutate(both_chr = paste(seqnames1, seqnames2, sep = "_"))
+gi |> mutate(start1 = 1)
+```
+
+### Filtering columns 
+
+`filter` supports logical expressions:
+
+```{r}
+gi |> filter(seqnames1 == 'chr11')
+gi |> filter(start1 >= 1e8)
+gi |> filter(seqnames1 == seqnames2)
+```
+
+### Selecting columns 
+
+`select` supports [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html):
+
+```{r}
+gi |> select(V7)
+gi |> select(contains("8"))
+gi |> select(starts_with("V"))
+```
+
+Note that core fields (e.g. `seqnames1`, `strand2`, ...) cannot be retrieved 
+using this approach, only metadata columns are parsed. 
+Selecting a subset of core fields from a `GInteractions` would lead to 
+loss of required information (the other non-selected core fields). 
+
+```{r}
+## This does not restrict to `seqnames1` and `seqnames2` columns. 
+gi |> select(starts_with('seq')) 
+```
+
+### Slicing rows 
+
+```{r}
+gi |> slice(1, 2)
+gi |> slice(-3)
+```
+
+# Citing `plyinteractions`
+
+We hope that `r Biocpkg("plyinteractions")` will be useful for your research. 
+Please use the following information to cite the package and the overall 
+approach. Thank you!
+
+```{r "citation"}
+## Citation info
+citation("plyinteractions")
+```
+
+# Acknowledgments
+
+The `r Biocpkg("plyinteractions")` package `r Citep(bib[["plyinteractions"]])`
+introduces tidy methods for the `GInteractions` class defined in the 
+`r Biocpkg("InteractionSet")` package `r Citep(bib[["InteractionSet"]])`. 
+
+The `r Biocpkg("plyinteractions")` package `r Citep(bib[["plyinteractions"]])`
+follows tidy principles defined for tabular data and genomic ranges:
+
+* `r CRANpkg("dplyr")` `r Citep(bib[["dplyr"]])`
+* `r CRANpkg("rlang")` `r Citep(bib[["rlang"]])`
+* `r Biocpkg("plyranges")` `r Citep(bib[["plyranges"]])`
+
+The `r Biocpkg("plyinteractions")` package `r Citep(bib[["plyinteractions"]])`
+was written using the following resources:
+
+* R `r Citep(bib[["R"]])`
+* `r CRANpkg("devtools")` `r Citep(bib[["devtools"]])`
+* `r CRANpkg("usethis")` `r Citep(bib[["usethis"]])`
+
+Supporting documentation was generated using the following resources: 
+
+* `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
+* `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
+* `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
+* `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])`
+
+# Reproducibility 
+
+`R` session information:
+
+```{r reproduce3, echo=FALSE}
+## Session info
+library("sessioninfo")
+options(width = 120)
+session_info()
+```
+
+# Bibliography
+
+```{r vignetteBiblio, results = "asis", echo = FALSE, warning = FALSE, message = FALSE}
+## Print bibliography
+PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
+```

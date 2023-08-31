@@ -4,7 +4,7 @@ Description: A dplyr-like interface for interacting with the common Bioconductor
     class GInteractions. By providing a grammatical
     and consistent way of manipulating these classes their accessiblity for new
     Bioconductor users is hopefully increased.
-Version: 0.99.0
+Version: 0.98.0
 Date: 2023-08-21
 Authors@R: 
     c(person("Jacques", "Serizay", , "jacquesserizay@gmail.com",
@@ -30,13 +30,15 @@ Imports:
     tidyselect,  
     methods
 Suggests: 
-    HiContactsData, 
+    HiContactsData,
+    rtracklayer,
     BiocStyle,
     covr,
     knitr,
     rmarkdown,
     sessioninfo,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    RefManageR
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3
