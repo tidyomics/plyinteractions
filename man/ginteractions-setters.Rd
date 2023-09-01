@@ -81,3 +81,4 @@ A modified GInteractions
 \description{
 Internal GInteractions setters
 }
+\keyword{internal}

@@ -1,6 +1,6 @@
 #' @name reexports
-#' @return dplyr functions return tabular data frames
+#' @return Depending on the re-exported function
+#' @keywords internal
 #' @examples
-#' # Check dplyr package for examples
 #' 1 + 1
 NULL

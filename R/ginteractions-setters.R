@@ -4,6 +4,7 @@
 #' @param x a GInteractions object
 #' @param value a value passed to the corresponding field
 #' @return A modified GInteractions
+#' @keywords internal
 NULL 
 
 #' @rdname ginteractions-setters

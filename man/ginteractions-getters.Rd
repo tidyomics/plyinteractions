@@ -73,3 +73,19 @@ One of the core GInteractions fields (e.g. seqnames1, start1, ...)
 \description{
 Internal GInteractions getters
 }
+\examples{
+gi <- data.frame(
+  seqnames1 = 'chr1', start1 = 1, end1 = 10, 
+  seqnames2 = 'chr1', start2 = 1, end2 = 10
+) |> as_ginteractions()
+seqnames1(gi)
+seqnames2(gi)
+start1(gi)
+start2(gi)
+end1(gi)
+end2(gi)
+width1(gi)
+width2(gi)
+strand1(gi)
+strand2(gi)
+}

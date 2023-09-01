@@ -10,10 +10,9 @@
 \alias{arrange}
 \title{Objects exported from other packages}
 \value{
-dplyr functions return tabular data frames
+Depending on the re-exported function
 }
 \examples{
-# Check dplyr package for examples
 1 + 1
 }
 \keyword{internal}
