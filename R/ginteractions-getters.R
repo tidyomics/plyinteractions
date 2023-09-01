@@ -2,12 +2,16 @@
 #' 
 #' @name ginteractions-getters
 #' @param x a GInteractions object
+#' @param pattern,name The pattern or name of a column stored in 
+#' the GInteractions metadata (mcols). 
 #' @return One of the core GInteractions fields (e.g. seqnames1, start1, ...)
+#' or one of the metadata columns when using `$`. 
+#' Note that auto-completion works with `$`. 
 #' @examples 
 #' gi <- data.frame(
 #'   seqnames1 = 'chr1', start1 = 1, end1 = 10, 
 #'   seqnames2 = 'chr1', start2 = 1, end2 = 10
-#' ) |> as_ginteractions()
+#' ) |> as_ginteractions() |> mutate(type = 'cis')
 #' seqnames1(gi)
 #' seqnames2(gi)
 #' start1(gi)
@@ -18,7 +22,20 @@
 #' width2(gi)
 #' strand1(gi)
 #' strand2(gi)
+#' gi$type
 NULL
+
+#' @rdname ginteractions-getters
+#' @importFrom utils .DollarNames
+#' @export 
+.DollarNames.GInteractions <- function(x, pattern = "") 
+    grep(pattern, names(mcols(x, use.names = FALSE)), value = TRUE)
+
+#' @rdname ginteractions-getters
+#' @export 
+setMethod("$", "GInteractions",
+    function(x, name) mcols(x, use.names=FALSE)[[name]]
+)
 
 #' @rdname ginteractions-getters
 #' @export

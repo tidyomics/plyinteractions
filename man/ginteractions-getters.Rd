@@ -2,6 +2,8 @@
 % Please edit documentation in R/ginteractions-getters.R
 \name{ginteractions-getters}
 \alias{ginteractions-getters}
+\alias{.DollarNames.GInteractions}
+\alias{$,GInteractions-method}
 \alias{seqnames1}
 \alias{seqnames2}
 \alias{start1}
@@ -24,6 +26,10 @@
 \alias{strand2,GInteractions-method}
 \title{Internal GInteractions getters}
 \usage{
+\method{.DollarNames}{GInteractions}(x, pattern = "")
+
+\S4method{$}{GInteractions}(x, name)
+
 seqnames1(x)
 
 seqnames2(x)
@@ -66,9 +72,14 @@ strand2(x)
 }
 \arguments{
 \item{x}{a GInteractions object}
+
+\item{pattern, name}{The pattern or name of a column stored in
+the GInteractions metadata (mcols).}
 }
 \value{
 One of the core GInteractions fields (e.g. seqnames1, start1, ...)
+or one of the metadata columns when using \code{$}.
+Note that auto-completion works with \code{$}.
 }
 \description{
 Internal GInteractions getters
@@ -77,7 +88,7 @@ Internal GInteractions getters
 gi <- data.frame(
   seqnames1 = 'chr1', start1 = 1, end1 = 10, 
   seqnames2 = 'chr1', start2 = 1, end2 = 10
-) |> as_ginteractions()
+) |> as_ginteractions() |> mutate(type = 'cis')
 seqnames1(gi)
 seqnames2(gi)
 start1(gi)
@@ -88,4 +99,5 @@ width1(gi)
 width2(gi)
 strand1(gi)
 strand2(gi)
+gi$type
 }
