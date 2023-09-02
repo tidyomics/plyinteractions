@@ -86,13 +86,20 @@ Use dplyr::desc() to sort a variable in descending order.</data-masking></p></dd
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cis <span class="op">=</span> <span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span>, score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>, gc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gi</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 5 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10 |  TRUE   80.5987 0.0626132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10 ---      chr2      1-10 | FALSE   25.7645 0.6152458</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10 ---      chr3      1-10 |  TRUE   56.4629 0.2739113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10 ---      chr4      1-10 |  TRUE   33.4386 0.5514316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10 ---      chr5      1-10 |  TRUE   28.3150 0.3661049</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10       * ---      chr2      1-10       * | FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  72.87213 0.0456171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]   4.07739 0.1233332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  73.32349 0.3304249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  24.89566 0.3709908</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]   7.87743 0.6899977</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
@@ -103,13 +110,20 @@ Use dplyr::desc() to sort a variable in descending order.</data-masking></p></dd
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">gc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 5 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10 |  TRUE   80.5987 0.0626132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr3      3-10 ---      chr3      1-10 |  TRUE   56.4629 0.2739113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr5      5-10 ---      chr5      1-10 |  TRUE   28.3150 0.3661049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10 ---      chr4      1-10 |  TRUE   33.4386 0.5514316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr1      2-10 ---      chr2      1-10 | FALSE   25.7645 0.6152458</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10       * ---      chr2      1-10       * | FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  72.87213 0.0456171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]   4.07739 0.1233332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  73.32349 0.3304249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  24.89566 0.3709908</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]   7.87743 0.6899977</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
@@ -120,13 +134,20 @@ Use dplyr::desc() to sort a variable in descending order.</data-masking></p></dd
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">cis</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 5 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      2-10 ---      chr2      1-10 | FALSE   25.7645 0.6152458</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      1-10 ---      chr1      1-10 |  TRUE   80.5987 0.0626132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10 ---      chr3      1-10 |  TRUE   56.4629 0.2739113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10 ---      chr4      1-10 |  TRUE   33.4386 0.5514316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10 ---      chr5      1-10 |  TRUE   28.3150 0.3661049</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      2-10       * ---      chr2      1-10       * | FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   4.07739 0.1233332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  72.87213 0.0456171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  73.32349 0.3304249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  24.89566 0.3709908</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]   7.87743 0.6899977</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
@@ -139,20 +160,20 @@ Use dplyr::desc() to sort a variable in descending order.</data-masking></p></dd
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rep1"</span>, <span class="st">"rep2"</span>, <span class="st">"rep1"</span>, <span class="st">"rep2"</span>, <span class="st">"rep1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">rep</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 5 interactions and 4 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10 |  TRUE   80.5987 0.0626132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr3      3-10 ---      chr3      1-10 |  TRUE   56.4629 0.2739113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr5      5-10 ---      chr5      1-10 |  TRUE   28.3150 0.3661049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1      2-10 ---      chr2      1-10 | FALSE   25.7645 0.6152458</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr4      4-10 ---      chr4      1-10 |  TRUE   33.4386 0.5514316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            rep</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;factor&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]     rep1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]     rep1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]     rep1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]     rep2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]     rep2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1      2-10       * ---      chr2      1-10       * | FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc      rep</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt; &lt;factor&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  72.87213 0.0456171     rep1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  73.32349 0.3304249     rep1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]   7.87743 0.6899977     rep1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]   4.07739 0.1233332     rep2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]  24.89566 0.3709908     rep2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
@@ -165,20 +186,20 @@ Use dplyr::desc() to sort a variable in descending order.</data-masking></p></dd
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rep1"</span>, <span class="st">"rep2"</span>, <span class="st">"rep1"</span>, <span class="st">"rep2"</span>, <span class="st">"rep1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">rep</span><span class="op">)</span>, <span class="va">score</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 5 interactions and 4 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      2-10 ---      chr2      1-10 | FALSE   25.7645 0.6152458</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr4      4-10 ---      chr4      1-10 |  TRUE   33.4386 0.5514316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr5      5-10 ---      chr5      1-10 |  TRUE   28.3150 0.3661049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr3      3-10 ---      chr3      1-10 |  TRUE   56.4629 0.2739113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr1      1-10 ---      chr1      1-10 |  TRUE   80.5987 0.0626132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            rep</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;factor&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]     rep2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]     rep2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]     rep1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]     rep1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]     rep1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      2-10       * ---      chr2      1-10       * | FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc      rep</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt; &lt;factor&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   4.07739 0.1233332     rep2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  24.89566 0.3709908     rep2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]   7.87743 0.6899977     rep1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  72.87213 0.0456171     rep1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]  73.32349 0.3304249     rep1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>

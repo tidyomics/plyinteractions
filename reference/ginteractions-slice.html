@@ -89,33 +89,33 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 3 interactions and 0 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr2      1-10 ---      chr2      1-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      1-10 ---      chr3      1-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr2      1-10       * ---      chr2      1-10       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      1-10       * ---      chr3      1-10       *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 0 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr2      1-10 ---      chr2      1-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr4      1-10 ---      chr4      1-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr5      1-10 ---      chr5      1-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr2      1-10       * ---      chr2      1-10       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr4      1-10       * ---      chr4      1-10       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr5      1-10       * ---      chr5      1-10       *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 0 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr2      1-10 ---      chr2      1-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr5      1-10 ---      chr5      1-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      1-10 ---      chr4      1-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr2      1-10       * ---      chr2      1-10       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr5      1-10       * ---      chr5      1-10       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      1-10       * ---      chr4      1-10       *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>

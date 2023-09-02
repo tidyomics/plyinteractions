@@ -88,13 +88,20 @@ Only rows for which all conditions evaluate to TRUE are kept.</data-masking></p>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cis <span class="op">=</span> <span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span>, score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>, gc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gi</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 5 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10 |  TRUE  22.59885  0.674231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10 ---      chr2      1-10 | FALSE  96.43098  0.841392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10 ---      chr3      1-10 |  TRUE  22.72978  0.850366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10 ---      chr4      1-10 |  TRUE  50.90976  0.941714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10 ---      chr5      1-10 |  TRUE   6.78865  0.069788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10       * ---      chr2      1-10       * | FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   98.9048  0.384360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]   32.7256  0.227931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]   19.0298  0.583055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]    9.1509  0.594314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]   57.8680  0.933178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
@@ -104,33 +111,51 @@ Only rows for which all conditions evaluate to TRUE are kept.</data-masking></p>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gc</span> <span class="op">&gt;</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10 |  TRUE   22.5989  0.674231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10 ---      chr2      1-10 | FALSE   96.4310  0.841392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10 ---      chr3      1-10 |  TRUE   22.7298  0.850366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10 ---      chr4      1-10 |  TRUE   50.9098  0.941714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 5 interactions and 3 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10       * ---      chr2      1-10       * | FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   98.9048  0.384360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]   32.7256  0.227931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]   19.0298  0.583055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]    9.1509  0.594314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]   57.8680  0.933178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gc</span> <span class="op">&gt;</span> <span class="fl">0.1</span>, <span class="va">score</span> <span class="op">&gt;</span> <span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 2 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      2-10 ---      chr2      1-10 | FALSE   96.4310  0.841392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr4      4-10 ---      chr4      1-10 |  TRUE   50.9098  0.941714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   98.9048  0.384360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]   57.8680  0.933178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">cis</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10 |  TRUE  22.59885  0.674231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr3      3-10 ---      chr3      1-10 |  TRUE  22.72978  0.850366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr4      4-10 ---      chr4      1-10 |  TRUE  50.90976  0.941714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr5      5-10 ---      chr5      1-10 |  TRUE   6.78865  0.069788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   98.9048  0.384360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]   19.0298  0.583055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]    9.1509  0.594314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]   57.8680  0.933178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
@@ -141,33 +166,48 @@ Only rows for which all conditions evaluate to TRUE are kept.</data-masking></p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 5 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10 |  TRUE  22.59885  0.674231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10 ---      chr2      1-10 | FALSE  96.43098  0.841392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10 ---      chr3      1-10 |  TRUE  22.72978  0.850366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10 ---      chr4      1-10 |  TRUE  50.90976  0.941714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10 ---      chr5      1-10 |  TRUE   6.78865  0.069788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10       * ---      chr2      1-10       * | FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   98.9048  0.384360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]   32.7256  0.227931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]   19.0298  0.583055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]    9.1509  0.594314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5]   57.8680  0.933178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">start1</span> <span class="op">&gt;=</span> <span class="va">start2</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 2 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr4      4-10 ---      chr4      1-10 |  TRUE  50.90976  0.941714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr5      5-10 ---      chr5      1-10 |  TRUE   6.78865  0.069788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]    9.1509  0.594314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]   57.8680  0.933178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">score</span> <span class="op">*</span> <span class="va">gc</span> <span class="op">&gt;</span> <span class="va">score</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |   cis     score        gc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;Rle&gt; &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1      1-10 |  TRUE   22.5989  0.674231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      2-10 ---      chr2      1-10 | FALSE   96.4310  0.841392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr3      3-10 ---      chr3      1-10 |  TRUE   22.7298  0.850366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr4      4-10 ---      chr4      1-10 |  TRUE   50.9098  0.941714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 3 interactions and 3 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |   cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr3      3-10       * ---      chr3      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr4      4-10       * ---      chr4      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr5      5-10       * ---      chr5      1-10       * |  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score        gc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]   19.0298  0.583055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]    9.1509  0.594314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]   57.8680  0.933178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 9 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 5 sequences from an unspecified genome; no seqlengths</span>

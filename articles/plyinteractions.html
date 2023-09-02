@@ -67,7 +67,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>plyinteractions</h1>
             
-            <h4 data-toc-skip class="date">31 August 2023</h4>
+            <h4 data-toc-skip class="date">2 September 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/plyinteractions/blob/HEAD/vignettes/plyinteractions.Rmd" class="external-link"><code>vignettes/plyinteractions.Rmd</code></a></small>
       <div class="d-none name"><code>plyinteractions.Rmd</code></div>
@@ -105,9 +105,9 @@ between pairs of genomic ranges:</p>
 <span></span>
 <span><span class="va">gi</span></span>
 <span><span class="co">#&gt; GInteractions object with 1 interaction and 0 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1     seqnames2   ranges2</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1     10-20 ---      chr1     50-60</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1     10-20       + ---      chr1     50-60       -</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 2 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 1 sequence from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -153,16 +153,16 @@ can easily parse a <code>data.frame</code> into a
 <span></span>
 <span><span class="va">gi</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;   [3]     chr20   54704675-54704724 ---     chr20   54708988-54709037 |</span></span>
-<span><span class="co">#&gt;                           V7        V8</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37</span></span>
-<span><span class="co">#&gt;   [2] TUPAC_0001:3:1:0:147..        37</span></span>
-<span><span class="co">#&gt;   [3] TUPAC_0001:3:1:1:183..        37</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37</span></span>
+<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:0:147..        37</span></span>
+<span><span class="co">#&gt;   [3]       - | TUPAC_0001:3:1:1:183..        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -197,43 +197,43 @@ interactions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cis <span class="op">=</span> <span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;   [3]     chr20   54704675-54704724 ---     chr20   54708988-54709037 |</span></span>
-<span><span class="co">#&gt;                           V7        V8   cis</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt; &lt;Rle&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37  TRUE</span></span>
-<span><span class="co">#&gt;   [2] TUPAC_0001:3:1:0:147..        37 FALSE</span></span>
-<span><span class="co">#&gt;   [3] TUPAC_0001:3:1:1:183..        37  TRUE</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8   cis</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt; &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37  TRUE</span></span>
+<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:0:147..        37 FALSE</span></span>
+<span><span class="co">#&gt;   [3]       - | TUPAC_0001:3:1:1:183..        37  TRUE</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>both_chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">seqnames1</span>, <span class="va">seqnames2</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;   [3]     chr20   54704675-54704724 ---     chr20   54708988-54709037 |</span></span>
-<span><span class="co">#&gt;                           V7        V8    both_chr</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;       &lt;Rle&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37   chr7_chr7</span></span>
-<span><span class="co">#&gt;   [2] TUPAC_0001:3:1:0:147..        37 chr11_chr10</span></span>
-<span><span class="co">#&gt;   [3] TUPAC_0001:3:1:1:183..        37 chr20_chr20</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8    both_chr</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;       &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37   chr7_chr7</span></span>
+<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:0:147..        37 chr11_chr10</span></span>
+<span><span class="co">#&gt;   [3]       - | TUPAC_0001:3:1:1:183..        37 chr20_chr20</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>start1 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1     ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;   &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 1-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11  1-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;   [3]     chr20  1-54704724 ---     chr20   54708988-54709037 |</span></span>
+<span><span class="co">#&gt;       seqnames1     ranges1 strand1     seqnames2             ranges2 strand2 |</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;   &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt; |</span></span>
+<span><span class="co">#&gt;   [1]      chr7 1-118965122       + ---      chr7 118970080-118970129       - |</span></span>
+<span><span class="co">#&gt;   [2]     chr11  1-46765656       + ---     chr10   46769935-46769984       - |</span></span>
+<span><span class="co">#&gt;   [3]     chr20  1-54704724       + ---     chr20   54708988-54709037       - |</span></span>
 <span><span class="co">#&gt;                           V7        V8</span></span>
 <span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;</span></span>
 <span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37</span></span>
@@ -250,38 +250,38 @@ interactions.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seqnames1</span> <span class="op">==</span> <span class="st">'chr11'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 1 interaction and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1           ranges1     seqnames2           ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;         &lt;IRanges&gt;         &lt;Rle&gt;         &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]     chr11 46765607-46765656 ---     chr10 46769935-46769984 |</span></span>
-<span><span class="co">#&gt;                           V7        V8</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:147..        37</span></span>
+<span><span class="co">#&gt;       seqnames1           ranges1 strand1     seqnames2           ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;         &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;         &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]     chr11 46765607-46765656       + ---     chr10 46769935-46769984</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:147..        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">start1</span> <span class="op">&gt;=</span> <span class="fl">1e8</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 1 interaction and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;                           V7        V8</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr20   54704675-54704724 ---     chr20   54708988-54709037 |</span></span>
-<span><span class="co">#&gt;                           V7        V8</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37</span></span>
-<span><span class="co">#&gt;   [2] TUPAC_0001:3:1:1:183..        37</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37</span></span>
+<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:1:183..        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -294,48 +294,48 @@ arguments</a>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">V7</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 1 metadata column:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;   [3]     chr20   54704675-54704724 ---     chr20   54708988-54709037 |</span></span>
-<span><span class="co">#&gt;                           V7</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..</span></span>
-<span><span class="co">#&gt;   [2] TUPAC_0001:3:1:0:147..</span></span>
-<span><span class="co">#&gt;   [3] TUPAC_0001:3:1:1:183..</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..</span></span>
+<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:0:147..</span></span>
+<span><span class="co">#&gt;   [3]       - | TUPAC_0001:3:1:1:183..</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">contains</span><span class="op">(</span><span class="st">"8"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 1 metadata column:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;   [3]     chr20   54704675-54704724 ---     chr20   54708988-54709037 |</span></span>
-<span><span class="co">#&gt;              V8</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]        37</span></span>
-<span><span class="co">#&gt;   [2]        37</span></span>
-<span><span class="co">#&gt;   [3]        37</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       strand2 |        V8</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; | &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - |        37</span></span>
+<span><span class="co">#&gt;   [2]       - |        37</span></span>
+<span><span class="co">#&gt;   [3]       - |        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"V"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;   [3]     chr20   54704675-54704724 ---     chr20   54708988-54709037 |</span></span>
-<span><span class="co">#&gt;                           V7        V8</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37</span></span>
-<span><span class="co">#&gt;   [2] TUPAC_0001:3:1:0:147..        37</span></span>
-<span><span class="co">#&gt;   [3] TUPAC_0001:3:1:1:183..        37</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37</span></span>
+<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:0:147..        37</span></span>
+<span><span class="co">#&gt;   [3]       - | TUPAC_0001:3:1:1:183..        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -348,11 +348,16 @@ metadata columns are parsed. Selecting a subset of core fields from a
 <code class="sourceCode R"><span><span class="co">## This does not restrict to `seqnames1` and `seqnames2` columns. </span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">'seq'</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 0 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984</span></span>
-<span><span class="co">#&gt;   [3]     chr20   54704675-54704724 ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
+<span><span class="co">#&gt;       strand2</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt;   [1]       -</span></span>
+<span><span class="co">#&gt;   [2]       -</span></span>
+<span><span class="co">#&gt;   [3]       -</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -363,27 +368,27 @@ metadata columns are parsed. Selecting a subset of core fields from a
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;                           V7        V8</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37</span></span>
-<span><span class="co">#&gt;   [2] TUPAC_0001:3:1:0:147..        37</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37</span></span>
+<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:0:147..        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1     seqnames2             ranges2 |</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;         &lt;Rle&gt;           &lt;IRanges&gt; |</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122 ---      chr7 118970080-118970129 |</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656 ---     chr10   46769935-46769984 |</span></span>
-<span><span class="co">#&gt;                           V7        V8</span></span>
-<span><span class="co">#&gt;                  &lt;character&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1] TUPAC_0001:3:1:0:145..        37</span></span>
-<span><span class="co">#&gt;   [2] TUPAC_0001:3:1:0:147..        37</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
+<span><span class="co">#&gt;       strand2 |                     V7        V8</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37</span></span>
+<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:0:147..        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -475,7 +480,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-08-31</span></span>
+<span><span class="co">#&gt;  date     2023-09-02</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -524,7 +529,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  pillar                 1.9.0     <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig              2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgdown                2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  plyinteractions      * 0.98.0    <span style="color: #555555;">2023-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  plyinteractions      * 0.98.0    <span style="color: #555555;">2023-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  plyr                   1.8.8     <span style="color: #555555;">2022-11-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  purrr                  1.0.2     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  R6                     2.5.1     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>

@@ -89,14 +89,14 @@ to create/modify.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cis'</span>, <span class="st">'trans'</span><span class="op">)</span>, score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>type2 <span class="op">=</span> <span class="va">type</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 2 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |        type     score</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;character&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     10-20 ---      chr1     50-51 |         cis  0.682946</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     10-50 ---      chr2     30-40 |       trans  0.539668</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             type2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]       trans</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     10-20       * ---      chr1     50-51       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     10-50       * ---      chr2     30-40       * |       trans</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score       type2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.901693         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.572586       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 4 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -110,14 +110,14 @@ to create/modify.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>type2 <span class="op">=</span> <span class="va">type</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, score <span class="op">=</span> <span class="va">count</span> <span class="op">*</span> <span class="fl">2</span>, new_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">type2</span>, <span class="va">score</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 2 interactions and 5 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |        type     score</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;character&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     10-20 ---      chr1     50-51 |         cis         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     10-50 ---      chr2     30-40 |       trans         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             type2     count     new_col</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt; &lt;numeric&gt; &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis         1        cis2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]       trans         2      trans4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     10-20       * ---      chr1     50-51       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     10-50       * ---      chr2     30-40       * |       trans</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           score       type2     count     new_col</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;character&gt; &lt;numeric&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         2         cis         1        cis2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]         4       trans         2      trans4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 4 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -129,10 +129,10 @@ to create/modify.</p></dd>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>start1 <span class="op">=</span> <span class="fl">1</span>, end1 <span class="op">=</span> <span class="fl">10</span>, width2 <span class="op">=</span> <span class="fl">30</span>, strand2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'-'</span>, <span class="st">'+'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 2 interactions and 0 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1     50-79</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      1-10 ---      chr2     30-59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1     50-79       -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      1-10       * ---      chr2     30-59       +</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 3 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -145,20 +145,20 @@ to create/modify.</p></dd>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>start1 <span class="op">=</span> <span class="fl">1</span>, end1 <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 2 interactions and 0 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10 ---      chr1     50-51</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      1-10 ---      chr2     30-40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-10       * ---      chr1     50-51       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      1-10       * ---      chr2     30-40       *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 3 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>start1 <span class="op">=</span> <span class="fl">1</span>, end1 <span class="op">=</span> <span class="fl">10</span>, width1 <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 2 interactions and 0 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-50 ---      chr1     50-51</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      1-50 ---      chr2     30-40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      1-50       * ---      chr1     50-51       *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      1-50       * ---      chr2     30-40       *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 3 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -174,10 +174,14 @@ to create/modify.</p></dd>
 <span class="r-in"><span>    distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">cis</span>, <span class="va">start2</span> <span class="op">-</span> <span class="va">end1</span>, <span class="cn">NA</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 2 interactions and 3 metadata columns:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1     seqnames2   ranges2 |     score   cis  distance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt; | &lt;numeric&gt; &lt;Rle&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     10-20 ---      chr1     50-51 |  0.578097  TRUE        30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     10-50 ---      chr2     30-40 |  0.833797 FALSE      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     10-20       * ---      chr1     50-51       * |  0.964948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     10-50       * ---      chr2     30-40       * |  0.249580</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         cis  distance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;Rle&gt; &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  TRUE        30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] FALSE      &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 4 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
