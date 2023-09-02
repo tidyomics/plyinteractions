@@ -20,6 +20,8 @@ and logical expressions;
 - Pick out any columns from the associated metadata with `select` 
 using [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html); 
 - Subset using indices with `slice`. 
+- Order genomic interactions with `arrange` using categorical/numerical 
+variables. 
 
 ## Installation
 

@@ -4,6 +4,8 @@
 \alias{ginteractions-getters}
 \alias{.DollarNames.GInteractions}
 \alias{$,GInteractions-method}
+\alias{anchors1}
+\alias{anchors2}
 \alias{seqnames1}
 \alias{seqnames2}
 \alias{start1}
@@ -14,6 +16,10 @@
 \alias{width2}
 \alias{strand1}
 \alias{strand2}
+\alias{ranges1}
+\alias{ranges2}
+\alias{anchors1,GInteractions-method}
+\alias{anchors2,GInteractions-method}
 \alias{seqnames1,GInteractions-method}
 \alias{seqnames2,GInteractions-method}
 \alias{start1,GInteractions-method}
@@ -24,11 +30,17 @@
 \alias{width2,GInteractions-method}
 \alias{strand1,GInteractions-method}
 \alias{strand2,GInteractions-method}
+\alias{ranges1,GInteractions-method}
+\alias{ranges2,GInteractions-method}
 \title{Internal GInteractions getters}
 \usage{
 \method{.DollarNames}{GInteractions}(x, pattern = "")
 
 \S4method{$}{GInteractions}(x, name)
+
+anchors1(x)
+
+anchors2(x)
 
 seqnames1(x)
 
@@ -50,6 +62,14 @@ strand1(x)
 
 strand2(x)
 
+ranges1(x)
+
+ranges2(x)
+
+\S4method{anchors1}{GInteractions}(x)
+
+\S4method{anchors2}{GInteractions}(x)
+
 \S4method{seqnames1}{GInteractions}(x)
 
 \S4method{seqnames2}{GInteractions}(x)
@@ -69,6 +89,10 @@ strand2(x)
 \S4method{strand1}{GInteractions}(x)
 
 \S4method{strand2}{GInteractions}(x)
+
+\S4method{ranges1}{GInteractions}(x)
+
+\S4method{ranges2}{GInteractions}(x)
 }
 \arguments{
 \item{x}{a GInteractions object}
@@ -87,8 +111,10 @@ Internal GInteractions getters
 \examples{
 gi <- data.frame(
   seqnames1 = 'chr1', start1 = 1, end1 = 10, 
-  seqnames2 = 'chr1', start2 = 1, end2 = 10
+  seqnames2 = 'chr1', start2 = 2, end2 = 20
 ) |> as_ginteractions() |> mutate(type = 'cis')
+anchors1(gi)
+anchors2(gi)
 seqnames1(gi)
 seqnames2(gi)
 start1(gi)
@@ -97,6 +123,8 @@ end1(gi)
 end2(gi)
 width1(gi)
 width2(gi)
+ranges1(gi)
+ranges2(gi)
 strand1(gi)
 strand2(gi)
 gi$type

@@ -10,8 +10,10 @@
 #' @examples 
 #' gi <- data.frame(
 #'   seqnames1 = 'chr1', start1 = 1, end1 = 10, 
-#'   seqnames2 = 'chr1', start2 = 1, end2 = 10
+#'   seqnames2 = 'chr1', start2 = 2, end2 = 20
 #' ) |> as_ginteractions() |> mutate(type = 'cis')
+#' anchors1(gi)
+#' anchors2(gi)
 #' seqnames1(gi)
 #' seqnames2(gi)
 #' start1(gi)
@@ -20,6 +22,8 @@
 #' end2(gi)
 #' width1(gi)
 #' width2(gi)
+#' ranges1(gi)
+#' ranges2(gi)
 #' strand1(gi)
 #' strand2(gi)
 #' gi$type
@@ -37,6 +41,12 @@ setMethod("$", "GInteractions",
     function(x, name) mcols(x, use.names=FALSE)[[name]]
 )
 
+#' @rdname ginteractions-getters
+#' @export
+setGeneric("anchors1", function(x) standardGeneric("anchors1"))
+#' @rdname ginteractions-getters
+#' @export
+setGeneric("anchors2", function(x) standardGeneric("anchors2"))
 #' @rdname ginteractions-getters
 #' @export
 setGeneric("seqnames1", function(x) standardGeneric("seqnames1"))
@@ -67,58 +77,86 @@ setGeneric("strand1", function(x) standardGeneric("strand1"))
 #' @rdname ginteractions-getters
 #' @export
 setGeneric("strand2", function(x) standardGeneric("strand2"))
+#' @rdname ginteractions-getters
+#' @export
+setGeneric("ranges1", function(x) standardGeneric("ranges1"))
+#' @rdname ginteractions-getters
+#' @export
+setGeneric("ranges2", function(x) standardGeneric("ranges2"))
+
+#' @rdname ginteractions-getters
+#' @export
+setMethod("anchors1", signature("GInteractions"), function(x) {
+    S4Vectors::first(x)
+})
+#' @rdname ginteractions-getters
+#' @export
+setMethod("anchors2", signature("GInteractions"), function(x) {
+    S4Vectors::second(x)
+})
 #' @importFrom GenomeInfoDb seqnames
 #' @rdname ginteractions-getters
 #' @export
 setMethod("seqnames1", signature("GInteractions"), function(x) {
-    GenomeInfoDb::seqnames(S4Vectors::first(x))
+    GenomeInfoDb::seqnames(anchors1(x))
 })
 #' @rdname ginteractions-getters
 #' @export
 setMethod("seqnames2", signature("GInteractions"), function(x) {
-    GenomeInfoDb::seqnames(S4Vectors::second(x))
+    GenomeInfoDb::seqnames(anchors2(x))
 })
 #' @importFrom BiocGenerics start
 #' @rdname ginteractions-getters
 #' @export
 setMethod("start1", signature("GInteractions"), function(x) {
-    BiocGenerics::start(S4Vectors::first(x))
+    BiocGenerics::start(anchors1(x))
 })
 #' @rdname ginteractions-getters
 #' @export
 setMethod("start2", signature("GInteractions"), function(x) {
-    BiocGenerics::start(S4Vectors::second(x))
+    BiocGenerics::start(anchors2(x))
 })
 #' @importFrom BiocGenerics end
 #' @rdname ginteractions-getters
 #' @export
 setMethod("end1", signature("GInteractions"), function(x) {
-    BiocGenerics::end(S4Vectors::first(x))
+    BiocGenerics::end(anchors1(x))
 })
 #' @rdname ginteractions-getters
 #' @export
 setMethod("end2", signature("GInteractions"), function(x) {
-    BiocGenerics::end(S4Vectors::second(x))
+    BiocGenerics::end(anchors2(x))
 })
 #' @importFrom BiocGenerics width
 #' @rdname ginteractions-getters
 #' @export
 setMethod("width1", signature("GInteractions"), function(x) {
-    BiocGenerics::width(S4Vectors::first(x))
+    BiocGenerics::width(anchors1(x))
 })
 #' @rdname ginteractions-getters
 #' @export
 setMethod("width2", signature("GInteractions"), function(x) {
-    BiocGenerics::width(S4Vectors::second(x))
+    BiocGenerics::width(anchors2(x))
 })
 #' @importFrom BiocGenerics strand
 #' @rdname ginteractions-getters
 #' @export
 setMethod("strand1", signature("GInteractions"), function(x) {
-    BiocGenerics::strand(S4Vectors::first(x))
+    BiocGenerics::strand(anchors1(x))
 })
 #' @rdname ginteractions-getters
 #' @export
 setMethod("strand2", signature("GInteractions"), function(x) {
-    BiocGenerics::strand(S4Vectors::second(x))
+    BiocGenerics::strand(anchors2(x))
+})
+#' @importFrom IRanges ranges
+#' @rdname ginteractions-getters
+#' @export
+setMethod("ranges1", signature("GInteractions"), function(x) {
+    IRanges::ranges(anchors1(x))
+})
+#' @rdname ginteractions-getters
+#' @export
+setMethod("ranges2", signature("GInteractions"), function(x) {
+    IRanges::ranges(anchors2(x))
 })
