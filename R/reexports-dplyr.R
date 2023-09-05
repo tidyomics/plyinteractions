@@ -22,3 +22,8 @@ dplyr::filter
 #' @importFrom dplyr arrange
 #' @export
 dplyr::arrange
+
+#' @rdname reexports
+#' @importFrom dplyr rename
+#' @export
+dplyr::rename

@@ -1,9 +1,7 @@
-# plyinteractions
+# plyinteractions <img src="man/figures/logo.png" align="right" alt="" width="180" />
 
 <!-- badges: start -->
 <!-- badges: end -->
-
-# pkgdown <img src="man/figures/logo.png" align="right" alt="" width="180" />
 
 `plyinteractions` provides a consistent interface for importing and wrangling 
 genomic interactions from `pairs` and `bedpe` files into `GInteractions` in `R`. 
