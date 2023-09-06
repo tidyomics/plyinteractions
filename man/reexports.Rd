@@ -18,6 +18,9 @@
 \alias{group_size}
 \alias{n_groups}
 \alias{group_rows}
+\alias{ungroup}
+\alias{summarize}
+\alias{summarise}
 \title{Objects exported from other packages}
 \value{
 Depending on the re-exported function
@@ -31,6 +34,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{arrange}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{group_data}}, \code{\link[dplyr:group_data]{group_indices}}, \code{\link[dplyr:group_data]{group_keys}}, \code{\link[dplyr:group_data]{group_rows}}, \code{\link[dplyr:group_data]{group_size}}, \code{\link[dplyr:group_data]{group_vars}}, \code{\link[dplyr:group_data]{groups}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr:group_data]{n_groups}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{slice}}}
+  \item{dplyr}{\code{\link[dplyr]{arrange}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{group_data}}, \code{\link[dplyr:group_data]{group_indices}}, \code{\link[dplyr:group_data]{group_keys}}, \code{\link[dplyr:group_data]{group_rows}}, \code{\link[dplyr:group_data]{group_size}}, \code{\link[dplyr:group_data]{group_vars}}, \code{\link[dplyr:group_data]{groups}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr:group_data]{n_groups}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr:summarise]{summarize}}, \code{\link[dplyr:group_by]{ungroup}}}
 }}
 

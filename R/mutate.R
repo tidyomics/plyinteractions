@@ -46,11 +46,9 @@
 #' 
 #' # Note how the core columns are modified sequentially 
 #' 
-#' 
-#' # Note how the core columns are modified sequentially 
-#' 
 #' gi |> 
 #'   mutate(start1 = 1, end1 = 10)
+#' 
 #' gi |> 
 #'   mutate(start1 = 1, end1 = 10, width1 = 50)
 #' 

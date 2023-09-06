@@ -20,6 +20,8 @@
 \alias{anchors,DelegatingGInteractions-method}
 \alias{regions,DelegatingGInteractions-method}
 \alias{seqinfo,DelegatingGInteractions-method}
+\alias{mcols,DelegatingGInteractions-method}
+\alias{show,DelegatingGInteractions-method}
 \title{DelegatingGInteractions class}
 \usage{
 \S4method{anchors1}{DelegatingGInteractions}(x)
@@ -55,9 +57,13 @@
 \S4method{regions}{DelegatingGInteractions}(x)
 
 \S4method{seqinfo}{DelegatingGInteractions}(x)
+
+\S4method{mcols}{DelegatingGInteractions}(x)
+
+\S4method{show}{DelegatingGInteractions}(object)
 }
 \arguments{
-\item{x}{DelegatingGInteractions object}
+\item{x, object}{DelegatingGInteractions object}
 }
 \description{
 DelegatingGInteractions class

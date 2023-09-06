@@ -54,39 +54,3 @@
     },
     fn)
 }
-
-.overscope_ginteractions <- function(x, envir = parent.frame()) {
-    
-    ## This is tricky, normally S4Vectors gets accessors from the 
-    ## package defining the class (ie. accessors defined in InteractionSet
-    ## for GInteractions). But `seqnames1`, `strand1`, ... are NOT 
-    ## accessors defined in InteractionSet. So I have to trick 
-    ## S4Vectors into making the correct nested envs. 
-    ## 
-    ## Parent: has mcols 
-    ## env child: has core GI columns and its accessors
-
-    parent <- S4Vectors::as.env(
-        S4Vectors::mcols(x, use.names=FALSE), 
-        envir, 
-        tform = identity
-    )
-    env <- new.env(parent=parent)
-    pvnEnv <- getNamespace("plyinteractions")
-    nms <- c("seqnames1", "start1", "end1", "width1", "strand1", 
-        "seqnames2", "start2", "end2", "width2", "strand2")
-    lapply(nms, function(nm) {
-        accessor <- get(nm, pvnEnv, mode="function")
-        makeActiveBinding(nm, function() {
-                val <- identity(accessor(x))
-                rm(list=nm, envir=env)
-                assign(nm, val, env)
-                val
-            },
-            env
-        )
-    })
-    env$.. <- x
-    rlang::new_data_mask(env, top = parent.env(env))
-
-}

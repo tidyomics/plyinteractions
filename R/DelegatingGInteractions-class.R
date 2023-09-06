@@ -1,7 +1,7 @@
 #' DelegatingGInteractions class
 #' @rdname delegating-ginteractions-class
 #' @include ginteractions-getters.R
-#' @param x DelegatingGInteractions object
+#' @param x,object DelegatingGInteractions object
 setClass("DelegatingGInteractions",
     slots = list(delegate="GInteractions"),
     contains=c("GInteractions", "VIRTUAL")
@@ -69,3 +69,14 @@ setMethod("anchors", "DelegatingGInteractions", function(x) anchors(x@delegate))
 setMethod("regions", "DelegatingGInteractions", function(x) regions(x@delegate))
 #' @rdname delegating-ginteractions-class
 setMethod("seqinfo", "DelegatingGInteractions", function(x) seqinfo(x@delegate))
+#' @rdname delegating-ginteractions-class
+setMethod("mcols", "DelegatingGInteractions", function(x) mcols(x@delegate))
+#' @rdname delegating-ginteractions-class
+setMethod("show", "DelegatingGInteractions", function(object) { 
+    groups <- colnames(object@group_keys)
+    groups <- paste(groups, collapse = ", ")
+    output <- c("", utils::capture.output(show(object@delegate)))
+    output[1] <- output[2]
+    output[2] <- paste("Groups:", groups, paste0("[", object@n, "]"))
+    cat(output, sep = "\n")
+})

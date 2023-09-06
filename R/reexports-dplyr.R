@@ -72,3 +72,18 @@ dplyr::n_groups
 #' @importFrom dplyr group_rows
 #' @export
 dplyr::group_rows
+
+#' @rdname reexports
+#' @importFrom dplyr ungroup
+#' @export
+dplyr::ungroup
+
+#' @rdname reexports
+#' @importFrom dplyr summarize
+#' @export
+dplyr::summarize
+
+#' @rdname reexports
+#' @importFrom dplyr summarise
+#' @export
+dplyr::summarise

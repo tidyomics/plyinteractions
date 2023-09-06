@@ -14,7 +14,10 @@ setClass("GroupedGInteractions",
 
 #' @importFrom methods setMethod initialize
 setMethod("initialize", "GroupedGInteractions",
-    function(.Object, delegate = GRanges(), group_keys = DataFrame(), group_indices = Rle(), n = integer()) {
+    function(
+        .Object, delegate = GRanges(), group_keys = DataFrame(), 
+        group_indices = Rle(), n = integer()
+    ) {
         .Object@delegate <- delegate
         .Object@group_keys <- group_keys
         .Object@group_indices <- group_indices
@@ -22,12 +25,3 @@ setMethod("initialize", "GroupedGInteractions",
         .Object
     }
 )
-
-setMethod("show", "GroupedGInteractions", function(object) { 
-    groups <- colnames(object@group_keys)
-    groups <- paste(groups, collapse = ", ")
-    output <- c("", utils::capture.output(show(object@delegate)))
-    output[1] <- output[2]
-    output[2] <- paste("Groups:", groups, paste0("[", object@n, "]"))
-    cat(output, sep = "\n")
-})
