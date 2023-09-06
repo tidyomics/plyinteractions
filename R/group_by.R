@@ -2,6 +2,8 @@
 #'
 #' @param .data,x a (Grouped)GInteractions object
 #' @param ... Column(s) to group by. 
+#' @param .add When FALSE, the default, group_by() will override existing
+#' groups. To add to the existing groups, use .add = TRUE.
 #' 
 #' @return a GInteractions object.
 #'
@@ -22,7 +24,7 @@
 #'   mutate(type = c('cis', 'cis', 'cis', 'trans'), score = runif(4))
 #' 
 #' ####################################################################
-#' # 1. Group by code column
+#' # 1. Group by core column
 #' ####################################################################
 #' 
 #' gi |> group_by(end1)
@@ -49,7 +51,16 @@
 #' gi |> group_by(class = c(1, 2, 1, 2))
 #' 
 #' ####################################################################
-#' # 5. Ungroup column(s)
+#' # 5. Replace or add groups to a GroupedGInteractions
+#' ####################################################################
+#' 
+#' ggi <- gi |> group_by(class = c(1, 2, 1, 2))
+#' ggi |> group_data()
+#' ggi |> group_by(type) |> group_data()
+#' ggi |> group_by(type, .add = TRUE) |> group_data()
+#' 
+#' ####################################################################
+#' # 6. Ungroup GInteractions
 #' ####################################################################
 #' 
 #' ggi <- gi |> group_by(type, class = c(1, 2, 1, 2))
@@ -60,7 +71,7 @@
 #' @include tbl_vars.R
 #' @include group_data.R
 #' @export
-group_by.GInteractions <- function(.data, ...) {
+group_by.GInteractions <- function(.data, ..., .add = FALSE) {
     
     new_groups <- rlang::enquos(...)
 
@@ -100,8 +111,15 @@ group_by.GInteractions <- function(.data, ...) {
 }
 
 #' @rdname ginteractions-group_by
+#' @export
+group_by.GroupedGInteractions <- function(.data, ..., .add = FALSE) {
+    new_groups <- rlang::enquos(...)
+    if (.add) new_groups <- c(groups(.data), new_groups)
+    group_by(.data@delegate, !!!new_groups)
+}
+
+#' @rdname ginteractions-group_by
 #' @importFrom dplyr ungroup
-#' @method ungroup GInteractions
 #' @export
 ungroup.GInteractions <- function(x, ...) {
     ungroups <- enquos(...)

@@ -2,17 +2,23 @@
 % Please edit documentation in R/group_by.R
 \name{group_by.GInteractions}
 \alias{group_by.GInteractions}
+\alias{group_by.GroupedGInteractions}
 \alias{ungroup.GInteractions}
 \title{Group GInteractions by columns}
 \usage{
-\method{group_by}{GInteractions}(.data, ...)
+\method{group_by}{GInteractions}(.data, ..., .add = FALSE)
+
+\method{group_by}{GroupedGInteractions}(.data, ..., .add = FALSE)
 
 \method{ungroup}{GInteractions}(x, ...)
 }
 \arguments{
-\item{.data, x}{a GInteractions object}
+\item{.data, x}{a (Grouped)GInteractions object}
 
 \item{...}{Column(s) to group by.}
+
+\item{.add}{When FALSE, the default, group_by() will override existing
+groups. To add to the existing groups, use .add = TRUE.}
 }
 \value{
 a GInteractions object.
@@ -31,7 +37,7 @@ col.names = c("seqnames1", "start1", "end1", "seqnames2", "start2", "end2")) |>
   mutate(type = c('cis', 'cis', 'cis', 'trans'), score = runif(4))
 
 ####################################################################
-# 1. Group by code column
+# 1. Group by core column
 ####################################################################
 
 gi |> group_by(end1)
@@ -58,7 +64,16 @@ gi |> group_by(end1, type) |> group_data()
 gi |> group_by(class = c(1, 2, 1, 2))
 
 ####################################################################
-# 5. Ungroup column(s)
+# 5. Replace or add groups to a GroupedGInteractions
+####################################################################
+
+ggi <- gi |> group_by(class = c(1, 2, 1, 2))
+ggi |> group_data()
+ggi |> group_by(type) |> group_data()
+ggi |> group_by(type, .add = TRUE) |> group_data()
+
+####################################################################
+# 6. Ungroup GInteractions
 ####################################################################
 
 ggi <- gi |> group_by(type, class = c(1, 2, 1, 2))
