@@ -141,6 +141,41 @@ gi |> mutate(both_chr = paste(seqnames1, seqnames2, sep = "_"))
 gi |> mutate(start1 = 1)
 ```
 
+### Grouping columns 
+
+`group_by` supports accessing both core and metadata columns:
+
+```{r}
+gi |> group_by(seqnames2)
+
+gi |> group_by(cis = seqnames1 == seqnames2)
+
+gi |> group_by(seqnames2, cis = seqnames1 == seqnames2)
+```
+
+### Summarizing columns 
+
+Summarizing grouped GInteractions can be extremely powerful. 
+
+```{r}
+pairs_file <- HiContactsData::HiContactsData('yeast_wt', 'pairs.gz')
+pairs_df <- read.delim(pairs_file, sep = "\t", header = FALSE, comment.char = "#")
+head(pairs_df)
+pairs <- as_ginteractions(pairs_df, 
+    seqnames1 = V2, start1 = V3, strand1 = V6, 
+    seqnames2 = V4, start2 = V5, strand2 = V7, 
+    width1 = 1, width2 = 1, 
+    keep.extra.columns = FALSE
+)
+pairs
+
+pairs |> group_by(same_strand = strand1 == strand2) |> 
+    summarize(
+        neg_strand = sum(strand1 == "-"), 
+        pos_strand = sum(strand1 == "+")
+    )
+```
+
 ### Filtering columns 
 
 `filter` supports logical expressions:

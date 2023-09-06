@@ -13,6 +13,8 @@ and [`rlang`](https://rlang.r-lib.org/).
 
 The operations currently available for `GInteractions` objects are: 
 
+- Group genomic interactions with `group_by`; 
+- Summarize grouped genomic interactions with `summarize`; 
 - Modify genomic interactions with `mutate`; 
 - Subset genomic interactions with `filter` using
 [`<data-masking>`](https://rlang.r-lib.org/reference/args_data_masking.html) 
