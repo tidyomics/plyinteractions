@@ -2,10 +2,13 @@
 #'
 #' @param .data a GInteractions object
 #' @param ... Integer indicating rows to keep.
+#' @param .drop_ranges if TRUE, returns a DataFrame object. In this case, it 
+#' enables selection of any column including core GInteractions columns. 
 #'
 #' @return a GInteractions object.
 #'
 #' @importFrom tidyselect eval_select
+#' @importFrom rlang syms
 #' 
 #' @rdname ginteractions-select
 #' 
@@ -40,26 +43,47 @@
 #' gi |> select(contains('s'))
 #' gi |> select(matches('^s'))
 #' 
+#' ####################################################################
+#' # 4. Select core and metadata columns with .drop_ranges = TRUE
+#' ####################################################################
+#' 
+#' gi |> select(matches('^s'), .drop_ranges = TRUE)
+#' 
 #' @export
-select.GInteractions <- function(.data, ...) {
+select.GInteractions <- function(.data, ..., .drop_ranges = FALSE) {
 
     # Recover available names from mcols
     available_names <- colnames(S4Vectors::mcols(.data))
     names(available_names) <- available_names
 
-    # Tidy-select over available columns
-    pos <- try(
-        tidyselect::eval_select(rlang::expr(c(...)), 
-        available_names
-    ), silent = TRUE)
+    if (.drop_ranges) {
 
-    # Abort if query not found
-    if (is(pos, "try-error")) {
-        stop(geterrmessage(), call. = FALSE)
+        all_names <- tbl_vars(.data)
+        names(all_names) <- all_names
+        pos <- tidyselect::eval_select(rlang::expr(c(...)), all_names)
+        overscope <- .overscope_ginteractions(.data)
+        ans <- lapply(rlang::syms(names(pos)), eval_tidy, data = overscope)
+        names(ans) <- names(pos)
+        return(as(ans, "DataFrame"))
+
+    } 
+    
+    else {
+
+        # Tidy-select over available columns
+        pos <- try(
+            tidyselect::eval_select(rlang::expr(c(...)), 
+            available_names
+        ), silent = TRUE)
+
+        # Abort if query not found
+        if (is(pos, "try-error")) {
+            stop(geterrmessage(), call. = FALSE)
+        }
+
+        mcols(.data) <- mcols(.data)[ , pos, drop = FALSE]
+        names(mcols(.data)) <- names(pos)
+        return(.data)
+
     }
-
-    mcols(.data) <- mcols(.data)[ , pos, drop = FALSE]
-    names(mcols(.data)) <- names(pos)
-    return(.data)
-
 }
