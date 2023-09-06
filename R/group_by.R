@@ -1,6 +1,6 @@
 #' Group GInteractions by columns
 #'
-#' @param .data a GInteractions object
+#' @param .data,x a (Grouped)GInteractions object
 #' @param ... Column(s) to group by. 
 #' 
 #' @return a GInteractions object.
@@ -48,6 +48,15 @@
 #' 
 #' gi |> group_by(class = c(1, 2, 1, 2))
 #' 
+#' ####################################################################
+#' # 5. Ungroup column(s)
+#' ####################################################################
+#' 
+#' ggi <- gi |> group_by(type, class = c(1, 2, 1, 2))
+#' ggi
+#' ungroup(ggi, type)
+#' ungroup(ggi, class)
+#' 
 #' @include tbl_vars.R
 #' @include group_data.R
 #' @export
@@ -88,4 +97,26 @@ group_by.GInteractions <- function(.data, ...) {
     n <- nrow(unique)
     methods::new("GroupedGInteractions", .data, unique, inx, n)
 
+}
+
+#' @rdname ginteractions-group_by
+#' @importFrom dplyr ungroup
+#' @method ungroup GInteractions
+#' @export
+ungroup.GInteractions <- function(x, ...) {
+    ungroups <- enquos(...)
+    ungroups <- rlang::quos_auto_name(ungroups)
+    if (length(ungroups) == 0L) {
+        return(x@delegate)
+    } else {
+        gvars <- group_vars(x)
+        names(gvars) <- gvars
+        groups_update <- tidyselect::eval_select(rlang::expr(-c(...)), gvars)
+        if (length(groups_update) == 0) {
+        return(x@delegate)
+        }
+        
+        groups_update <- syms(names(groups_update))
+        group_by(x@delegate, !!!groups_update)
+    }
 }

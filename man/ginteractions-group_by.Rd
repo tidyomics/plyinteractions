@@ -2,12 +2,15 @@
 % Please edit documentation in R/group_by.R
 \name{group_by.GInteractions}
 \alias{group_by.GInteractions}
+\alias{ungroup.GInteractions}
 \title{Group GInteractions by columns}
 \usage{
 \method{group_by}{GInteractions}(.data, ...)
+
+\method{ungroup}{GInteractions}(x, ...)
 }
 \arguments{
-\item{.data}{a GInteractions object}
+\item{.data, x}{a GInteractions object}
 
 \item{...}{Column(s) to group by.}
 }
@@ -53,5 +56,14 @@ gi |> group_by(end1, type) |> group_data()
 ####################################################################
 
 gi |> group_by(class = c(1, 2, 1, 2))
+
+####################################################################
+# 5. Ungroup column(s)
+####################################################################
+
+ggi <- gi |> group_by(type, class = c(1, 2, 1, 2))
+ggi
+ungroup(ggi, type)
+ungroup(ggi, class)
 
 }
