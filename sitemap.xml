@@ -19,6 +19,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/delegating-ginteractions-class.html</loc>
+  </url>
+  <url>
     <loc>/reference/ginteractions-arrange.html</loc>
   </url>
   <url>
@@ -31,7 +34,16 @@
     <loc>/reference/ginteractions-getters.html</loc>
   </url>
   <url>
+    <loc>/reference/ginteractions-group_by.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ginteractions-group_data.html</loc>
+  </url>
+  <url>
     <loc>/reference/ginteractions-mutate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ginteractions-rename.html</loc>
   </url>
   <url>
     <loc>/reference/ginteractions-select.html</loc>
@@ -41,6 +53,9 @@
   </url>
   <url>
     <loc>/reference/ginteractions-slice.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ginteractions-summarize.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
