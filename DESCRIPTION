@@ -43,3 +43,23 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3
+Collate: 
+    'ginteractions-getters.R'
+    'DelegatingGInteractions-class.R'
+    'GroupedGInteractions-class.R'
+    'arrange.R'
+    'filter.R'
+    'ginteractions-construct.R'
+    'ginteractions-eval.R'
+    'ginteractions-setters.R'
+    'tbl_vars.R'
+    'group_data.R'
+    'group_by.R'
+    'internals.R'
+    'methods-show.R'
+    'mutate.R'
+    'reexports-dplyr.R'
+    'reexports.R'
+    'rename.R'
+    'select.R'
+    'slice.R'

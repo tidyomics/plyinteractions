@@ -3,6 +3,8 @@
 #' @param .data a GInteractions object
 #' @param ... Integer indicating rows to keep.
 #'
+#' @importFrom rlang enquos
+#' 
 #' @return a GInteractions object.
 #' 
 #' @rdname ginteractions-slice

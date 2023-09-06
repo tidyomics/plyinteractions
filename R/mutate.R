@@ -10,6 +10,7 @@
 #' @return a GInteractions object.
 #'
 #' @importFrom tibble as_tibble
+#' @importFrom rlang enquos
 #' @importFrom rlang `:=`
 #' 
 #' @examples
