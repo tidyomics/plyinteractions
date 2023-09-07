@@ -36,7 +36,7 @@ BiocManager::install("tidyomics/plyinteractions")
 
 ## Using `plyinteractions`
 
-For more details, check our [vignette](vignettes/plyinteractions.Rmd). 
+Read `vignette("plyinteractions")` for more details. 
 
 ## Code of Conduct
 

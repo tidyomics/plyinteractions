@@ -100,6 +100,7 @@ We can easily parse a `data.frame` into a `GInteractions` object using
 the `as_ginteractions` function. 
 
 ```{r}
+library(plyinteractions)
 gi <- bedpe_df |> 
     as_ginteractions(
         seqnames1 = V1, start1 = V2, end1 = V3, strand1 = V9, 
