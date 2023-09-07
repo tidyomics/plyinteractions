@@ -28,7 +28,8 @@ Imports:
     dplyr, 
     tibble,
     tidyselect,  
-    methods
+    methods, 
+    utils
 Suggests: 
     plyranges, 
     HiContactsData,
@@ -48,6 +49,7 @@ Collate:
     'DelegatingGInteractions-class.R'
     'GroupedGInteractions-class.R'
     'arrange.R'
+    'count.R'
     'filter.R'
     'ginteractions-construct.R'
     'ginteractions-env.R'

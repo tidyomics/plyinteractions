@@ -65,6 +65,11 @@
 \arguments{
 \item{x, object}{DelegatingGInteractions object}
 }
+\value{
+A DelegatingGInteractions object
+or one of the core GInteractions fields (e.g. seqnames1, start1, ...)
+}
 \description{
 DelegatingGInteractions class
 }
+\keyword{internal}

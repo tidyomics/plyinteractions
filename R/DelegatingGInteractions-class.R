@@ -1,7 +1,10 @@
 #' DelegatingGInteractions class
 #' @rdname delegating-ginteractions-class
 #' @include ginteractions-getters.R
+#' @keywords internal
 #' @param x,object DelegatingGInteractions object
+#' @return A DelegatingGInteractions object 
+#' or one of the core GInteractions fields (e.g. seqnames1, start1, ...)
 setClass("DelegatingGInteractions",
     slots = list(delegate="GInteractions"),
     contains=c("GInteractions", "VIRTUAL")

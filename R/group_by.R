@@ -111,14 +111,6 @@ group_by.GInteractions <- function(.data, ..., .add = FALSE) {
 }
 
 #' @rdname ginteractions-group_by
-#' @export
-group_by.GroupedGInteractions <- function(.data, ..., .add = FALSE) {
-    new_groups <- rlang::enquos(...)
-    if (.add) new_groups <- c(groups(.data), new_groups)
-    group_by(.data@delegate, !!!new_groups)
-}
-
-#' @rdname ginteractions-group_by
 #' @importFrom dplyr ungroup
 #' @export
 ungroup.GInteractions <- function(x, ...) {

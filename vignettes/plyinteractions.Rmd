@@ -65,8 +65,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("plyinteractions")
 ```
 
-# Quick start to using `plyinteractions`
-
 `GInteractions` are objects describing interactions between pairs of genomic 
 ranges: 
 
@@ -80,7 +78,7 @@ gi <- GInteractions(anchor1, anchor2)
 gi
 ```
 
-## Importing genomic interactions in R
+# Importing genomic interactions in R
 
 `r Biocpkg("plyinteractions")` provides a consistent interface for importing 
 genomic interactions from `pairs` and `bedpe` files into GInteractions in R, 
@@ -123,13 +121,13 @@ also possible using the `as_tibble` function from the `tibble` package:
 tibble::as_tibble(gi)
 ```
 
-## Manipulating `GInteractions`
+# Manipulating `GInteractions`
 
 `r Biocpkg("plyinteractions")` provides a set of verbs for developing 
 analysis pipelines based on `GInteractions` objects that represent genomic 
 interactions. 
 
-### Mutating columns 
+## Mutating columns 
 
 `mutate` supports accessing other existing columns:
 
@@ -141,7 +139,7 @@ gi |> mutate(both_chr = paste(seqnames1, seqnames2, sep = "_"))
 gi |> mutate(start1 = 1)
 ```
 
-### Grouping columns 
+## Grouping columns 
 
 `group_by` supports accessing both core and metadata columns:
 
@@ -153,7 +151,7 @@ gi |> group_by(cis = seqnames1 == seqnames2)
 gi |> group_by(seqnames2, cis = seqnames1 == seqnames2)
 ```
 
-### Summarizing columns 
+## Summarizing columns 
 
 Summarizing grouped GInteractions can be extremely powerful. 
 
@@ -176,7 +174,7 @@ pairs |> group_by(same_strand = strand1 == strand2) |>
     )
 ```
 
-### Filtering columns 
+## Filtering columns 
 
 `filter` supports logical expressions:
 
@@ -188,7 +186,7 @@ gi |> filter(start1 >= 1e8)
 gi |> filter(seqnames1 == seqnames2)
 ```
 
-### Selecting columns 
+## Selecting columns 
 
 `select` supports [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html):
 
@@ -210,7 +208,17 @@ loss of required information (the other non-selected core fields).
 gi |> select(starts_with('seq')) 
 ```
 
-### Slicing rows 
+Forcing selection of core fields is still possible when using the `.drop_ranges`
+argument of `select()`. This results in the coercion of the selected columns 
+into a `DataFrame`. 
+
+```{r}
+## This selects `seqnames1` and `seqnames2` columns but converts the output
+## into a `DataFrame`.
+gi |> select(starts_with('seq'), .drop_ranges = TRUE) 
+```
+
+## Slicing rows 
 
 ```{r}
 gi |> slice(1, 2)

@@ -2,13 +2,10 @@
 % Please edit documentation in R/group_by.R
 \name{group_by.GInteractions}
 \alias{group_by.GInteractions}
-\alias{group_by.GroupedGInteractions}
 \alias{ungroup.GInteractions}
 \title{Group GInteractions by columns}
 \usage{
 \method{group_by}{GInteractions}(.data, ..., .add = FALSE)
-
-\method{group_by}{GroupedGInteractions}(.data, ..., .add = FALSE)
 
 \method{ungroup}{GInteractions}(x, ...)
 }

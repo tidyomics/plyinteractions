@@ -25,3 +25,12 @@ setMethod("initialize", "GroupedGInteractions",
         .Object
     }
 )
+
+#' @export
+#' @keywords internal
+group_by.GroupedGInteractions <- function(.data, ..., .add = FALSE) {
+    new_groups <- rlang::enquos(...)
+    if (.add) new_groups <- c(groups(.data), new_groups)
+    group_by(.data@delegate, !!!new_groups)
+}
+
