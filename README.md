@@ -47,8 +47,14 @@ contributing to this project, you agree to abide by its terms.
 
 ## Acknowledgments 
 
-This package is largely inspired by `plyranges` and the `tidyverse`: 
+`plyinteractions` package is heavily based on `plyranges`. It adapts a 
+number of functions and methods defined in that package, and would not have 
+been developed without the seminal work from Stuart Lee, Dianne Cook and Michael 
+Lawrence: 
 
 - Lee, Stuart, Dianne Cook, and Michael Lawrence. 2019. “Plyranges: A Grammar of Genomic Data Transformation.” Genome Biology 20 (1): 4. https://doi.org/10.1186/s13059-018-1597-8.
+
+This package is largely inspired by the `tidyverse`:
+
 - Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data Manipulation_. R package version 1.1.2, <https://CRAN.R-project.org/package=dplyr>.
 - Henry L, Wickham H (2023). _rlang: Functions for Base Types and Core R and 'Tidyverse' Features_. R package version 1.1.1, <https://CRAN.R-project.org/package=rlang>.

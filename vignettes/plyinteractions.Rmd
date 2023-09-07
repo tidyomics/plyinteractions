@@ -172,6 +172,10 @@ pairs |> group_by(same_strand = strand1 == strand2) |>
         neg_strand = sum(strand1 == "-"), 
         pos_strand = sum(strand1 == "+")
     )
+
+pairs |> group_by(same_strand = strand1 == strand2) |> tally()
+
+pairs |> count(strand1, strand2)
 ```
 
 ## Filtering columns 
