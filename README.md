@@ -15,13 +15,14 @@ The operations currently available for `GInteractions` objects are:
 
 - Group genomic interactions with `group_by`; 
 - Summarize grouped genomic interactions with `summarize`; 
+- Tally/count grouped genomic interactions with `tally` and `count`; 
 - Modify genomic interactions with `mutate`; 
 - Subset genomic interactions with `filter` using
 [`<data-masking>`](https://rlang.r-lib.org/reference/args_data_masking.html) 
 and logical expressions; 
 - Pick out any columns from the associated metadata with `select` 
 using [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html); 
-- Subset using indices with `slice`. 
+- Subset using indices with `slice`;
 - Order genomic interactions with `arrange` using categorical/numerical 
 variables. 
 
@@ -32,6 +33,10 @@ variables.
 ```r
 BiocManager::install("tidyomics/plyinteractions")
 ```
+
+## Using `plyinteractions`
+
+For more details, check our [vignette](vignettes/plyinteractions.Rmd). 
 
 ## Code of Conduct
 

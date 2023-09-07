@@ -87,3 +87,13 @@ dplyr::summarize
 #' @importFrom dplyr summarise
 #' @export
 dplyr::summarise
+
+#' @rdname reexports
+#' @importFrom dplyr tally
+#' @export
+dplyr::tally
+
+#' @rdname reexports
+#' @importFrom dplyr count
+#' @export
+dplyr::count
