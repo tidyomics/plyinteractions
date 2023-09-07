@@ -143,7 +143,8 @@ can easily parse a <code>data.frame</code> into a
 <code>GInteractions</code> object using the
 <code>as_ginteractions</code> function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gi</span> <span class="op">&lt;-</span> <span class="va">bedpe_df</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/js2264/plyinteractions" class="external-link">plyinteractions</a></span><span class="op">)</span></span>
+<span><span class="va">gi</span> <span class="op">&lt;-</span> <span class="va">bedpe_df</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="../reference/ginteractions-construct.html">as_ginteractions</a></span><span class="op">(</span></span>
 <span>        seqnames1 <span class="op">=</span> <span class="va">V1</span>, start1 <span class="op">=</span> <span class="va">V2</span>, end1 <span class="op">=</span> <span class="va">V3</span>, strand1 <span class="op">=</span> <span class="va">V9</span>, </span>
 <span>        seqnames2 <span class="op">=</span> <span class="va">V4</span>, start2 <span class="op">=</span> <span class="va">V5</span>, end2 <span class="op">=</span> <span class="va">V6</span>, strand2 <span class="op">=</span> <span class="va">V10</span>, </span>
@@ -355,7 +356,23 @@ columns:</p>
 <span><span class="co">#&gt;   same_strand neg_strand pos_strand</span></span>
 <span><span class="co">#&gt;         &lt;Rle&gt;  &lt;integer&gt;  &lt;integer&gt;</span></span>
 <span><span class="co">#&gt; 1       FALSE      97963     102780</span></span>
-<span><span class="co">#&gt; 2        TRUE     136360     134261</span></span></code></pre></div>
+<span><span class="co">#&gt; 2        TRUE     136360     134261</span></span>
+<span></span>
+<span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>same_strand <span class="op">=</span> <span class="va">strand1</span> <span class="op">==</span> <span class="va">strand2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">tally</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 2 rows and 2 columns</span></span>
+<span><span class="co">#&gt;   same_strand         n</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; 1       FALSE    200743</span></span>
+<span><span class="co">#&gt; 2        TRUE    270621</span></span>
+<span></span>
+<span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">strand1</span>, <span class="va">strand2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 4 rows and 3 columns</span></span>
+<span><span class="co">#&gt;   strand1 strand2         n</span></span>
+<span><span class="co">#&gt;     &lt;Rle&gt;   &lt;Rle&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; 1       +       +    134261</span></span>
+<span><span class="co">#&gt; 2       +       -    102780</span></span>
+<span><span class="co">#&gt; 3       -       +     97963</span></span>
+<span><span class="co">#&gt; 4       -       -    136360</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="filtering-columns">Filtering columns<a class="anchor" aria-label="anchor" href="#filtering-columns"></a>
