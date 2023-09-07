@@ -74,7 +74,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>plyinteractions</h1>
             
-            <h4 data-toc-skip class="date">6 September 2023</h4>
+            <h4 data-toc-skip class="date">7 September 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/plyinteractions/blob/HEAD/vignettes/plyinteractions.Rmd" class="external-link"><code>vignettes/plyinteractions.Rmd</code></a></small>
       <div class="d-none name"><code>plyinteractions.Rmd</code></div>
@@ -97,10 +97,6 @@ by using the following commands in your <code>R</code> session:</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"plyinteractions"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="quick-start-to-using-plyinteractions">Quick start to using <code>plyinteractions</code><a class="anchor" aria-label="anchor" href="#quick-start-to-using-plyinteractions"></a>
-</h2>
 <p><code>GInteractions</code> are objects describing interactions
 between pairs of genomic ranges:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -118,9 +114,10 @@ between pairs of genomic ranges:</p>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 2 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 1 sequence from an unspecified genome; no seqlengths</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="importing-genomic-interactions-in-r">Importing genomic interactions in R<a class="anchor" aria-label="anchor" href="#importing-genomic-interactions-in-r"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="importing-genomic-interactions-in-r">Importing genomic interactions in R<a class="anchor" aria-label="anchor" href="#importing-genomic-interactions-in-r"></a>
+</h2>
 <p><em><a href="https://bioconductor.org/packages/3.18/plyinteractions" class="external-link">plyinteractions</a></em>
 provides a consistent interface for importing genomic interactions from
 <code>pairs</code> and <code>bedpe</code> files into GInteractions in R,
@@ -190,16 +187,16 @@ from the <code>tibble</code> package:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> chr20      5.47<span style="color: #949494;">e</span>7 5.47<span style="color: #949494;">e</span>7     50 +       chr20     5.47<span style="color: #949494;">e</span>7 5.47<span style="color: #949494;">e</span>7     50 -      </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: V7 &lt;chr&gt;, V8 &lt;int&gt;</span></span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="manipulating-ginteractions">Manipulating <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#manipulating-ginteractions"></a>
-</h3>
+<div class="section level2">
+<h2 id="manipulating-ginteractions">Manipulating <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#manipulating-ginteractions"></a>
+</h2>
 <p><em><a href="https://bioconductor.org/packages/3.18/plyinteractions" class="external-link">plyinteractions</a></em>
 provides a set of verbs for developing analysis pipelines based on
 <code>GInteractions</code> objects that represent genomic
 interactions.</p>
-<div class="section level4">
-<h4 id="mutating-columns">Mutating columns<a class="anchor" aria-label="anchor" href="#mutating-columns"></a>
-</h4>
+<div class="section level3">
+<h3 id="mutating-columns">Mutating columns<a class="anchor" aria-label="anchor" href="#mutating-columns"></a>
+</h3>
 <p><code>mutate</code> supports accessing other existing columns:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cis <span class="op">=</span> <span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span><span class="op">)</span></span>
@@ -250,9 +247,9 @@ interactions.</p>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="grouping-columns">Grouping columns<a class="anchor" aria-label="anchor" href="#grouping-columns"></a>
-</h4>
+<div class="section level3">
+<h3 id="grouping-columns">Grouping columns<a class="anchor" aria-label="anchor" href="#grouping-columns"></a>
+</h3>
 <p><code>group_by</code> supports accessing both core and metadata
 columns:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -307,9 +304,9 @@ columns:</p>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="summarizing-columns">Summarizing columns<a class="anchor" aria-label="anchor" href="#summarizing-columns"></a>
-</h4>
+<div class="section level3">
+<h3 id="summarizing-columns">Summarizing columns<a class="anchor" aria-label="anchor" href="#summarizing-columns"></a>
+</h3>
 <p>Summarizing grouped GInteractions can be extremely powerful.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pairs_file</span> <span class="op">&lt;-</span> <span class="fu">HiContactsData</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HiContactsData/man/HiContactsData.html" class="external-link">HiContactsData</a></span><span class="op">(</span><span class="st">'yeast_wt'</span>, <span class="st">'pairs.gz'</span><span class="op">)</span></span>
@@ -360,9 +357,9 @@ columns:</p>
 <span><span class="co">#&gt; 1       FALSE      97963     102780</span></span>
 <span><span class="co">#&gt; 2        TRUE     136360     134261</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="filtering-columns">Filtering columns<a class="anchor" aria-label="anchor" href="#filtering-columns"></a>
-</h4>
+<div class="section level3">
+<h3 id="filtering-columns">Filtering columns<a class="anchor" aria-label="anchor" href="#filtering-columns"></a>
+</h3>
 <p><code>filter</code> supports logical expressions:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seqnames1</span> <span class="op">==</span> <span class="st">'chr11'</span><span class="op">)</span></span>
@@ -403,9 +400,9 @@ columns:</p>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="selecting-columns">Selecting columns<a class="anchor" aria-label="anchor" href="#selecting-columns"></a>
-</h4>
+<div class="section level3">
+<h3 id="selecting-columns">Selecting columns<a class="anchor" aria-label="anchor" href="#selecting-columns"></a>
+</h3>
 <p><code>select</code> supports <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link"><code>&lt;tidy-select&gt;</code>
 arguments</a>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -478,11 +475,25 @@ metadata columns are parsed. Selecting a subset of core fields from a
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="slicing-rows">Slicing rows<a class="anchor" aria-label="anchor" href="#slicing-rows"></a>
-</h4>
+<p>Forcing selection of core fields is still possible when using the
+<code>.drop_ranges</code> argument of <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code>. This
+results in the coercion of the selected columns into a
+<code>DataFrame</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## This selects `seqnames1` and `seqnames2` columns but converts the output</span></span>
+<span><span class="co">## into a `DataFrame`.</span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">'seq'</span><span class="op">)</span>, .drop_ranges <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; DataFrame with 3 rows and 2 columns</span></span>
+<span><span class="co">#&gt;   seqnames1 seqnames2</span></span>
+<span><span class="co">#&gt;       &lt;Rle&gt;     &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt; 1      chr7      chr7</span></span>
+<span><span class="co">#&gt; 2     chr11     chr10</span></span>
+<span><span class="co">#&gt; 3     chr20     chr20</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="slicing-rows">Slicing rows<a class="anchor" aria-label="anchor" href="#slicing-rows"></a>
+</h3>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 2 metadata columns:</span></span>
 <span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
@@ -511,14 +522,13 @@ metadata columns are parsed. Selecting a subset of core fields from a
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
 </div>
 </div>
-</div>
 <div class="section level2">
 <h2 id="citing-plyinteractions">Citing <code>plyinteractions</code><a class="anchor" aria-label="anchor" href="#citing-plyinteractions"></a>
 </h2>
 <p>We hope that <em><a href="https://bioconductor.org/packages/3.18/plyinteractions" class="external-link">plyinteractions</a></em>
 will be useful for your research. Please use the following information
 to cite the package and the overall approach. Thank you!</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Citation info</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"plyinteractions"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite package 'plyinteractions' in publications use:</span></span>
@@ -597,7 +607,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-09-06</span></span>
+<span><span class="co">#&gt;  date     2023-09-07</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -666,7 +676,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  pillar                   1.9.0     <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig                2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgdown                  2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  plyinteractions        * 0.98.0    <span style="color: #555555;">2023-09-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  plyinteractions        * 0.98.0    <span style="color: #555555;">2023-09-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  plyr                     1.8.8     <span style="color: #555555;">2022-11-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  png                      0.1-8     <span style="color: #555555;">2022-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  promises                 1.2.1     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
