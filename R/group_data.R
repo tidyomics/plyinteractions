@@ -14,8 +14,8 @@
 #' @examples
 #' gi <- read.table(text = "
 #' chr1 11 20 chr1 21 30
-#' chr1 11 20 chr1 51 50
-#' chr1 11 30 chr1 51 50
+#' chr1 11 20 chr1 51 55
+#' chr1 11 30 chr1 51 55
 #' chr1 11 30 chr2 51 60",
 #' col.names = c("seqnames1", "start1", "end1", "seqnames2", "start2", "end2")) |> 
 #'   as_ginteractions() |> 

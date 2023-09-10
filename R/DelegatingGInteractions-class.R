@@ -76,10 +76,5 @@ setMethod("seqinfo", "DelegatingGInteractions", function(x) seqinfo(x@delegate))
 setMethod("mcols", "DelegatingGInteractions", function(x) mcols(x@delegate))
 #' @rdname delegating-ginteractions-class
 setMethod("show", "DelegatingGInteractions", function(object) { 
-    groups <- colnames(object@group_keys)
-    groups <- paste(groups, collapse = ", ")
-    output <- c("", utils::capture.output(show(object@delegate)))
-    output[1] <- output[2]
-    output[2] <- paste("Groups:", groups, paste0("[", object@n, "]"))
-    cat(output, sep = "\n")
+    show(object@delegate)
 })
