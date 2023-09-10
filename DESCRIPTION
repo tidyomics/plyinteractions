@@ -22,6 +22,7 @@ Imports:
     GenomeInfoDb, 
     BiocGenerics, 
     GenomicRanges,
+    plyranges, 
     IRanges,
     S4Vectors,
     rlang, 
@@ -47,10 +48,14 @@ RoxygenNote: 7.2.3
 Collate: 
     'ginteractions-getters.R'
     'DelegatingGInteractions-class.R'
+    'PinnedGInteractions-class.R'
+    'AnchoredPinnedGInteractions-class.R'
     'GroupedGInteractions-class.R'
+    'anchor.R'
     'arrange.R'
     'count.R'
     'filter.R'
+    'flank.R'
     'ginteractions-construct.R'
     'ginteractions-env.R'
     'ginteractions-scoping.R'
@@ -61,9 +66,14 @@ Collate:
     'internals.R'
     'methods-show.R'
     'mutate.R'
+    'pin.R'
     'reexports-dplyr.R'
+    'reexports-plyranges.R'
     'reexports.R'
     'rename.R'
+    'replace-anchors.R'
     'select.R'
+    'shift.R'
     'slice.R'
+    'stretch.R'
     'summarize.R'
