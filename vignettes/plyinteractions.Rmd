@@ -71,6 +71,8 @@ genomic interactions from `pairs` and `bedpe` files into GInteractions in R,
 following grammar of tidy data manipulation defined in the 
 `r CRANpkg("tidyverse")` ecosystem. 
 
+## From bed-like text files
+
 Tidy genomic data maniuplation implies that we first parse genomic 
 files stored on disk as tabular data frames. 
 
@@ -100,6 +102,30 @@ gi
 The columns containing information for core fields of the future `GInteractions` 
 object (e.g. `seqnames1`, `strand2`, ...) can be specified using the 
 `key = value` (supported by quasiquotation). 
+
+## From `pairs` files 
+
+The `pairs` file format has been formally defined by the **4DN consortium**. 
+Its specifications are available [here](https://github.com/4dn-dcic/pairix/blob/master/pairs_format_specification.md).  
+
+It can be imported in R as a `data.frame` using `read.delim` or any other 
+tabular data import functions (including `fread` or `vroom` for larger files), 
+and readily coerced into `GInteractions` with `as_ginteractions`. 
+
+```{r}
+pairs_file <- HiContactsData::HiContactsData('yeast_wt', 'pairs.gz')
+pairs_df <- read.delim(pairs_file, sep = "\t", header = FALSE, comment.char = "#")
+head(pairs_df)
+pairs <- as_ginteractions(pairs_df, 
+    seqnames1 = V2, start1 = V3, strand1 = V6, 
+    seqnames2 = V4, start2 = V5, strand2 = V7, 
+    width1 = 1, width2 = 1, 
+    keep.extra.columns = FALSE
+)
+pairs
+```
+
+## Reverting from `GInteractions` to tabular data frames
 
 The reverse operation to coerce `GInteractions` back to a tabular form is 
 also possible using the `as_tibble` function from the `tibble` package: 
@@ -175,7 +201,15 @@ Auto-completion is enabled for this method.
 gi$type
 ```
 
-# Pinned `GInteractions` and anchored `GInteractions`
+### Extra genomic-related informations 
+
+```{r}
+regions(gi)
+
+seqinfo(gi)
+```
+
+# Pinned (and anchored) `GInteractions`
 
 The anchoring approach developed in the `plyranges` package allows handy control 
 over the way a `GRanges` object is extended when using the `stretch` 
@@ -211,7 +245,7 @@ Some `plyranges` operations can work on "`anchored"` **_GRanges_**. To
 enable these operations either on `anchors1` or `anchors2`, the pinned
 `anchors{12}` of a `GInteractions` object can be further "anchored". 
 
-```{r}
+```{r pin}
 gi |> pin_by("1") |> anchor_5p()
 ```
 
@@ -221,10 +255,10 @@ gi |> pin_by("1") |> anchor_5p()
 
 `r Biocpkg("plyinteractions")` extends the use of verbs developed in `plyranges`
 to manipulate `GRanges` objects, to ensure they work on `GInteractions`. 
-The `GInteractions` **must** be "pinned" (using `r pin_by()`) in order 
+The `GInteractions` **must** be "pinned" (using `pin_by()`) in order 
 to specify which set of anchors should be affected by `plyranges` functions. 
 
-```{r}
+```{r pin_stretch}
 gi
 
 gi |> pin_by("1") |> stretch(10)
@@ -239,7 +273,7 @@ gi |> pin_by("1") |> flank_right(20)
 When a pinned `GInteractions` is further anchored, `stretch`ing with `plyranges`
 relies on the anchoring:
 
-```{r}
+```{r pin_anchor_stretch}
 gi |> pin_by("1") |> anchor_start() |> stretch(10)
 
 gi |> pin_by("1") |> anchor_center() |> stretch(10)
@@ -281,17 +315,6 @@ gi |> group_by(seqnames2, cis = seqnames1 == seqnames2)
 Summarizing grouped GInteractions can be extremely powerful. 
 
 ```{r}
-pairs_file <- HiContactsData::HiContactsData('yeast_wt', 'pairs.gz')
-pairs_df <- read.delim(pairs_file, sep = "\t", header = FALSE, comment.char = "#")
-head(pairs_df)
-pairs <- as_ginteractions(pairs_df, 
-    seqnames1 = V2, start1 = V3, strand1 = V6, 
-    seqnames2 = V4, start2 = V5, strand2 = V7, 
-    width1 = 1, width2 = 1, 
-    keep.extra.columns = FALSE
-)
-pairs
-
 pairs |> group_by(same_strand = strand1 == strand2) |> 
     summarize(
         neg_strand = sum(strand1 == "-"), 
@@ -320,11 +343,11 @@ gi |> filter(seqnames1 == seqnames2)
 `select` supports [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html):
 
 ```{r}
-gi |> select(V7)
+gi |> select(type)
 
-gi |> select(contains("8"))
+gi |> select(contains("typ"))
 
-gi |> select(starts_with("V"))
+gi |> select(starts_with("ty"))
 ```
 
 Note that core fields (e.g. `seqnames1`, `strand2`, ...) cannot be retrieved 
