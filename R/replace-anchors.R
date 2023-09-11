@@ -104,7 +104,7 @@ setMethod(
     signature(x = "AnchoredPinnedGInteractions", value = "GRanges", id = "missing"), 
     function(x, value) {
         x@delegate@delegate <- replace_anchors(
-            x@delegate@delegate, id = pin(x), value = value
+            unpin(x), id = pin(x), value = value
         )
         x
     }

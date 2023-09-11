@@ -3,7 +3,12 @@
 #' @param x a GInteractions object
 #' @param anchors Anchors to pin on ("first" or "second")
 #' 
-#' @return a PinnedGInteractions object.
+#' @return 
+#' - `pin_*` functions return a PinnedGInteractions object.
+#' - `pin` returns a numerical value indicating which set of anchors is pinned.
+#' - `unpin` removes the pinning of a PinnedGInteractions object.
+#' - `pinned_anchors` returns an (Anchored)GenomicRanges object corresponding 
+#' to the pinned anchors of a PinnedGInteractions object. 
 #'
 #' @rdname ginteractions-pin
 #' 
@@ -18,7 +23,7 @@
 #'   mutate(type = c('cis', 'cis', 'cis', 'trans'), score = runif(4))
 #' 
 #' ####################################################################
-#' # 1. Pin and modify anchors
+#' # 1. Pin by first anchors
 #' ####################################################################
 #' 
 #' gi |> pin("first")
@@ -163,5 +168,6 @@ setMethod("pinned_anchors", signature(x = "PinnedGInteractions"), function(x) {
 #' @rdname ginteractions-pin
 #' @export
 setMethod("pinned_anchors", signature(x = "AnchoredPinnedGInteractions"), function(x) {
-    pinned_anchors(unanchor(x))
+    y <- pinned_anchors(unanchor(x))
+    do.call(paste0("anchor_", anchor(x)), list(y))
 })

@@ -7,24 +7,33 @@
 genomic interactions from `pairs` and `bedpe` files into `GInteractions` in `R`. 
 
 The package follows the grammar of tidy genomic data transformation defined by 
-[`plyranges`](https://www.bioconductor.org/packages/packages/plyranges.html), 
+[`plyranges`](https://www.bioconductor.org/packages/plyranges.html), 
 itself based on [`dplyr`](https://dplyr.tidyverse.org/) 
 and [`rlang`](https://rlang.r-lib.org/). 
 
 The operations currently available for `GInteractions` objects are: 
 
-- Group genomic interactions with `group_by`; 
-- Summarize grouped genomic interactions with `summarize`; 
-- Tally/count grouped genomic interactions with `tally` and `count`; 
-- Modify genomic interactions with `mutate`; 
-- Subset genomic interactions with `filter` using
-[`<data-masking>`](https://rlang.r-lib.org/reference/args_data_masking.html) 
-and logical expressions; 
-- Pick out any columns from the associated metadata with `select` 
-using [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html); 
-- Subset using indices with `slice`;
-- Order genomic interactions with `arrange` using categorical/numerical 
-variables. 
+- `dplyr` verbs: 
+
+  - Group genomic interactions with `group_by`; 
+  - Summarize grouped genomic interactions with `summarize`; 
+  - Tally/count grouped genomic interactions with `tally` and `count`; 
+  - Modify genomic interactions with `mutate`; 
+  - Subset genomic interactions with `filter` using
+  [`<data-masking>`](https://rlang.r-lib.org/reference/args_data_masking.html) 
+  and logical expressions; 
+  - Pick out any columns from the associated metadata with `select` 
+  using [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html); 
+  - Subset using indices with `slice`;
+  - Order genomic interactions with `arrange` using categorical/numerical 
+  variables. 
+
+- `plyranges` verbs: 
+
+  - Stretch specific anchors of genomic interactions to a given width with `stretch`;
+  - `anchor_*` functions to control how stretching is performed; 
+  - Shift specific anchors of genomic interactions with `shift`;
+  - Obtain flanking `GRanges` from specific anchors of genomic interactions with `flank`.
 
 ## Installation
 

@@ -34,7 +34,7 @@ setMethod("initialize", "AnchoredPinnedGInteractions", function(
 })
 
 setMethod("show", "AnchoredPinnedGInteractions", function(object) { 
-    output <- c("", utils::capture.output(show(object@delegate@delegate)))
+    output <- c("", utils::capture.output(show(unpin(unanchor(object)))))
     output[1] <- gsub("^GInteractions", "AnchoredPinnedGInteractions", output[2])
     output[2] <- paste0(
         "Pinned on: anchors", object@pin, 

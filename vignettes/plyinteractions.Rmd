@@ -5,7 +5,7 @@ output:
     self_contained: yes
     toc: true
     toc_float: true
-    toc_depth: 2
+    toc_depth: 4
     code_folding: show
 date: "`r doc_date()`"
 package: "`r pkg_ver('plyinteractions')`"
@@ -51,22 +51,8 @@ The `r Biocpkg("plyinteractions")` package
 introduces tidy methods for the `GInteractions` class defined in the 
 `r Biocpkg("InteractionSet")` package `r Citep(bib[["InteractionSet"]])`. 
 
-# Install `plyinteractions`
-
-`r Biocpkg("plyinteractions")` is a `R` package available via 
-[Bioconductor](http://bioconductor.org). 
-You can install `r Biocpkg("plyinteractions")` by using the following 
-commands in your `R` session:
-
-```{r "install", eval = FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-}
-BiocManager::install("plyinteractions")
-```
-
-`GInteractions` are objects describing interactions between pairs of genomic 
-ranges: 
+`GInteractions` are objects describing interactions between two parallel 
+sets of genomic ranges. 
 
 ```{r}
 library(GenomicRanges)
@@ -122,11 +108,149 @@ also possible using the `as_tibble` function from the `tibble` package:
 tibble::as_tibble(gi)
 ```
 
-# Manipulating `GInteractions`
+# Getter functions
+
+### `anchors{12}`
+
+A `GInteractions` object consists of two sets of **_anchors_**: 
+`anchors1` and `anchors2`.
+
+![](../man/figures/ginteractions.png)
+
+```{r}
+gi <- read.table(text = "
+chr1 1 10 chr1 1 15 + + cis
+chr1 6 15 chr1 1 20 + + cis
+chr1 6 20 chr1 6 30 - - cis
+chr1 11 30 chr2 11 30 - - trans",
+col.names = c(
+  "seqnames1", "start1", "end1", 
+  "seqnames2", "start2", "end2", "strand1", "strand2", 
+  "type")
+) |> 
+  as_ginteractions()
+
+anchors(gi)
+
+anchors1(gi)
+
+anchors2(gi)
+```
+
+**Important note**: the term **_anchors_**, when used for `GInteractions`, 
+refers to the "left-hand" or "right-hand" `GRanges` when looking at genomic 
+interactions. This is different from the `anchor` term used in `plyranges`. 
+
+### Core `GInteractions` fields
+
+`seqnames`, `start`/`end`, `width` and `strand` return informative core fields 
+of a `GRanges` object. Appending `1` or `2` to these functions allow 
+the end-user to fetch the corresponding fields from `GInteractions` objects. 
+
+```{r}
+seqnames1(gi)
+
+start1(gi)
+
+end2(gi)
+
+strand2(gi)
+
+width2(gi)
+```
+
+### Metadata columns
+
+`GInteractions` contain associated metadata stored as a `DataFrame` which 
+can be recovered using the standard `mcols` function: 
+
+```{r}
+mcols(gi)
+```
+
+Individual metadata columns can also be accessed using the `$` notation. 
+Auto-completion is enabled for this method. 
+
+```{r}
+gi$type
+```
+
+# Pinned `GInteractions` and anchored `GInteractions`
+
+The anchoring approach developed in the `plyranges` package allows handy control 
+over the way a `GRanges` object is extended when using the `stretch` 
+function. To enable such workflow for `GInteractions`, two classes were defined: 
+`PinnedGInteractions` and `AnchoredPinnedGInteractions`. 
+
+![](../man/figures/classes.png)
+
+## `PinnedGInteractions`
+
+Pinning a `GInteractions` object is used to specify which set of anchors
+(i.e. `anchors1` or `anchors2`) should be affected by `plyranges` functions. 
+
+```{r}
+gi |> pin_by("1")
+
+pgi <- gi |> pin_by("2")
+pin(pgi)
+
+pinned_anchors(pgi)
+```
+
+A pinned `GInteractions` object can be reverted back to a unpinned 
+`GInteractions` object. 
+
+```{r}
+unpin(pgi)
+```
+
+## `AnchoredPinnedGInteractions`
+
+Some `plyranges` operations can work on "`anchored"` **_GRanges_**. To 
+enable these operations either on `anchors1` or `anchors2`, the pinned
+`anchors{12}` of a `GInteractions` object can be further "anchored". 
+
+```{r}
+gi |> pin_by("1") |> anchor_5p()
+```
+
+# `plyranges` operations on `GInteractions`
+
+## On `PinnedGInteractions` objects
+
+`r Biocpkg("plyinteractions")` extends the use of verbs developed in `plyranges`
+to manipulate `GRanges` objects, to ensure they work on `GInteractions`. 
+The `GInteractions` **must** be "pinned" (using `r pin_by()`) in order 
+to specify which set of anchors should be affected by `plyranges` functions. 
+
+```{r}
+gi
+
+gi |> pin_by("1") |> stretch(10)
+
+gi |> pin_by("1") |> shift_right(20)
+
+gi |> pin_by("1") |> flank_right(20)
+```
+
+## On `AnchoredPinnedGInteractions` objects
+
+When a pinned `GInteractions` is further anchored, `stretch`ing with `plyranges`
+relies on the anchoring:
+
+```{r}
+gi |> pin_by("1") |> anchor_start() |> stretch(10)
+
+gi |> pin_by("1") |> anchor_center() |> stretch(10)
+```
+
+# `dplyr` operations on `GInteractions`
 
 `r Biocpkg("plyinteractions")` provides a set of verbs for developing 
 analysis pipelines based on `GInteractions` objects that represent genomic 
-interactions. 
+interactions. The verbs extend `dplyr` functionalities to operate on a 
+`GInteractions` object as if it were a tabular data object. 
 
 ## Mutating columns 
 

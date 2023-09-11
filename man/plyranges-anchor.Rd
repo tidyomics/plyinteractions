@@ -68,18 +68,9 @@ col.names = c(
   mutate(score = runif(4), type = c('cis', 'cis', 'cis', 'trans'))
 
 ####################################################################
-# 2. Genomic arithmetics on pinned genomic interactions with plyranges
+# 1. Anchoring pinned genomic interactions with plyranges
 ####################################################################
 
-gi |> pin("second")
-
-gi
-
-
-####################################################################
-# 3. Chained modifications
-####################################################################
-
-gi |> pin("second") |> unpin()
+gi |> pin("second") |> anchor_end()
 
 }

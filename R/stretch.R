@@ -43,9 +43,8 @@
 #' @importFrom plyranges stretch
 #' @export
 stretch.AnchoredPinnedGInteractions <- function(x, extend) {
-    pinned <- pinned_anchors(x) 
-    anchored_pinned <- do.call(paste0("anchor_", anchor(x)), list(x = pinned))
-    stretched_pinned <- stretch(anchored_pinned, extend) 
+    pinned <- pinned_anchors(x)
+    stretched_pinned <- stretch(pinned, extend) 
     x <- replace_anchors(x, value = stretched_pinned)
     unanchor(x)
 }

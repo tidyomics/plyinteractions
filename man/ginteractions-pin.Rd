@@ -75,7 +75,13 @@ pinned_anchors(x)
 \item{anchors}{Anchors to pin on ("first" or "second")}
 }
 \value{
-a PinnedGInteractions object.
+\itemize{
+\item \verb{pin_*} functions return a PinnedGInteractions object.
+\item \code{pin} returns a numerical value indicating which set of anchors is pinned.
+\item \code{unpin} removes the pinning of a PinnedGInteractions object.
+\item \code{pinned_anchors} returns an (Anchored)GenomicRanges object corresponding
+to the pinned anchors of a PinnedGInteractions object.
+}
 }
 \description{
 Pin GInteractions by anchors set (anchors1 or anchors2).
@@ -91,7 +97,7 @@ col.names = c("seqnames1", "start1", "end1", "seqnames2", "start2", "end2")) |>
   mutate(type = c('cis', 'cis', 'cis', 'trans'), score = runif(4))
 
 ####################################################################
-# 1. Pin and modify anchors
+# 1. Pin by first anchors
 ####################################################################
 
 gi |> pin("first")
