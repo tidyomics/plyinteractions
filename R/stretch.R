@@ -1,5 +1,10 @@
 #' Stretch pinned anchors of a GInteractions object with plyranges
 #'  
+#' @param x a PinnedGInteractions object
+#' @param extend The amount to alter the width of a Ranges object by. Either 
+#' an integer vector of length 1 or an integer vector the same length as x.
+#' @return A PinnedGInteractions object
+#' 
 #' @name plyranges-stretch
 #'
 #' @examples

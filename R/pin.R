@@ -1,6 +1,6 @@
 #' Pin GInteractions by anchors set (anchors1 or anchors2). 
 #'
-#' @param .data,x a (Grouped)GInteractions object
+#' @param x a GInteractions object
 #' @param anchors Anchors to pin on ("first" or "second")
 #' 
 #' @return a PinnedGInteractions object.

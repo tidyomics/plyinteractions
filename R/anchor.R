@@ -1,5 +1,11 @@
 #' Manage GInteractions anchors with plyranges
 #'  
+#' @param x A PinnedGInteractions object
+#' @return 
+#' - `anchor_*` functions return an AnchoredPinnedGInteractions object.
+#' - `anchor` returns a character string indicating where the pinned
+#' anchors are anchored at. 
+#' - `unanchor` removes the anchoring for a AnchoredPinnedGInteractions object.
 #' @name plyranges-anchor
 #'
 #' @examples
@@ -42,7 +48,7 @@ NULL
 .is_anchored <- function(gr) {
     if (!is(gr, 'AnchoredPinnedGInteractions')) 
         stop("Pinned interaction anchors are not anchored")
-    invisible(pinned@anchor)
+    invisible(gr@anchor)
 }
 
 #' @name plyranges-anchor

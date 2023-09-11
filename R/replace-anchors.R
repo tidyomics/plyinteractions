@@ -1,9 +1,11 @@
 #' Replace anchors of a GInteractions
 #'
-#' @param .data,x a (Grouped)GInteractions object
-#' @param anchors Anchors to pin on ("first" or "second")
+#' @param x a (Pinned)GInteractions object
+#' @param id Which anchors to replace ("first" or "second"). Ignored if 
+#' the GInteractions is already pinned to a specific set of anchors. 
+#' @param value A GRanges object vector the same length as x.
 #' 
-#' @return a PinnedGInteractions object.
+#' @return a (Pinned)GInteractions object.
 #'
 #' @rdname replace_anchors
 #' 
@@ -25,7 +27,7 @@
 #' 
 #' gi |> replace_anchors(1, value = anchors2(gi))
 #' 
-#' gi |> replace_anchors(1, value = GRanges(c(
+#' gi |> replace_anchors(1, value = GenomicRanges::GRanges(c(
 #'   "chr1:1-2", "chr1:2-3", "chr1:3-4", "chr1:4-5"
 #' )))
 #' 
@@ -39,11 +41,11 @@
 #' 
 #' gi |> 
 #'   pin_by(1) |> 
-#'   replace_anchors(value = GRanges(c(
+#'   replace_anchors(value = GenomicRanges::GRanges(c(
 #'     "chr1:1-2", "chr1:2-3", "chr1:3-4", "chr1:4-5"
 #'   ))) |> 
 #'   pin_by(2) |> 
-#'   replace_anchors(value = GRanges(c(
+#'   replace_anchors(value = GenomicRanges::GRanges(c(
 #'     "chr2:1-2", "chr2:2-3", "chr2:3-4", "chr2:4-5"
 #'   ))) 
 #' 

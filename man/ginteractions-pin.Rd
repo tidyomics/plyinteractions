@@ -70,9 +70,9 @@ pinned_anchors(x)
 \S4method{pinned_anchors}{AnchoredPinnedGInteractions}(x)
 }
 \arguments{
-\item{anchors}{Anchors to pin on ("first" or "second")}
+\item{x}{a GInteractions object}
 
-\item{.data, x}{a (Grouped)GInteractions object}
+\item{anchors}{Anchors to pin on ("first" or "second")}
 }
 \value{
 a PinnedGInteractions object.

@@ -40,6 +40,16 @@ shift_left(x, shift)
 
 \method{shift_left}{PinnedGInteractions}(x, shift)
 }
+\arguments{
+\item{x}{a PinnedGInteractions object}
+
+\item{shift}{The amount to move the genomic interval in the Ranges object
+by. Either a non-negative integer vector of length 1 or an integer vector
+the same length as x.}
+}
+\value{
+A PinnedGInteractions object
+}
 \description{
 Shift pinned anchors of a GInteractions object with plyranges
 }

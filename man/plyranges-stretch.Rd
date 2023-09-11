@@ -10,6 +10,15 @@
 
 \method{stretch}{PinnedGInteractions}(x, extend)
 }
+\arguments{
+\item{x}{a PinnedGInteractions object}
+
+\item{extend}{The amount to alter the width of a Ranges object by. Either
+an integer vector of length 1 or an integer vector the same length as x.}
+}
+\value{
+A PinnedGInteractions object
+}
 \description{
 Stretch pinned anchors of a GInteractions object with plyranges
 }

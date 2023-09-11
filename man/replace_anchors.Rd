@@ -19,12 +19,15 @@ replace_anchors(x, id, value)
 \S4method{replace_anchors}{AnchoredPinnedGInteractions,missing,GRanges}(x, value)
 }
 \arguments{
-\item{.data, x}{a (Grouped)GInteractions object}
+\item{x}{a (Pinned)GInteractions object}
 
-\item{anchors}{Anchors to pin on ("first" or "second")}
+\item{id}{Which anchors to replace ("first" or "second"). Ignored if
+the GInteractions is already pinned to a specific set of anchors.}
+
+\item{value}{A GRanges object vector the same length as x.}
 }
 \value{
-a PinnedGInteractions object.
+a (Pinned)GInteractions object.
 }
 \description{
 Replace anchors of a GInteractions
@@ -47,7 +50,7 @@ gi |> replace_anchors(2, value = anchors1(gi))
 
 gi |> replace_anchors(1, value = anchors2(gi))
 
-gi |> replace_anchors(1, value = GRanges(c(
+gi |> replace_anchors(1, value = GenomicRanges::GRanges(c(
   "chr1:1-2", "chr1:2-3", "chr1:3-4", "chr1:4-5"
 )))
 
@@ -61,11 +64,11 @@ gi |> replace_anchors(1, value = anchors2(gi))
 
 gi |> 
   pin_by(1) |> 
-  replace_anchors(value = GRanges(c(
+  replace_anchors(value = GenomicRanges::GRanges(c(
     "chr1:1-2", "chr1:2-3", "chr1:3-4", "chr1:4-5"
   ))) |> 
   pin_by(2) |> 
-  replace_anchors(value = GRanges(c(
+  replace_anchors(value = GenomicRanges::GRanges(c(
     "chr2:1-2", "chr2:2-3", "chr2:3-4", "chr2:4-5"
   ))) 
 

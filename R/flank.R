@@ -1,6 +1,12 @@
 #' Generate flanking regions from pinned anchors of a GInteractions object 
 #' with plyranges
 #'  
+#' @param x a PinnedGInteractions object
+#' @param width The width of the flanking region relative to the ranges in x. 
+#' Either an integer vector of length 1 or an integer vector the same length as 
+#' x. The width can be negative in which case the flanking region is reversed.
+#' @return A PinnedGInteractions object
+#' 
 #' @name plyranges-flank
 #'
 #' @examples
@@ -22,7 +28,7 @@
 #' 
 #' gi 
 #' 
-#' gi |> pin_by("first") |> flank_left(2)
+#' gi |> pin_by("first") |> flank_left(-2) 
 #' 
 #' gi |> pin_by("second") |> flank_upstream(4)
 #' 

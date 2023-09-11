@@ -40,6 +40,17 @@
 
 \method{anchor_5p}{AnchoredPinnedGInteractions}(x)
 }
+\arguments{
+\item{x}{A PinnedGInteractions object}
+}
+\value{
+\itemize{
+\item \verb{anchor_*} functions return an AnchoredPinnedGInteractions object.
+\item \code{anchor} returns a character string indicating where the pinned
+anchors are anchored at.
+\item \code{unanchor} removes the anchoring for a AnchoredPinnedGInteractions object.
+}
+}
 \description{
 Manage GInteractions anchors with plyranges
 }

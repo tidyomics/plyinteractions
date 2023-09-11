@@ -1,5 +1,11 @@
 #' Shift pinned anchors of a GInteractions object with plyranges
 #'  
+#' @param x a PinnedGInteractions object
+#' @param shift The amount to move the genomic interval in the Ranges object 
+#' by. Either a non-negative integer vector of length 1 or an integer vector 
+#' the same length as x.
+#' @return A PinnedGInteractions object
+#' 
 #' @name plyranges-shift
 #'
 #' @examples

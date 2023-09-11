@@ -41,6 +41,16 @@ flank_left(x, width)
 
 \method{flank_left}{PinnedGInteractions}(x, width)
 }
+\arguments{
+\item{x}{a PinnedGInteractions object}
+
+\item{width}{The width of the flanking region relative to the ranges in x.
+Either an integer vector of length 1 or an integer vector the same length as
+x. The width can be negative in which case the flanking region is reversed.}
+}
+\value{
+A PinnedGInteractions object
+}
 \description{
 Generate flanking regions from pinned anchors of a GInteractions object
 with plyranges
@@ -64,7 +74,7 @@ col.names = c(
 
 gi 
 
-gi |> pin_by("first") |> flank_left(2)
+gi |> pin_by("first") |> flank_left(-2) 
 
 gi |> pin_by("second") |> flank_upstream(4)
 
