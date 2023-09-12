@@ -91,8 +91,8 @@ setMethod(
 #' @export
 setMethod(
     "replace_anchors", 
-    signature(x = "PinnedGInteractions", value = "GenomicRanges", id = "missing"), 
-    function(x, value) {
+    signature(x = "PinnedGInteractions", id = "missing", value = "GenomicRanges"), 
+    function(x, id, value) {
         x@delegate <- replace_anchors(x@delegate, id = pin(x), value = value)
         x
     }
@@ -102,10 +102,23 @@ setMethod(
 #' @export
 setMethod(
     "replace_anchors", 
-    signature(x = "AnchoredPinnedGInteractions", value = "GRanges", id = "missing"), 
-    function(x, value) {
+    signature(x = "AnchoredPinnedGInteractions", id = "missing", value = "GRanges"), 
+    function(x, id, value) {
         x@delegate@delegate <- replace_anchors(
             unpin(x), id = pin(x), value = value
+        )
+        x
+    }
+)
+
+#' @rdname replace_anchors
+#' @export
+setMethod(
+    "replace_anchors", 
+    signature(x = "AnchoredPinnedGInteractions", id = "numeric", value = "GRanges"), 
+    function(x, id, value) {
+        x@delegate@delegate <- replace_anchors(
+            unpin(x), id = id, value = value
         )
         x
     }

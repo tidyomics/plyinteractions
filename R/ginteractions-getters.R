@@ -2,6 +2,8 @@
 #' 
 #' @name ginteractions-getters
 #' @param x a GInteractions object
+#' @param name The pattern or name of a column stored in 
+#' the GInteractions metadata (mcols). 
 #' @return One of the core GInteractions fields (e.g. seqnames1, start1, ...)
 #' or one of the metadata columns when using `$`. 
 #' Note that auto-completion works with `$`. 

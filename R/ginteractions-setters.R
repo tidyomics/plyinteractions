@@ -89,6 +89,35 @@ setMethod("set_width2", signature("GInteractions", "numeric"), function(x, value
     BiocGenerics::width(S4Vectors::second(x)) <- value
     x
 })
+#' @importFrom plyranges set_width
+#' @rdname ginteractions-setters
+setMethod("set_width1", signature("AnchoredPinnedGInteractions", "numeric"), 
+    function(x, value) {
+        if (pin(x) == 1) {
+            replace_anchors(
+                x, value = plyranges::mutate(pinned_anchors(x), width = value)
+            )
+        } else {
+            replace_anchors(
+                x, id = 1, value = plyranges::mutate(anchors1(x), width = value)
+            )
+        }
+    }
+)
+#' @rdname ginteractions-setters
+setMethod("set_width2", signature("AnchoredPinnedGInteractions", "numeric"), 
+    function(x, value) {
+        if (pin(x) == 2) {
+            replace_anchors(
+                x, value = plyranges::mutate(pinned_anchors(x), width = value)
+            )
+        } else {
+            replace_anchors(
+                x, id = 2, value = plyranges::mutate(anchors2(x), width = value)
+            )
+        }
+    }
+)
 #' @rdname ginteractions-setters
 setMethod("set_strand1", signature("GInteractions", "character"), function(x, value) {
     BiocGenerics::strand(S4Vectors::first(x)) <- value

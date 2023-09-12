@@ -6,6 +6,7 @@
 \alias{replace_anchors,GInteractions,numeric,GenomicRanges-method}
 \alias{replace_anchors,PinnedGInteractions,missing,GenomicRanges-method}
 \alias{replace_anchors,AnchoredPinnedGInteractions,missing,GRanges-method}
+\alias{replace_anchors,AnchoredPinnedGInteractions,numeric,GRanges-method}
 \title{Replace anchors of a GInteractions}
 \usage{
 replace_anchors(x, id, value)
@@ -14,9 +15,11 @@ replace_anchors(x, id, value)
 
 \S4method{replace_anchors}{GInteractions,numeric,GenomicRanges}(x, id, value)
 
-\S4method{replace_anchors}{PinnedGInteractions,missing,GenomicRanges}(x, value)
+\S4method{replace_anchors}{PinnedGInteractions,missing,GenomicRanges}(x, id, value)
 
-\S4method{replace_anchors}{AnchoredPinnedGInteractions,missing,GRanges}(x, value)
+\S4method{replace_anchors}{AnchoredPinnedGInteractions,missing,GRanges}(x, id, value)
+
+\S4method{replace_anchors}{AnchoredPinnedGInteractions,numeric,GRanges}(x, id, value)
 }
 \arguments{
 \item{x}{a (Pinned)GInteractions object}

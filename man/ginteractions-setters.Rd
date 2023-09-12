@@ -22,6 +22,8 @@
 \alias{set_end2,GInteractions,numeric-method}
 \alias{set_width1,GInteractions,numeric-method}
 \alias{set_width2,GInteractions,numeric-method}
+\alias{set_width1,AnchoredPinnedGInteractions,numeric-method}
+\alias{set_width2,AnchoredPinnedGInteractions,numeric-method}
 \alias{set_strand1,GInteractions,character-method}
 \alias{set_strand2,GInteractions,character-method}
 \title{Internal GInteractions setters}
@@ -65,6 +67,10 @@ set_strand2(x, value)
 \S4method{set_width1}{GInteractions,numeric}(x, value)
 
 \S4method{set_width2}{GInteractions,numeric}(x, value)
+
+\S4method{set_width1}{AnchoredPinnedGInteractions,numeric}(x, value)
+
+\S4method{set_width2}{AnchoredPinnedGInteractions,numeric}(x, value)
 
 \S4method{set_strand1}{GInteractions,character}(x, value)
 
