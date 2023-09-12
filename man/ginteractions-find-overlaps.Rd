@@ -46,13 +46,25 @@ in \code{x} that overlap \code{y}.
 \description{
 Find overlaps between a query GInteractions and a GRanges
 }
-\details{
+\section{Rationale}{
+
+
 \code{find_overlaps()} will search for any overlap between \code{GInteractions}
 in \code{x} and \code{GRanges} in \code{y}. It will return a \code{GInteractions} object of length
 equal to the number of times \code{x} overlaps \code{y}. This \code{GInteractions} will
 have additional metadata columns corresponding to the metadata from \code{y}.
 \code{find_overlaps_directed()} takes the strandness of each object into account.
 }
+
+\section{Pinned \code{GInteractions}}{
+
+
+When using \code{find_overlaps()} with a \code{PinnedGInteractions} object,
+only the pinned anchors are used to check for overlap with \code{y}.
+This is equivalent to specifying \code{use.region="both"} in
+\code{\href{https://bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html#27_Overlap_methods}{InteractionSet::findOverlaps()}}.
+}
+
 \examples{
 gi <- read.table(text = "  
     chr1 11 20 - chr1 21 30 + 
@@ -77,7 +89,7 @@ find_overlaps(gi, gr)
 find_overlaps_directed(gi, gr)
 
 ####################################################################
-# 1. Find overlaps between PinnedGInteractions and a subject GRanges
+# 2. Find overlaps between PinnedGInteractions and a subject GRanges
 ####################################################################
 
 gi |> pin_by("first") |> find_overlaps(gr)

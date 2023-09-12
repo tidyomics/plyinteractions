@@ -37,6 +37,8 @@ reference:
 - title: "Overlapping GInteractions"
   contents: 
   - ginteractions-find-overlaps
+  - ginteractions-count-overlaps
+  - ginteractions-filter-overlaps
 - title: "Pinning GInteractions"
   contents: 
   - pin

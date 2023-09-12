@@ -1,12 +1,19 @@
 #' Find overlaps between a query GInteractions and a GRanges
 #'
-#' @details 
+#' @section Rationale:  
 #' 
 #' `find_overlaps()` will search for any overlap between `GInteractions` 
 #' in `x` and `GRanges` in `y`. It will return a `GInteractions` object of length 
 #' equal to the number of times `x` overlaps `y`. This `GInteractions` will 
 #' have additional metadata columns corresponding to the metadata from `y`. 
 #' `find_overlaps_directed()` takes the strandness of each object into account. 
+#' 
+#' @section Pinned `GInteractions`:  
+#' 
+#' When using `find_overlaps()` with a `PinnedGInteractions` object, 
+#' only the pinned anchors are used to check for overlap with `y`. 
+#' This is equivalent to specifying `use.region="both"` in 
+#' \code{\href{https://bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html#27_Overlap_methods}{InteractionSet::findOverlaps()}}.
 #' 
 #' @param x A (Pinned)GInteractions object
 #' @param y A GRanges object
@@ -49,7 +56,7 @@
 #' find_overlaps_directed(gi, gr)
 #' 
 #' ####################################################################
-#' # 1. Find overlaps between PinnedGInteractions and a subject GRanges
+#' # 2. Find overlaps between PinnedGInteractions and a subject GRanges
 #' ####################################################################
 #' 
 #' gi |> pin_by("first") |> find_overlaps(gr)
