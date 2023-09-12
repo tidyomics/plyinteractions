@@ -104,12 +104,25 @@ columns (character vector of length 2, default to <code>c(".x", ".y")</code>).</
 in <code>x</code> that overlap <code>y</code>.</p>
     </div>
     <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps()</a></code> will search for any overlap between <code>GInteractions</code>
+    <h2 id="rationale">Rationale<a class="anchor" aria-label="anchor" href="#rationale"></a></h2>
+    
+
+
+<p><code><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps()</a></code> will search for any overlap between <code>GInteractions</code>
 in <code>x</code> and <code>GRanges</code> in <code>y</code>. It will return a <code>GInteractions</code> object of length
 equal to the number of times <code>x</code> overlaps <code>y</code>. This <code>GInteractions</code> will
 have additional metadata columns corresponding to the metadata from <code>y</code>.
 <code><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps_directed()</a></code> takes the strandness of each object into account.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="pinned-ginteractions">Pinned <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#pinned-ginteractions"></a></h2>
+    
+
+
+<p>When using <code><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps()</a></code> with a <code>PinnedGInteractions</code> object,
+only the pinned anchors are used to check for overlap with <code>y</code>.
+This is equivalent to specifying <code>use.region="both"</code> in
+<code><a href="https://rdrr.io/pkg/IRanges/man/findOverlaps-methods.html" class="external-link">InteractionSet::findOverlaps()</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -188,7 +201,7 @@ have additional metadata columns corresponding to the metadata from <code>y</cod
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
-<span class="r-in"><span><span class="co"># 1. Find overlaps between PinnedGInteractions and a subject GRanges</span></span></span>
+<span class="r-in"><span><span class="co"># 2. Find overlaps between PinnedGInteractions and a subject GRanges</span></span></span>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span></span>
