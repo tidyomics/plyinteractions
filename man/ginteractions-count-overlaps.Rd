@@ -10,23 +10,11 @@
 \usage{
 \method{count_overlaps}{PinnedGInteractions}(x, y, maxgap = -1L, minoverlap = 0L)
 
-\method{count_overlaps}{GInteractions}(x, y, maxgap = -1L, minoverlap = 0L, suffix = c(".x", ".y"))
+\method{count_overlaps}{GInteractions}(x, y, maxgap = -1L, minoverlap = 0L)
 
-\method{count_overlaps_directed}{PinnedGInteractions}(
-  x,
-  y,
-  maxgap = -1L,
-  minoverlap = 0L,
-  suffix = c(".x", ".y")
-)
+\method{count_overlaps_directed}{PinnedGInteractions}(x, y, maxgap = -1L, minoverlap = 0L)
 
-\method{count_overlaps_directed}{GInteractions}(
-  x,
-  y,
-  maxgap = -1L,
-  minoverlap = 0L,
-  suffix = c(".x", ".y")
-)
+\method{count_overlaps_directed}{GInteractions}(x, y, maxgap = -1L, minoverlap = 0L)
 }
 \arguments{
 \item{x}{A (Pinned)GInteractions object}
@@ -48,7 +36,7 @@ Count overlaps between a query GInteractions and a GRanges
 When using \code{count_overlaps()} with a \code{PinnedGInteractions} object,
 only the pinned anchors are used to check for overlap with \code{y}.
 This is equivalent to specifying \code{use.region="both"} in
-\code{\href{https://bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html#27_Overlap_methods}{InteractionSet::countOverlaps()}}.
+\code{InteractionSet::findOverlaps()}.
 }
 
 \examples{

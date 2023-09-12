@@ -5,7 +5,7 @@
 #' When using `filter_by_overlaps()` with a `PinnedGInteractions` object, 
 #' only the pinned anchors are used to check for overlap with `y`. 
 #' This is equivalent to specifying `use.region="both"` in 
-#' \code{\href{https://bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html#27_Overlap_methods}{InteractionSet::countOverlaps()}}.
+#' `InteractionSet::findOverlaps()`.
 #' 
 #' @param x A (Pinned)GInteractions object
 #' @param y A GRanges object
@@ -81,7 +81,7 @@ filter_by_overlaps.PinnedGInteractions <- function(
 #' @rdname ginteractions-filter-overlaps
 #' @export
 filter_by_overlaps.GInteractions <- function(
-    x, y, maxgap = -1L, minoverlap = 0L, suffix = c(".x", ".y")
+    x, y, maxgap = -1L, minoverlap = 0L
 ) {
 
     IRanges::subsetByOverlaps( 
@@ -122,7 +122,7 @@ filter_by_non_overlaps.PinnedGInteractions <- function(
 #' @rdname ginteractions-filter-overlaps
 #' @export
 filter_by_non_overlaps.GInteractions <- function(
-    x, y, maxgap = -1L, minoverlap = 0L, suffix = c(".x", ".y")
+    x, y, maxgap = -1L, minoverlap = 0L
 ) {
 
     IRanges::subsetByOverlaps( 

@@ -62,7 +62,7 @@ have additional metadata columns corresponding to the metadata from \code{y}.
 When using \code{find_overlaps()} with a \code{PinnedGInteractions} object,
 only the pinned anchors are used to check for overlap with \code{y}.
 This is equivalent to specifying \code{use.region="both"} in
-\code{\href{https://bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html#27_Overlap_methods}{InteractionSet::findOverlaps()}}.
+\code{InteractionSet::findOverlaps()}.
 }
 
 \examples{

@@ -5,7 +5,7 @@
 #' When using `count_overlaps()` with a `PinnedGInteractions` object, 
 #' only the pinned anchors are used to check for overlap with `y`. 
 #' This is equivalent to specifying `use.region="both"` in 
-#' \code{\href{https://bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html#27_Overlap_methods}{InteractionSet::countOverlaps()}}.
+#' `InteractionSet::findOverlaps()`.
 #' 
 #' @param x A (Pinned)GInteractions object
 #' @param y A GRanges object
@@ -81,7 +81,7 @@ count_overlaps.PinnedGInteractions <- function(
 #' @rdname ginteractions-count-overlaps
 #' @export
 count_overlaps.GInteractions <- function(
-    x, y, maxgap = -1L, minoverlap = 0L, suffix = c(".x", ".y")
+    x, y, maxgap = -1L, minoverlap = 0L
 ) {
 
     InteractionSet::countOverlaps( 
@@ -99,7 +99,7 @@ count_overlaps.GInteractions <- function(
 #' @rdname ginteractions-count-overlaps
 #' @export
 count_overlaps_directed.PinnedGInteractions <- function(
-    x, y, maxgap = -1L, minoverlap = 0L, suffix = c(".x", ".y")
+    x, y, maxgap = -1L, minoverlap = 0L
 ) {
 
     InteractionSet::countOverlaps( 
@@ -121,7 +121,7 @@ count_overlaps_directed.PinnedGInteractions <- function(
 #' @rdname ginteractions-count-overlaps
 #' @export
 count_overlaps_directed.GInteractions <- function(
-    x, y, maxgap = -1L, minoverlap = 0L, suffix = c(".x", ".y")
+    x, y, maxgap = -1L, minoverlap = 0L
 ) {
 
     InteractionSet::countOverlaps( 

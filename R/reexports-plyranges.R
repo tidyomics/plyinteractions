@@ -47,3 +47,23 @@ plyranges::find_overlaps
 #' @importFrom plyranges find_overlaps_directed
 #' @export
 plyranges::find_overlaps_directed
+
+#' @rdname reexports
+#' @importFrom plyranges count_overlaps
+#' @export
+plyranges::count_overlaps
+
+#' @rdname reexports
+#' @importFrom plyranges count_overlaps_directed
+#' @export
+plyranges::count_overlaps_directed
+
+#' @rdname reexports
+#' @importFrom plyranges filter_by_overlaps
+#' @export
+plyranges::filter_by_overlaps
+
+#' @rdname reexports
+#' @importFrom plyranges filter_by_non_overlaps
+#' @export
+plyranges::filter_by_non_overlaps

@@ -13,7 +13,7 @@
 #' When using `find_overlaps()` with a `PinnedGInteractions` object, 
 #' only the pinned anchors are used to check for overlap with `y`. 
 #' This is equivalent to specifying `use.region="both"` in 
-#' \code{\href{https://bioconductor.org/packages/release/bioc/vignettes/InteractionSet/inst/doc/interactions.html#27_Overlap_methods}{InteractionSet::findOverlaps()}}.
+#' `InteractionSet::findOverlaps()`.
 #' 
 #' @param x A (Pinned)GInteractions object
 #' @param y A GRanges object
