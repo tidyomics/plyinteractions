@@ -84,8 +84,8 @@ groups. To add to the existing groups, use .add = TRUE.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">gi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"</span></span></span>
 <span class="r-in"><span><span class="st">chr1 11 20 chr1 21 30</span></span></span>
-<span class="r-in"><span><span class="st">chr1 11 20 chr1 51 50</span></span></span>
-<span class="r-in"><span><span class="st">chr1 11 30 chr1 51 50</span></span></span>
+<span class="r-in"><span><span class="st">chr1 11 20 chr1 51 55</span></span></span>
+<span class="r-in"><span><span class="st">chr1 11 30 chr1 51 55</span></span></span>
 <span class="r-in"><span><span class="st">chr1 11 30 chr2 51 60"</span>,</span></span>
 <span class="r-in"><span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seqnames1"</span>, <span class="st">"start1"</span>, <span class="st">"end1"</span>, <span class="st">"seqnames2"</span>, <span class="st">"start2"</span>, <span class="st">"end2"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="ginteractions-construct.html">as_ginteractions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
@@ -96,20 +96,20 @@ groups. To add to the existing groups, use .add = TRUE.</p></dd>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">end1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 2 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GroupedGInteractions object with 4 interactions and 2 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Groups: end1 [2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       * ---      chr1     21-30       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-50       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-50       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-55       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-55       * |         cis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.169064</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.580789</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.975251</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.861810</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.767344</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.254752</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.728034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.379135</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -119,8 +119,8 @@ groups. To add to the existing groups, use .add = TRUE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        end1      end2         .rows</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;integer&gt; &lt;integer&gt; &lt;IntegerList&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        20        30             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        20        50             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        30        50             3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        20        55             2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        30        55             3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4        30        60             4</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
@@ -139,20 +139,20 @@ groups. To add to the existing groups, use .add = TRUE.</p></dd>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">end1</span>, <span class="va">type</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 2 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GroupedGInteractions object with 4 interactions and 2 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Groups: end1, type [3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       * ---      chr1     21-30       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-50       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-50       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-55       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-55       * |         cis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.169064</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.580789</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.975251</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.861810</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.767344</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.254752</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.728034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.379135</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -169,20 +169,20 @@ groups. To add to the existing groups, use .add = TRUE.</p></dd>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 3 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GroupedGInteractions object with 4 interactions and 3 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Groups: class [2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       * ---      chr1     21-30       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-50       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-50       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-55       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-55       * |         cis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score     class</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.169064         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.580789         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.975251         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.861810         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.767344         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.254752         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.728034         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.379135         2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -218,56 +218,56 @@ groups. To add to the existing groups, use .add = TRUE.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">ggi</span> <span class="op">&lt;-</span> <span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">type</span>, class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ggi</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 3 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GroupedGInteractions object with 4 interactions and 3 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Groups: type, class [3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       * ---      chr1     21-30       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-50       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-50       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-55       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-55       * |         cis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score     class</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.169064         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.580789         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.975251         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.861810         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.767344         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.254752         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.728034         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.379135         2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="va">ggi</span>, <span class="va">type</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 3 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GroupedGInteractions object with 4 interactions and 3 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Groups: class [2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       * ---      chr1     21-30       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-50       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-50       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-55       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-55       * |         cis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score     class</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.169064         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.580789         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.975251         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.861810         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.767344         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.254752         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.728034         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.379135         2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
 <span class="r-in"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="va">ggi</span>, <span class="va">class</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 3 metadata columns:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GroupedGInteractions object with 4 interactions and 3 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Groups: type [2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       * ---      chr1     21-30       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-50       * |         cis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-50       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       * ---      chr1     51-55       * |         cis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       * ---      chr1     51-55       * |         cis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score     class</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.169064         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.580789         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.975251         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.861810         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.767344         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.254752         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.728034         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.379135         2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>

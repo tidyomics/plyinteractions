@@ -81,8 +81,11 @@
 <!-- badges: start -->
 <!-- badges: end -->
 <p><code>plyinteractions</code> provides a consistent interface for importing and wrangling genomic interactions from <code>pairs</code> and <code>bedpe</code> files into <code>GInteractions</code> in <code>R</code>.</p>
-<p>The package follows the grammar of tidy genomic data transformation defined by <a href="https://www.bioconductor.org/packages/packages/plyranges.html" class="external-link"><code>plyranges</code></a>, itself based on <a href="https://dplyr.tidyverse.org/" class="external-link"><code>dplyr</code></a> and <a href="https://rlang.r-lib.org/" class="external-link"><code>rlang</code></a>.</p>
+<p>The package follows the grammar of tidy genomic data transformation defined by <a href="https://www.bioconductor.org/packages/plyranges.html" class="external-link"><code>plyranges</code></a>, itself based on <a href="https://dplyr.tidyverse.org/" class="external-link"><code>dplyr</code></a> and <a href="https://rlang.r-lib.org/" class="external-link"><code>rlang</code></a>.</p>
 <p>The operations currently available for <code>GInteractions</code> objects are:</p>
+<ul>
+<li>
+<p><code>dplyr</code> verbs:</p>
 <ul>
 <li>Group genomic interactions with <code>group_by</code>;</li>
 <li>Summarize grouped genomic interactions with <code>summarize</code>;</li>
@@ -92,6 +95,18 @@
 <li>Pick out any columns from the associated metadata with <code>select</code> using <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link"><code>&lt;tidy-select&gt;</code> arguments</a>;</li>
 <li>Subset using indices with <code>slice</code>;</li>
 <li>Order genomic interactions with <code>arrange</code> using categorical/numerical variables.</li>
+</ul>
+</li>
+<li>
+<p><code>plyranges</code> verbs:</p>
+<ul>
+<li>Stretch specific anchors of genomic interactions to a given width with <code>stretch</code>;</li>
+<li>
+<code>anchor_*</code> functions to control how stretching is performed;</li>
+<li>Shift specific anchors of genomic interactions with <code>shift</code>;</li>
+<li>Obtain flanking <code>GRanges</code> from specific anchors of genomic interactions with <code>flank</code>.</li>
+</ul>
+</li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
