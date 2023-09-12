@@ -34,6 +34,9 @@ reference:
 - title: "`plyranges` verbs"
   contents: 
   - starts_with("plyranges-")
+- title: "Overlapping GInteractions"
+  contents: 
+  - ginteractions-find-overlaps
 - title: "Pinning GInteractions"
   contents: 
   - pin

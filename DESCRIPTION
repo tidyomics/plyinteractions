@@ -54,6 +54,7 @@ Collate:
     'arrange.R'
     'count.R'
     'filter.R'
+    'find-overlaps.R'
     'flank.R'
     'ginteractions-construct.R'
     'ginteractions-env.R'

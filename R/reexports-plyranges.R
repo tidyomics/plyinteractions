@@ -37,3 +37,13 @@ plyranges::anchor_5p
 #' @importFrom plyranges stretch
 #' @export
 plyranges::stretch
+
+#' @rdname reexports
+#' @importFrom plyranges find_overlaps
+#' @export
+plyranges::find_overlaps
+
+#' @rdname reexports
+#' @importFrom plyranges find_overlaps_directed
+#' @export
+plyranges::find_overlaps_directed
