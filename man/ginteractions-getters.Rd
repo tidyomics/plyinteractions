@@ -93,9 +93,6 @@ ranges2(x)
 }
 \arguments{
 \item{x}{a GInteractions object}
-
-\item{pattern, name}{The pattern or name of a column stored in
-the GInteractions metadata (mcols).}
 }
 \value{
 One of the core GInteractions fields (e.g. seqnames1, start1, ...)
