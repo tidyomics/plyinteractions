@@ -473,6 +473,17 @@ these operations either on <code>anchors1</code> or
 <h2 id="plyranges-operations-on-ginteractions">
 <code>plyranges</code> operations on <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#plyranges-operations-on-ginteractions"></a>
 </h2>
+<p><code>plyranges</code> arithmetic functions are available for
+<code>(Anchored)PinnedGInteractions</code> objects.</p>
+<p><strong>Important note 1:</strong> <code>GInteractions</code> must be
+pinned to a specific anchor set (<code>anchors1</code> or
+<code>anchors2</code>) for <code>plyranges</code> functions to work.
+Please use <code><a href="../reference/ginteractions-pin.html">pin_by()</a></code> function to pin
+<code>GInteractions</code>.</p>
+<p><strong>Important note 2:</strong> the <code>stretch</code> function
+will behave on <code>PinnedGInteractions</code> and
+<code>AnchoredPinnedGInteractions</code> objects similarly to
+<code>GRanges</code> or <code>AnchoredGRanges</code> objects.</p>
 <div class="section level3">
 <h3 id="on-pinnedginteractions-objects">On <code>PinnedGInteractions</code> objects<a class="anchor" aria-label="anchor" href="#on-pinnedginteractions-objects"></a>
 </h3>
@@ -483,6 +494,7 @@ manipulate <code>GRanges</code> objects, to ensure they work on
 <strong>must</strong> be “pinned” (using <code><a href="../reference/ginteractions-pin.html">pin_by()</a></code>) in order
 to specify which set of anchors should be affected by
 <code>plyranges</code> functions.</p>
+<p><img src="../reference/figures/pinnedginteractions.png"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span></span>
 <span><span class="co">#&gt; GInteractions object with 4 interactions and 1 metadata column:</span></span>
@@ -541,6 +553,7 @@ to specify which set of anchors should be affected by
 <p>When a pinned <code>GInteractions</code> is further anchored,
 <code>stretch</code>ing with <code>plyranges</code> relies on the
 anchoring:</p>
+<p><img src="../reference/figures/stretch.png"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"1"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-anchor.html" class="external-link">anchor_start</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; PinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>

@@ -22,52 +22,55 @@
     <loc>/reference/delegating-ginteractions-class.html</loc>
   </url>
   <url>
-    <loc>/reference/ginteractions-arrange.html</loc>
+    <loc>/reference/dplyr-arrange.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dplyr-count.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dplyr-filter.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dplyr-group_by.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dplyr-mutate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dplyr-rename.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dplyr-select.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dplyr-slice.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dplyr-summarize.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ginteractions-anchor.html</loc>
   </url>
   <url>
     <loc>/reference/ginteractions-construct.html</loc>
   </url>
   <url>
-    <loc>/reference/ginteractions-count.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-filter.html</loc>
+    <loc>/reference/ginteractions-find-overlaps.html</loc>
   </url>
   <url>
     <loc>/reference/ginteractions-getters.html</loc>
   </url>
   <url>
-    <loc>/reference/ginteractions-group_by.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-group_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-mutate.html</loc>
-  </url>
-  <url>
     <loc>/reference/ginteractions-pin.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-rename.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-select.html</loc>
   </url>
   <url>
     <loc>/reference/ginteractions-setters.html</loc>
   </url>
   <url>
-    <loc>/reference/ginteractions-slice.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-summarize.html</loc>
+    <loc>/reference/group-group_data.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plyranges-anchor.html</loc>
   </url>
   <url>
     <loc>/reference/plyranges-flank.html</loc>
