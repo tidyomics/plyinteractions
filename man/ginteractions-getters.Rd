@@ -2,7 +2,6 @@
 % Please edit documentation in R/ginteractions-getters.R
 \name{ginteractions-getters}
 \alias{ginteractions-getters}
-\alias{.DollarNames.GInteractions}
 \alias{$,GInteractions-method}
 \alias{anchors1}
 \alias{anchors2}
@@ -32,10 +31,8 @@
 \alias{strand2,GInteractions-method}
 \alias{ranges1,GInteractions-method}
 \alias{ranges2,GInteractions-method}
-\title{Internal GInteractions getters}
+\title{Enhanced GInteractions getters}
 \usage{
-\method{.DollarNames}{GInteractions}(x, pattern = "")
-
 \S4method{$}{GInteractions}(x, name)
 
 anchors1(x)
@@ -106,7 +103,7 @@ or one of the metadata columns when using \code{$}.
 Note that auto-completion works with \code{$}.
 }
 \description{
-Internal GInteractions getters
+Enhanced GInteractions getters
 }
 \examples{
 gi <- data.frame(

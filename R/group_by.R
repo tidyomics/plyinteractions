@@ -11,7 +11,8 @@
 #' @importFrom rlang syms
 #' @importFrom methods new
 #' 
-#' @rdname ginteractions-group_by
+#' @name dplyr-group_by
+#' @rdname dplyr-group_by
 #' 
 #' @examples
 #' gi <- read.table(text = "
@@ -110,7 +111,7 @@ group_by.GInteractions <- function(.data, ..., .add = FALSE) {
 
 }
 
-#' @rdname ginteractions-group_by
+#' @rdname dplyr-group_by
 #' @importFrom dplyr ungroup
 #' @export
 ungroup.GInteractions <- function(x, ...) {

@@ -6,7 +6,8 @@
 #'
 #' @return a GInteractions object.
 #'
-#' @rdname ginteractions-arrange
+#' @name dplyr-arrange
+#' @rdname dplyr-arrange
 #' 
 #' @examples
 #' gi <- read.table(text = "

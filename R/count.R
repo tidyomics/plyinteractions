@@ -1,6 +1,7 @@
 #' Count or tally GInteractions per group
 #'  
-#' @name ginteractions-count
+#' @name dplyr-count
+#' @rdname dplyr-count
 #'
 #' @param x A grouped GInteractions object
 #' @param ... <[`data-masking`][rlang::args_data_masking]> Variables to group
@@ -86,7 +87,7 @@ tally.GroupedGInteractions <- function(x, wt = NULL, sort = FALSE, name = NULL) 
 
 }
 
-#' @rdname ginteractions-count
+#' @rdname dplyr-count
 #' @export
 count.GInteractions <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
 

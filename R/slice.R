@@ -7,7 +7,8 @@
 #' 
 #' @return a GInteractions object.
 #' 
-#' @rdname ginteractions-slice
+#' @name dplyr-slice
+#' @rdname dplyr-slice
 #' 
 #' @examples
 #' gi <- read.table(text = "

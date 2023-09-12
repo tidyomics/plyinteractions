@@ -251,12 +251,25 @@ gi |> pin_by("1") |> anchor_5p()
 
 # `plyranges` operations on `GInteractions`
 
+`plyranges` arithmetic functions are available for 
+`(Anchored)PinnedGInteractions` objects. 
+
+**Important note 1:** `GInteractions` must be pinned to a specific anchor set 
+(`anchors1` or `anchors2`) for `plyranges` functions to work. Please use 
+`pin_by()` function to pin `GInteractions`. 
+
+**Important note 2:** the `stretch` function will behave on 
+`PinnedGInteractions` and `AnchoredPinnedGInteractions` objects similarly 
+to `GRanges` or `AnchoredGRanges` objects. 
+
 ## On `PinnedGInteractions` objects
 
 `r Biocpkg("plyinteractions")` extends the use of verbs developed in `plyranges`
 to manipulate `GRanges` objects, to ensure they work on `GInteractions`. 
 The `GInteractions` **must** be "pinned" (using `pin_by()`) in order 
 to specify which set of anchors should be affected by `plyranges` functions. 
+
+![](../man/figures/pinnedginteractions.png)
 
 ```{r pin_stretch}
 gi
@@ -272,6 +285,8 @@ gi |> pin_by("1") |> flank_right(20)
 
 When a pinned `GInteractions` is further anchored, `stretch`ing with `plyranges`
 relies on the anchoring:
+
+![](../man/figures/stretch.png)
 
 ```{r pin_anchor_stretch}
 gi |> pin_by("1") |> anchor_start() |> stretch(10)

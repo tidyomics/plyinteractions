@@ -1,8 +1,8 @@
 #' Summarize GInteractions per group
 #'  
-#' @name ginteractions-summarize
-#' @aliases ginteractions-summarise
-#' @rdname ginteractions-summarize
+#' @name dplyr-summarize
+#' @aliases dplyr-summarise
+#' @rdname dplyr-summarize
 #'
 #' @param .data a (grouped) GInteractions object
 #' @param ... <data-masking> Name-value pairs of summary functions. 
@@ -136,6 +136,6 @@ summarise.GroupedGInteractions <- function(.data, ...) {
 
 }
 
-#' @rdname ginteractions-summarize
+#' @rdname dplyr-summarize
 #' @export
 summarize.GroupedGInteractions <- summarise.GroupedGInteractions

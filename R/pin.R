@@ -26,8 +26,6 @@
 #' # 1. Pin by first anchors
 #' ####################################################################
 #' 
-#' gi |> pin("first")
-#' 
 #' gi |> pin_by("first")
 #' 
 #' gi |> pin_first()
@@ -37,8 +35,6 @@
 #' ####################################################################
 #' # 2. Pin by second anchors
 #' ####################################################################
-#' 
-#' gi |> pin("second")
 #' 
 #' gi |> pin_by("second")
 #' 
@@ -56,25 +52,21 @@
 setGeneric("pin", function(x, anchors) standardGeneric("pin"))
 
 #' @rdname ginteractions-pin
-#' @export
 setMethod("pin", signature(x = "GroupedGInteractions", anchors = "character"), function(x, anchors) {
     methods::new("PinnedGInteractions", ungroup(x), anchors)
 })
 
 #' @rdname ginteractions-pin
-#' @export
 setMethod("pin", signature(x = "GroupedGInteractions", anchors = "numeric"), function(x, anchors) {
     methods::new("PinnedGInteractions", ungroup(x), as.character(anchors))
 })
 
 #' @rdname ginteractions-pin
-#' @export
 setMethod("pin", signature(x = "GInteractions", anchors = "character"), function(x, anchors) {
     methods::new("PinnedGInteractions", x, anchors)
 })
 
 #' @rdname ginteractions-pin
-#' @export
 setMethod("pin", signature(x = "GInteractions", anchors = "numeric"), function(x, anchors) {
     if (!anchors %in% c(1, 2)) stop("`anchors` can only be set to `1` or `2`")
     methods::new("PinnedGInteractions", x, as.character(anchors))
@@ -118,19 +110,19 @@ setGeneric("pin_by", function(x, anchors) pin(x, anchors))
 
 #' @rdname ginteractions-pin
 #' @export
-pin_first <- function(x) pin(x, 1)
+pin_first <- function(x) pin_by(x, 1)
 
 #' @rdname ginteractions-pin
 #' @export
-pin_second <- function(x) pin(x, 2)
+pin_second <- function(x) pin_by(x, 2)
 
 #' @rdname ginteractions-pin
 #' @export
-pin_anchors1 <- function(x) pin(x, 1)
+pin_anchors1 <- function(x) pin_by(x, 1)
 
 #' @rdname ginteractions-pin
 #' @export
-pin_anchors2 <- function(x) pin(x, 2)
+pin_anchors2 <- function(x) pin_by(x, 2)
 
 #' @rdname ginteractions-pin
 #' @export

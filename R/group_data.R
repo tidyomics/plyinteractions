@@ -1,6 +1,7 @@
 #' GInteractions grouping metadata
 #'
-#' @name ginteractions-group_data
+#' @name group-group_data
+#' @rdname group-group_data
 #' 
 #' @param .data,.tbl,x a GInteractions object
 #' @param ... Ignored.
@@ -37,7 +38,7 @@ NULL
 #' @importFrom dplyr group_data
 #' @importFrom methods as
 #' @importFrom dplyr group_data
-#' @rdname ginteractions-group_data
+#' @rdname group-group_data
 #' @export
 group_data.GroupedGInteractions <- function(.data) {
     S4Vectors::DataFrame(
@@ -50,36 +51,36 @@ group_data.GroupedGInteractions <- function(.data) {
 }
 
 #' @importFrom dplyr group_keys
-#' @rdname ginteractions-group_data
+#' @rdname group-group_data
 #' @export
 group_keys.GroupedGInteractions <- function(.tbl, ...) .tbl@group_keys 
 
 #' @importFrom dplyr group_indices
-#' @rdname ginteractions-group_data
+#' @rdname group-group_data
 #' @export
 group_indices.GroupedGInteractions <- function(.data, ...) {
     .data@group_indices
 }
 
 #' @importFrom dplyr group_vars
-#' @rdname ginteractions-group_data
+#' @rdname group-group_data
 #' @export
 group_vars.GInteractions <- function(x) character(0)
-#' @rdname ginteractions-group_data
+#' @rdname group-group_data
 #' @export
 group_vars.GroupedGInteractions <- function(x) colnames(x@group_keys) 
 
 #' @importFrom dplyr groups
-#' @rdname ginteractions-group_data
+#' @rdname group-group_data
 #' @export
 groups.GroupedGInteractions <- function(x) syms(colnames(x@group_keys))
 
 #' @importFrom dplyr group_size
-#' @rdname ginteractions-group_data
+#' @rdname group-group_data
 #' @export
 group_size.GroupedGInteractions <- function(x) lengths(group_rows(x))
 
 #' @importFrom dplyr n_groups
-#' @rdname ginteractions-group_data
+#' @rdname group-group_data
 #' @export
 n_groups.GroupedGInteractions <- function(x) nrow(group_data(x))

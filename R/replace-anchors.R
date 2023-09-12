@@ -7,6 +7,7 @@
 #' 
 #' @return a (Pinned)GInteractions object.
 #'
+#' @name replace_anchors
 #' @rdname replace_anchors
 #' 
 #' @examples

@@ -6,6 +6,7 @@
 #' @return A PinnedGInteractions object
 #' 
 #' @name plyranges-stretch
+#' @rdname plyranges-stretch
 #'
 #' @examples
 #' gi <- read.table(text = "

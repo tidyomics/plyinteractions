@@ -100,8 +100,6 @@ col.names = c("seqnames1", "start1", "end1", "seqnames2", "start2", "end2")) |>
 # 1. Pin by first anchors
 ####################################################################
 
-gi |> pin("first")
-
 gi |> pin_by("first")
 
 gi |> pin_first()
@@ -111,8 +109,6 @@ gi |> pin_anchors1()
 ####################################################################
 # 2. Pin by second anchors
 ####################################################################
-
-gi |> pin("second")
 
 gi |> pin_by("second")
 

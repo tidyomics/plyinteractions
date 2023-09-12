@@ -8,7 +8,8 @@
 #'
 #' @return a GInteractions object.
 #' 
-#' @rdname ginteractions-filter
+#' @name dplyr-filter
+#' @rdname dplyr-filter
 #' 
 #' @examples
 #' gi <- read.table(text = "

@@ -56,11 +56,11 @@
 #' # We can provide width1 and width2 to fix this problem. 
 #' 
 #' pairs <- read.table(text = "
-#' EAS139:136:FC706VJ:2:2104:23462:197393 chr1 10000 chr1 20000 + +
-#' EAS139:136:FC706VJ:2:8762:23765:128766 chr1 50000 chr1 70000 + +
-#' EAS139:136:FC706VJ:2:2342:15343:9863 chr1 60000 chr2 10000 + +
-#' EAS139:136:FC706VJ:2:1286:25:275154 chr1 30000 chr3 40000 + -", 
-#' col.names = c("readID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
+#' pair1 chr1 10000 chr1 20000 + +
+#' pair2 chr1 50000 chr1 70000 + +
+#' pair3 chr1 60000 chr2 10000 + +
+#' pair4 chr1 30000 chr3 40000 + -", 
+#' col.names = c("pairID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
 #' pairs |> 
 #'   as_ginteractions(
 #'     seqnames1 = chr1, start1 = pos1, width1 = 1000, 

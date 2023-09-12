@@ -1,4 +1,4 @@
-#' Internal GInteractions getters
+#' Enhanced GInteractions getters
 #' 
 #' @name ginteractions-getters
 #' @param x a GInteractions object
@@ -29,9 +29,7 @@
 #' gi$type
 NULL
 
-#' @rdname ginteractions-getters
 #' @importFrom utils .DollarNames
-#' @export 
 .DollarNames.GInteractions <- function(x, pattern = "") 
     grep(pattern, names(mcols(x, use.names = FALSE)), value = TRUE)
 

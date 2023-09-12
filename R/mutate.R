@@ -1,7 +1,7 @@
 #' Mutate columns from a GInteractions object
 #'  
-#' @name ginteractions-mutate
-#' @rdname ginteractions-mutate
+#' @name dplyr-mutate
+#' @rdname dplyr-mutate
 #' 
 #' @param .data a GInteractions object
 #' @param ... Optional named arguments specifying which the columns in .data

@@ -7,6 +7,7 @@
 #' @return A PinnedGInteractions object
 #' 
 #' @name plyranges-shift
+#' @rdname plyranges-shift
 #'
 #' @examples
 #' gi <- read.table(text = "

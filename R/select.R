@@ -10,7 +10,8 @@
 #' @importFrom tidyselect eval_select
 #' @importFrom rlang syms
 #' 
-#' @rdname ginteractions-select
+#' @name dplyr-select
+#' @rdname dplyr-select
 #' 
 #' @examples
 #' gi <- read.table(text = "

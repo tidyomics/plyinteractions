@@ -8,6 +8,7 @@
 #' @return A PinnedGInteractions object
 #' 
 #' @name plyranges-flank
+#' @rdname plyranges-flank
 #'
 #' @examples
 #' gi <- read.table(text = "

@@ -1,7 +1,7 @@
 #' Rename columns from a GInteractions with tidyverse-like `rename`
 #'  
-#' @name ginteractions-rename
-#' @rdname ginteractions-rename
+#' @name dplyr-rename
+#' @rdname dplyr-rename
 #' 
 #' @importFrom tidyselect eval_rename
 #' 

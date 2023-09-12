@@ -19,3 +19,28 @@ template:
         primary: "#0054AD"
         border-radius: 0.5rem
         btn-border-radius: 0.25rem
+
+reference:
+- title: "Constructors"
+  contents: 
+  - as_ginteractions
+  - ginteractions-getters
+- title: "`dplyr` core verbs"
+  contents: 
+  - starts_with("dplyr-")
+- title: "`dplyr` group helpers"
+  contents: 
+  - starts_with("group-")
+- title: "`plyranges` verbs"
+  contents: 
+  - starts_with("plyranges-")
+- title: "Pinning GInteractions"
+  contents: 
+  - pin
+  - starts_with("pin_")
+  - starts_with("pinned_")
+  - unpin
+- title: "Anchoring GInteractions"
+  contents: 
+  - ginteractions-anchor
+  - replace_anchors
