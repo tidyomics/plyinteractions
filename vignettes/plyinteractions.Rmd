@@ -224,9 +224,9 @@ Pinning a `GInteractions` object is used to specify which set of anchors
 (i.e. `anchors1` or `anchors2`) should be affected by `plyranges` functions. 
 
 ```{r}
-gi |> pin_by("1")
+gi |> pin_by("first")
 
-pgi <- gi |> pin_by("2")
+pgi <- gi |> pin_by("second")
 pin(pgi)
 
 pinned_anchors(pgi)
@@ -246,7 +246,7 @@ enable these operations either on `anchors1` or `anchors2`, the pinned
 `anchors{12}` of a `GInteractions` object can be further "anchored". 
 
 ```{r pin}
-gi |> pin_by("1") |> anchor_5p()
+gi |> pin_by("first") |> anchor_5p()
 ```
 
 # `plyranges` operations on `GInteractions`
@@ -274,11 +274,11 @@ to specify which set of anchors should be affected by `plyranges` functions.
 ```{r pin_stretch}
 gi
 
-gi |> pin_by("1") |> stretch(10)
+gi |> pin_by("first") |> stretch(10)
 
-gi |> pin_by("1") |> shift_right(20)
+gi |> pin_by("first") |> shift_right(20)
 
-gi |> pin_by("1") |> flank_right(20)
+gi |> pin_by("first") |> flank_right(20)
 ```
 
 ## On `AnchoredPinnedGInteractions` objects
@@ -289,9 +289,9 @@ relies on the anchoring:
 ![](../man/figures/stretch.png)
 
 ```{r pin_anchor_stretch}
-gi |> pin_by("1") |> anchor_start() |> stretch(10)
+gi |> pin_by("first") |> anchor_start() |> stretch(10)
 
-gi |> pin_by("1") |> anchor_center() |> stretch(10)
+gi |> pin_by("first") |> anchor_center() |> stretch(10)
 ```
 
 # `dplyr` operations on `GInteractions`
