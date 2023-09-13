@@ -82,10 +82,10 @@
 <!-- badges: end -->
 <p><code>plyinteractions</code> provides a consistent interface for importing and wrangling genomic interactions from <code>pairs</code> and <code>bedpe</code> files into <code>GInteractions</code> in <code>R</code>.</p>
 <p>The package follows the grammar of tidy genomic data transformation defined by <a href="https://www.bioconductor.org/packages/plyranges.html" class="external-link"><code>plyranges</code></a>, itself based on <a href="https://dplyr.tidyverse.org/" class="external-link"><code>dplyr</code></a> and <a href="https://rlang.r-lib.org/" class="external-link"><code>rlang</code></a>.</p>
-<p>The operations currently available for <code>GInteractions</code> objects are:</p>
+<p>Tidy operations currently supported are:</p>
 <ul>
 <li>
-<p><code>dplyr</code> verbs:</p>
+<p><code>dplyr</code> verbs (for <code>GInteractions</code> and <code>GroupedGInteractions</code>):</p>
 <ul>
 <li>Group genomic interactions with <code>group_by</code>;</li>
 <li>Summarize grouped genomic interactions with <code>summarize</code>;</li>
@@ -98,13 +98,24 @@
 </ul>
 </li>
 <li>
-<p><code>plyranges</code> verbs:</p>
+<p><code>plyranges</code> verbs (for <code>PinnedGInteractions</code> and <code>AnchoredPinnedGInteractions</code>):</p>
 <ul>
 <li>Stretch specific anchors of genomic interactions to a given width with <code>stretch</code>;</li>
 <li>
 <code>anchor_*</code> functions to control how stretching is performed;</li>
 <li>Shift specific anchors of genomic interactions with <code>shift</code>;</li>
 <li>Obtain flanking <code>GRanges</code> from specific anchors of genomic interactions with <code>flank</code>.</li>
+</ul>
+</li>
+<li>
+<p>Overlapping operations (for <code>GInteractions</code> and <code>PinnedGInteractions</code>):</p>
+<ul>
+<li><code>find_overlaps</code></li>
+<li><code>count_overlaps</code></li>
+<li>
+<code>filter_by_overlaps</code> and <code>filter_by_non_overlaps</code>
+</li>
+<li><code>join_overlap_left</code></li>
 </ul>
 </li>
 </ul>
