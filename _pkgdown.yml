@@ -39,6 +39,7 @@ reference:
   - ginteractions-find-overlaps
   - ginteractions-count-overlaps
   - ginteractions-filter-overlaps
+  - ginteractions-join-overlap-left
 - title: "Pinning GInteractions"
   contents: 
   - pin
