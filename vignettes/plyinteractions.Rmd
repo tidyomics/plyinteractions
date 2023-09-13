@@ -392,6 +392,87 @@ gi |> slice(1, 2)
 gi |> slice(-3)
 ```
 
+# Overlapping operations on `GInteractions`
+
+Several operlapping functions defined in `plyranges` are available for 
+`GInteractions`: 
+
+- `find_overlaps`;
+- `count_overlaps`;
+- `filter_by_overlaps` and `filter_by_non_overlaps`;
+- `join_overlap_left`.
+
+All these functions can take a `GInteractions` query and a `GRanges` subject
+to perform overlapping operations, and `maxgap` and `minoverlap` arguments 
+are available to refine the query. 
+
+These functions are **unstranded** by default. `find_overlaps`, 
+`count_overlaps` and `join_overlap_left` functions have `*_directed` 
+counterparts for when strandness is required. 
+
+## Overlapping `GInteractions`
+
+```{r}
+gr <- GRanges(c("chr1:25-30:-", "chr2:16-20:+"))
+gi$id <- seq_len(length(gi))
+gr$id <- seq_len(length(gr))
+
+find_overlaps(gi, gr)
+
+find_overlaps_directed(gi, gr)
+
+count_overlaps(gi, gr)
+
+count_overlaps_directed(gi, gr)
+
+filter_by_overlaps(gi, gr)
+
+filter_by_non_overlaps(gi, gr)
+
+join_overlap_left(gi, gr)
+
+join_overlap_left_directed(gi, gr)
+```
+
+## Overlapping pinned `GInteractions`
+
+`PinnedGInteractions` can also be used in overlapping functions. In this case, 
+only the pinned anchors are used when computing overlaps. 
+
+```{r}
+gi |> pin_by("first") |> find_overlaps(gr)
+
+gi |> pin_by("second") |> find_overlaps(gr)
+
+gi |> pin_by("first") |> find_overlaps_directed(gr)
+
+gi |> pin_by("second") |> find_overlaps_directed(gr)
+
+gi |> pin_by("first") |> count_overlaps(gr)
+
+gi |> pin_by("second") |> count_overlaps(gr)
+
+gi |> pin_by("first") |> count_overlaps_directed(gr)
+
+gi |> pin_by("second") |> count_overlaps_directed(gr)
+
+gi |> pin_by("first") |> filter_by_overlaps(gr)
+
+gi |> pin_by("second") |> filter_by_overlaps(gr)
+
+gi |> pin_by("first") |> filter_by_non_overlaps(gr)
+
+gi |> pin_by("second") |> filter_by_non_overlaps(gr)
+
+gi |> pin_by("first") |> join_overlap_left(gr)
+
+gi |> pin_by("second") |> join_overlap_left(gr)
+
+gi |> pin_by("first") |> join_overlap_left_directed(gr)
+
+gi |> pin_by("second") |> join_overlap_left_directed(gr)
+```
+
 # Citing `plyinteractions`
 
 We hope that `r Biocpkg("plyinteractions")` will be useful for your research. 
