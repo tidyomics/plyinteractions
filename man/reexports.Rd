@@ -38,6 +38,8 @@
 \alias{count_overlaps_directed}
 \alias{filter_by_overlaps}
 \alias{filter_by_non_overlaps}
+\alias{join_overlap_left}
+\alias{join_overlap_left_directed}
 \title{Objects exported from other packages}
 \value{
 Depending on the re-exported function
@@ -53,6 +55,6 @@ below to see their documentation.
 \describe{
   \item{dplyr}{\code{\link[dplyr]{arrange}}, \code{\link[dplyr]{count}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{group_data}}, \code{\link[dplyr:group_data]{group_indices}}, \code{\link[dplyr:group_data]{group_keys}}, \code{\link[dplyr:group_data]{group_rows}}, \code{\link[dplyr:group_data]{group_size}}, \code{\link[dplyr:group_data]{group_vars}}, \code{\link[dplyr:group_data]{groups}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr:group_data]{n_groups}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr]{summarise}}, \code{\link[dplyr:summarise]{summarize}}, \code{\link[dplyr:count]{tally}}, \code{\link[dplyr:group_by]{ungroup}}}
 
-  \item{plyranges}{\code{\link[plyranges:ranges-anchor]{anchor}}, \code{\link[plyranges:ranges-anchor]{anchor_3p}}, \code{\link[plyranges:ranges-anchor]{anchor_5p}}, \code{\link[plyranges:ranges-anchor]{anchor_center}}, \code{\link[plyranges:ranges-anchor]{anchor_end}}, \code{\link[plyranges:ranges-anchor]{anchor_start}}, \code{\link[plyranges:ranges-count-overlaps]{count_overlaps}}, \code{\link[plyranges:ranges-count-overlaps]{count_overlaps_directed}}, \code{\link[plyranges:ranges-filter-overlaps]{filter_by_non_overlaps}}, \code{\link[plyranges:ranges-filter-overlaps]{filter_by_overlaps}}, \code{\link[plyranges:ranges-overlaps]{find_overlaps}}, \code{\link[plyranges:ranges-overlaps]{find_overlaps_directed}}, \code{\link[plyranges]{stretch}}, \code{\link[plyranges:ranges-anchor]{unanchor}}}
+  \item{plyranges}{\code{\link[plyranges:ranges-anchor]{anchor}}, \code{\link[plyranges:ranges-anchor]{anchor_3p}}, \code{\link[plyranges:ranges-anchor]{anchor_5p}}, \code{\link[plyranges:ranges-anchor]{anchor_center}}, \code{\link[plyranges:ranges-anchor]{anchor_end}}, \code{\link[plyranges:ranges-anchor]{anchor_start}}, \code{\link[plyranges:ranges-count-overlaps]{count_overlaps}}, \code{\link[plyranges:ranges-count-overlaps]{count_overlaps_directed}}, \code{\link[plyranges:ranges-filter-overlaps]{filter_by_non_overlaps}}, \code{\link[plyranges:ranges-filter-overlaps]{filter_by_overlaps}}, \code{\link[plyranges:ranges-overlaps]{find_overlaps}}, \code{\link[plyranges:ranges-overlaps]{find_overlaps_directed}}, \code{\link[plyranges:overlap-joins]{join_overlap_left}}, \code{\link[plyranges:overlap-joins]{join_overlap_left_directed}}, \code{\link[plyranges]{stretch}}, \code{\link[plyranges:ranges-anchor]{unanchor}}}
 }}
 

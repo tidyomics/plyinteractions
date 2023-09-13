@@ -11,9 +11,9 @@ The package follows the grammar of tidy genomic data transformation defined by
 itself based on [`dplyr`](https://dplyr.tidyverse.org/) 
 and [`rlang`](https://rlang.r-lib.org/). 
 
-The operations currently available for `GInteractions` objects are: 
+Tidy operations currently supported are: 
 
-- `dplyr` verbs: 
+- `dplyr` verbs (for `GInteractions` and `GroupedGInteractions`): 
 
   - Group genomic interactions with `group_by`; 
   - Summarize grouped genomic interactions with `summarize`; 
@@ -28,12 +28,22 @@ The operations currently available for `GInteractions` objects are:
   - Order genomic interactions with `arrange` using categorical/numerical 
   variables. 
 
-- `plyranges` verbs: 
+
+- `plyranges` verbs (for `PinnedGInteractions` and `AnchoredPinnedGInteractions`): 
 
   - Stretch specific anchors of genomic interactions to a given width with `stretch`;
   - `anchor_*` functions to control how stretching is performed; 
   - Shift specific anchors of genomic interactions with `shift`;
   - Obtain flanking `GRanges` from specific anchors of genomic interactions with `flank`.
+
+
+- Overlapping operations (for `GInteractions` and `PinnedGInteractions`): 
+
+  - `find_overlaps`
+  - `count_overlaps`
+  - `filter_by_overlaps` and `filter_by_non_overlaps`
+  - `join_overlap_left`
+
 
 ## Installation
 

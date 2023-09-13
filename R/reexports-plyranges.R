@@ -67,3 +67,13 @@ plyranges::filter_by_overlaps
 #' @importFrom plyranges filter_by_non_overlaps
 #' @export
 plyranges::filter_by_non_overlaps
+
+#' @rdname reexports
+#' @importFrom plyranges join_overlap_left
+#' @export
+plyranges::join_overlap_left
+
+#' @rdname reexports
+#' @importFrom plyranges join_overlap_left_directed
+#' @export
+plyranges::join_overlap_left_directed

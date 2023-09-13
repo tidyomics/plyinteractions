@@ -66,6 +66,7 @@ Collate:
     'group_data.R'
     'group_by.R'
     'internals.R'
+    'join-overlap-left.R'
     'methods-show.R'
     'mutate.R'
     'pin.R'
