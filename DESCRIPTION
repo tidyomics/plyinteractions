@@ -32,7 +32,6 @@ Imports:
     methods, 
     utils
 Suggests: 
-    HiContactsData,
     rtracklayer,
     BiocStyle,
     covr,

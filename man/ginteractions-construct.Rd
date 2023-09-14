@@ -100,7 +100,7 @@ data.frame(type = "cis", count = 3) |>
 # 4. GInteractions from a real like pairs files
 ####################################################################
 
-pairsf <- HiContactsData::HiContactsData('yeast_wt', 'pairs.gz')
+pairsf <- system.file('extdata', 'pairs.gz', package = 'plyinteractions')
 pairs <- read.table(pairsf, comment.char = '#', header = FALSE)
 head(pairs)
 pairs |> 
