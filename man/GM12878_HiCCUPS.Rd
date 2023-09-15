@@ -6,8 +6,6 @@
 \title{Loops identified in GM12878 with HiCCUPS}
 \format{
 \subsection{\code{GM12878_HiCCUPS}}{
-
-A \code{GInteractions} object
 }
 }
 \source{
@@ -15,6 +13,9 @@ A \code{GInteractions} object
 }
 \usage{
 GM12878_HiCCUPS
+}
+\value{
+A \code{GInteractions} object
 }
 \description{
 File obtained from GEO entry \code{GSE63525}
@@ -25,4 +26,4 @@ A 3D map of the human genome at kilobase resolution
 reveals principles of chromatin looping.
 Cell 2014 Dec 18;159(7):1665-80. PMID: 25497547
 }
-\keyword{datasets}
+\keyword{internal}

@@ -2,39 +2,81 @@
 % Please edit documentation in R/annotate.R
 \name{ginteractions-annotate}
 \alias{ginteractions-annotate}
+\alias{annotate}
 \alias{annotate,GInteractions,GRanges,character-method}
+\alias{annotate_directed}
+\alias{annotate_directed,GInteractions,GRanges,character-method}
 \title{Annotate both anchors of a GInteractions}
 \usage{
-annotate(x, y, label, ...)
+annotate(x, y, by)
 
-\S4method{annotate}{GInteractions,GRanges,character}(x, y, label)
+\S4method{annotate}{GInteractions,GRanges,character}(x, y, by)
+
+annotate_directed(x, y, by)
+
+\S4method{annotate_directed}{GInteractions,GRanges,character}(x, y, by)
 }
 \arguments{
 \item{x}{a GInteractions object}
 
 \item{y}{a GRanges object to extract annotations from}
 
-\item{label}{Column name from \code{y} to use to extract annotations}
+\item{by}{Column name from \code{y} to use to extract annotations}
 }
 \value{
 a GInteractions object with two extra metadata columns named
-\code{annotation_first} and \code{annotation_second}.
+\code{by.1} and \code{by.2}.
 }
 \description{
-Annotate both anchors of a GInteractions
+For each interaction in a \code{GInteractions} object, \code{annotate} returns
+the pairs of annotations from the \code{GRanges} object it overlaps with.
 }
 \examples{
-data(GM12878_HiCCUPS, package = 'plyinteractions')
-annots <- AnnotationHub::AnnotationHub()[['AH75190']]
-annots <- lapply(annots, function(x) {seqlevelsStyle(x) <- "NCBI" ; x})
+####################################################################
+# 1. Basic example
+####################################################################
 
-annotate(GM12878_HiCCUPS, annots$fullGenome, label = 'theRegion') |> 
-   count(annotation_first, annotation_second) |> 
-   as.data.frame() |> 
-   dplyr::arrange(desc(n))
+gi <- read.table(text = "  
+    chr1 11 20 - chr1 21 30 + 
+    chr1 21 30 + chr2 51 60 +",  
+    col.names = c("seqnames1", "start1", "end1", "strand1", "seqnames2", "start2", "end2", "strand2")
+) |> as_ginteractions() 
 
-annotate(GM12878_HiCCUPS, annots$codingGenome, label = 'theRegion') |> 
-   count(annotation_first, annotation_second) |> 
+gr <- GenomicRanges::GRanges(c("chr1:20-30:+", "chr2:55-65:+")) |>
+    plyranges::mutate(id = 1:2)
+
+annotate(gi, gr, by = 'id')
+
+annotate_directed(gi, gr, by = 'id')
+
+####################################################################
+# 2. Match loops with tiled genomic bins
+####################################################################
+
+loops <- GM12878_HiCCUPS |> 
+    pin_by('first') |> 
+    anchor_center() |> 
+    mutate(width1 = 500) |> 
+    pin_by('second') |> 
+    anchor_center() |> 
+    mutate(width2 = 500)
+
+genomic_bins <- GenomeInfoDb::getChromInfoFromUCSC(
+    'hg19', assembled.molecules.only = TRUE, as.Seqinfo = TRUE
+) |> 
+    GenomicRanges::tileGenome(tilewidth = 10000) |> 
+    unlist() |> 
+    plyranges::mutate(binID = seq_len(plyranges::n()))
+
+annotate(loops, genomic_bins, by = 'binID') |> 
+    select(starts_with('binID'))
+
+####################################################################
+# 3. Annotate interactions by a set of regulatory elements
+####################################################################
+
+annotate(ce10_ARCC, ce10_REs, by = 'annot') |> 
+   count(annot.1, annot.2) |> 
    as.data.frame() |> 
    dplyr::arrange(desc(n))
 }

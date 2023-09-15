@@ -40,6 +40,8 @@ reference:
   - ginteractions-count-overlaps
   - ginteractions-filter-overlaps
   - ginteractions-join-overlap-left
+- title: "Annotating GInteractions"
+  contents: 
   - ginteractions-annotate
 - title: "Pinning GInteractions"
   contents: 

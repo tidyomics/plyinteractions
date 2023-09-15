@@ -1,9 +1,9 @@
 Package: plyinteractions
 Title: Extending tidy verbs to genomic interactions
-Description: A dplyr-like interface for interacting with the common Bioconductor 
-    class GInteractions. By providing a grammatical
-    and consistent way of manipulating these classes their accessiblity for new
-    Bioconductor users is hopefully increased.
+Description: Operate on `GInteractions` objects as tabular data using 
+    `dplyr`-like verbs. The functions and methods in `plyinteractions`
+    provide a grammatical approach to manipulate `GInteractions`, to 
+    facilitate their integration in genomic analysis workflows. 
 Version: 0.98.0
 Date: 2023-08-21
 Authors@R: 
@@ -81,3 +81,6 @@ Collate:
     'slice.R'
     'stretch.R'
     'summarize.R'
+LazyData: true
+Depends: 
+    R (>= 2.10)
