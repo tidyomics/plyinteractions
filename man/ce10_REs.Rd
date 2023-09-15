@@ -5,8 +5,7 @@
 \alias{ce10_REs}
 \title{Annotated regulatory elements in C. elegans}
 \format{
-\subsection{\code{ce10_REs}}{
-}
+An object of class \code{GRanges} of length 42245.
 }
 \source{
 \url{https://genome.cshlp.org/content/early/2021/12/21/gr.275669.121}

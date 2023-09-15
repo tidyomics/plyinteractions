@@ -5,8 +5,7 @@
 \alias{ce10_ARCC}
 \title{Interactions identified in L3 C. elegans by ARC-C}
 \format{
-\subsection{\code{ce10_ARCC}}{
-}
+An object of class \code{GInteractions} of length 14992.
 }
 \source{
 \url{https://genome.cshlp.org/content/early/2021/12/21/gr.275669.121}

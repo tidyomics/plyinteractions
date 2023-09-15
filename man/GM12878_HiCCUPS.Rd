@@ -5,8 +5,7 @@
 \alias{GM12878_HiCCUPS}
 \title{Loops identified in GM12878 with HiCCUPS}
 \format{
-\subsection{\code{GM12878_HiCCUPS}}{
-}
+An object of class \code{GInteractions} of length 9448.
 }
 \source{
 \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63525}
