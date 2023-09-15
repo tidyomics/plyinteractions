@@ -19,6 +19,15 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/GM12878_HiCCUPS.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ce10_ARCC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ce10_REs.html</loc>
+  </url>
+  <url>
     <loc>/reference/delegating-ginteractions-class.html</loc>
   </url>
   <url>
@@ -50,6 +59,9 @@
   </url>
   <url>
     <loc>/reference/ginteractions-anchor.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ginteractions-annotate.html</loc>
   </url>
   <url>
     <loc>/reference/ginteractions-construct.html</loc>
