@@ -3,15 +3,22 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`plyinteractions` provides a consistent interface for importing and wrangling 
-genomic interactions from `pairs` and `bedpe` files into `GInteractions` in `R`. 
+`plyinteractions` provides a consistent interface for importing genomic 
+interactions from `pairs` and `bedpe` files into `GInteractions` objects 
+in `R` and for manipulating them using a tidy grammar. 
 
-The package follows the grammar of tidy genomic data transformation defined by 
-[`plyranges`](https://www.bioconductor.org/packages/plyranges.html), 
-itself based on [`dplyr`](https://dplyr.tidyverse.org/) 
-and [`rlang`](https://rlang.r-lib.org/). 
+[`plyranges`](https://www.bioconductor.org/packages/release/bioc/html/plyranges.html)
+operates on genomic ranges (e.g. implemented as `GRanges` 
+objects in `Bioconductor`) and introduces a tidy grammar for manipulating 
+them. Genomic interactions (implemented as `GInteractions` 
+objects in `Bioconductor`) are more complex than genomic ranges in that each 
+observation (row) corresponds to *a pair of two genomic ranges*, each one 
+with its own metadata. `plyinteractions` extends `plyranges` syntax to 
+manipulate genomic interactions in `R` using `dplyr` verbs and tidy operations. 
 
-Tidy operations currently supported are: 
+The grammar of tidy genomic data transformation defined in 
+[`plyranges`](https://www.bioconductor.org/packages/release/bioc/html/plyranges.html) 
+and available for `GInteractions` currently supports: 
 
 - `dplyr` verbs (for `GInteractions` and `GroupedGInteractions`): 
 
@@ -36,6 +43,15 @@ Tidy operations currently supported are:
   - Shift specific anchors of genomic interactions with `shift`;
   - Obtain flanking `GRanges` from specific anchors of genomic interactions with `flank`.
 
+***Note:*** In the genomic interaction field, the *"anchor"* term typically 
+refers to the two genomic loci brought together into an *interaction*. In 
+`plyranges`, the term `anchor` is used to specify which "part" of a genomic 
+locus is fixed (e.g. "5p", 3p", "center") and, incidently, which one can be modified
+by `plyranges` verbs.  
+
+For more details on `GInteractions` "anchors" vs. `plyranges` `anchor`ing 
+system, read 
+[this section]([#pinned-and-anchored-ginteractions](https://tidyomics.github.io/plyinteractions/articles/plyinteractions.html#pinned-and-anchored-ginteractions)) from our vignette. 
 
 - Overlapping operations (for `GInteractions` and `PinnedGInteractions`): 
 

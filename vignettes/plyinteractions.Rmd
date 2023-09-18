@@ -166,6 +166,8 @@ anchors2(gi)
 **Important note**: the term **_anchors_**, when used for `GInteractions`, 
 refers to the "left-hand" or "right-hand" `GRanges` when looking at genomic 
 interactions. This is different from the `anchor` term used in `plyranges`. 
+This is due to the fact that *"anchor"* is used in the chromatin interaction 
+field to refer to the ends of a potential chromatin loop.
 
 ### Core `GInteractions` fields
 
