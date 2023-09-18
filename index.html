@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.98.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.98.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,9 +81,9 @@
 </div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p><code>plyinteractions</code> provides a consistent interface for importing and wrangling genomic interactions from <code>pairs</code> and <code>bedpe</code> files into <code>GInteractions</code> in <code>R</code>.</p>
-<p>The package follows the grammar of tidy genomic data transformation defined by <a href="https://www.bioconductor.org/packages/plyranges.html" class="external-link"><code>plyranges</code></a>, itself based on <a href="https://dplyr.tidyverse.org/" class="external-link"><code>dplyr</code></a> and <a href="https://rlang.r-lib.org/" class="external-link"><code>rlang</code></a>.</p>
-<p>Tidy operations currently supported are:</p>
+<p><code>plyinteractions</code> provides a consistent interface for importing genomic interactions from <code>pairs</code> and <code>bedpe</code> files into <code>GInteractions</code> objects in <code>R</code> and for manipulating them using a tidy grammar.</p>
+<p><a href="https://www.bioconductor.org/packages/release/bioc/html/plyranges.html" class="external-link"><code>plyranges</code></a> operates on genomic ranges (e.g. implemented as <code>GRanges</code> objects in <code>Bioconductor</code>) and introduces a tidy grammar for manipulating them. Genomic interactions (implemented as <code>GInteractions</code> objects in <code>Bioconductor</code>) are more complex than genomic ranges in that each observation (row) corresponds to <em>a pair of two genomic ranges</em>, each one with its own metadata. <code>plyinteractions</code> extends <code>plyranges</code> syntax to manipulate genomic interactions in <code>R</code> using <code>dplyr</code> verbs and tidy operations.</p>
+<p>The grammar of tidy genomic data transformation defined in <a href="https://www.bioconductor.org/packages/release/bioc/html/plyranges.html" class="external-link"><code>plyranges</code></a> and available for <code>GInteractions</code> currently supports:</p>
 <ul>
 <li>
 <p><code>dplyr</code> verbs (for <code>GInteractions</code> and <code>GroupedGInteractions</code>):</p>
@@ -108,6 +108,10 @@
 <li>Obtain flanking <code>GRanges</code> from specific anchors of genomic interactions with <code>flank</code>.</li>
 </ul>
 </li>
+</ul>
+<p><strong><em>Note:</em></strong> In the genomic interaction field, the <em>“anchor”</em> term typically refers to the two genomic loci brought together into an <em>interaction</em>. In <code>plyranges</code>, the term <code>anchor</code> is used to specify which “part” of a genomic locus is fixed (e.g. “5p”, 3p”, “center”) and, incidently, which one can be modified by <code>plyranges</code> verbs.</p>
+<p>For more details on <code>GInteractions</code> “anchors” vs. <code>plyranges</code> <code>anchor</code>ing system, read <a href="%5B#pinned-and-anchored-ginteractions%5D(https://tidyomics.github.io/plyinteractions/articles/plyinteractions.html#pinned-and-anchored-ginteractions)" class="external-link">this section</a> from our vignette.</p>
+<ul>
 <li>
 <p>Overlapping operations (for <code>GInteractions</code> and <code>PinnedGInteractions</code>):</p>
 <ul>
