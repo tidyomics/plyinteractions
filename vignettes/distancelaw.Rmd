@@ -56,16 +56,16 @@ pairs
 ## Estimating pairs filtering thresholds
 
 We can first *in silico* digest the mouse genome to obtain the coordinates 
-of each genomic fragment after digestion by **DpnII**. 
+of each genomic fragment after digestion by **DpnII and HinfI**. 
 
 ```{r}
-## Prepare DpnII-digested genomic fragments
+## Prepare DpnII/HinfI-digested genomic fragments
 library(purrr)
 library(GenomicRanges)
 library(Biostrings)
 library(plyranges)
 genome <- BSgenome.Mmusculus.UCSC.mm10::BSgenome.Mmusculus.UCSC.mm10
-cutter <- DNAStringSet(c("GATC", "GANTC"))  ## DpnII cutting site
+cutter <- DNAStringSet(c("GATC", "GANTC"))  ## DpnII/HinfI cutting site
 fragments <- BiocParallel::bplapply(BPPARAM = BiocParallel::MulticoreParam(workers = 8), 
     names(genome), function(.x) {
         seq <- genome[[.x]]
@@ -192,7 +192,7 @@ dat <- filtered_pairs |>
     group_by(s) |> 
     count(name = "n") |>
     as_tibble() |> 
-    mutate(Ps = n/sum(n)) |> 
+    mutate(Ps = n/sum(n)) 
 p <- ggplot(dat, aes(x = s, y = Ps)) + geom_line()
 ```
 
@@ -204,7 +204,7 @@ in both dimensions.
 Swtiching to a `log` scale in `ggplot2` is very easy.
 
 ```{r}
-p <- ggplot(dat, aes(x = s, y = Ps)) + geom_line() + 
+ggplot(dat, aes(x = s, y = Ps)) + geom_line() + 
     scale_x_log10() + scale_y_log10() + 
     annotation_logticks()
 ```
@@ -225,8 +225,8 @@ bins_widths <- lead(bins_breaks) - bins_breaks
 dat <- filtered_pairs |> 
     mutate(s = abs(end2 - start1)) |> 
     mutate(
-        binned_s = breaks[as.numeric(cut(s, bins_breaks))], 
-        bin_width = breaks_widths[as.numeric(cut(s, bins_breaks))]
+        binned_s = bins_breaks[as.numeric(cut(s, bins_breaks))], 
+        bin_width = bins_widths[as.numeric(cut(s, bins_breaks))]
     ) |> 
     group_by(binned_s, bin_width) |> 
     count(name = "n") |>
