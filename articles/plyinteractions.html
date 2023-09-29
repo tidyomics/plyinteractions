@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.98.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>plyinteractions</h1>
             
-            <h4 data-toc-skip class="date">18 September 2023</h4>
+            <h4 data-toc-skip class="date">29 September 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/plyinteractions/blob/HEAD/vignettes/plyinteractions.Rmd" class="external-link"><code>vignettes/plyinteractions.Rmd</code></a></small>
       <div class="d-none name"><code>plyinteractions.Rmd</code></div>
@@ -179,7 +179,7 @@ can easily parse a <code>data.frame</code> into a
 and readily coerced into <code>GInteractions</code> with
 <code>as_ginteractions</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pairs_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'pairs.gz'</span>, package <span class="op">=</span> <span class="st">'plyinteractions'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">pairs_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'pairs.gz'</span>, package <span class="op">=</span> <span class="st">'plyinteractions'</span><span class="op">)</span> </span>
 <span><span class="va">pairs_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.delim</a></span><span class="op">(</span><span class="va">pairs_file</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">FALSE</span>, comment.char <span class="op">=</span> <span class="st">"#"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pairs_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                           V1 V2  V3 V4     V5 V6 V7   V8   V9</span></span>
@@ -196,7 +196,7 @@ and readily coerced into <code>GInteractions</code> with
 <span>    keep.extra.columns <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">pairs</span></span>
-<span><span class="co">#&gt; GInteractions object with 50001 interactions and 0 metadata columns:</span></span>
+<span><span class="co">#&gt; GInteractions object with 50000 interactions and 0 metadata columns:</span></span>
 <span><span class="co">#&gt;           seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span></span>
 <span><span class="co">#&gt;               &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span></span>
 <span><span class="co">#&gt;       [1]        II       105       + ---        II     48548       -</span></span>
@@ -205,13 +205,13 @@ and readily coerced into <code>GInteractions</code> with
 <span><span class="co">#&gt;       [4]        II       160       + ---        II     26124       -</span></span>
 <span><span class="co">#&gt;       [5]        II       169       + ---        II     39052       +</span></span>
 <span><span class="co">#&gt;       ...       ...       ...     ... ...       ...       ...     ...</span></span>
+<span><span class="co">#&gt;   [49996]        II     86996       + ---        II    487591       +</span></span>
 <span><span class="co">#&gt;   [49997]        II     86997       + ---        II     96353       -</span></span>
 <span><span class="co">#&gt;   [49998]        II     86997       + ---        II    114748       -</span></span>
 <span><span class="co">#&gt;   [49999]        II     86998       + ---        II     88955       +</span></span>
 <span><span class="co">#&gt;   [50000]        II     86999       + ---        II     87513       +</span></span>
-<span><span class="co">#&gt;   [50001]        II     86999       + ---        II    286876       -</span></span>
 <span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 62912 ranges and 0 metadata columns</span></span>
+<span><span class="co">#&gt;   regions: 62911 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 1 sequence from an unspecified genome; no seqlengths</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -706,9 +706,26 @@ columns:</p>
 <div class="section level3">
 <h3 id="summarizing-columns">Summarizing columns<a class="anchor" aria-label="anchor" href="#summarizing-columns"></a>
 </h3>
-<p>Summarizing grouped GInteractions can be extremely powerful.</p>
+<p>Summarizing grouped <code>GInteractions</code> can be extremely
+powerful.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>same_strand <span class="op">=</span> <span class="va">strand1</span> <span class="op">==</span> <span class="va">strand2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">strand1</span>, <span class="va">strand2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 4 rows and 3 columns</span></span>
+<span><span class="co">#&gt;   strand1 strand2         n</span></span>
+<span><span class="co">#&gt;     &lt;Rle&gt;   &lt;Rle&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; 1       +       +     14046</span></span>
+<span><span class="co">#&gt; 2       +       -     10823</span></span>
+<span><span class="co">#&gt; 3       -       +     10288</span></span>
+<span><span class="co">#&gt; 4       -       -     14843</span></span>
+<span></span>
+<span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>same_strand <span class="op">=</span> <span class="va">strand1</span> <span class="op">==</span> <span class="va">strand2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">tally</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 2 rows and 2 columns</span></span>
+<span><span class="co">#&gt;   same_strand         n</span></span>
+<span><span class="co">#&gt;         &lt;Rle&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; 1       FALSE     21111</span></span>
+<span><span class="co">#&gt; 2        TRUE     28889</span></span>
+<span></span>
+<span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>same_strand <span class="op">=</span> <span class="va">strand1</span> <span class="op">==</span> <span class="va">strand2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
 <span>        neg_strand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">strand1</span> <span class="op">==</span> <span class="st">"-"</span><span class="op">)</span>, </span>
 <span>        pos_strand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">strand1</span> <span class="op">==</span> <span class="st">"+"</span><span class="op">)</span></span>
@@ -716,24 +733,8 @@ columns:</p>
 <span><span class="co">#&gt; DataFrame with 2 rows and 3 columns</span></span>
 <span><span class="co">#&gt;   same_strand neg_strand pos_strand</span></span>
 <span><span class="co">#&gt;         &lt;Rle&gt;  &lt;integer&gt;  &lt;integer&gt;</span></span>
-<span><span class="co">#&gt; 1       FALSE      10288      10824</span></span>
-<span><span class="co">#&gt; 2        TRUE      14843      14046</span></span>
-<span></span>
-<span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>same_strand <span class="op">=</span> <span class="va">strand1</span> <span class="op">==</span> <span class="va">strand2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">tally</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 2 rows and 2 columns</span></span>
-<span><span class="co">#&gt;   same_strand         n</span></span>
-<span><span class="co">#&gt;         &lt;Rle&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt; 1       FALSE     21112</span></span>
-<span><span class="co">#&gt; 2        TRUE     28889</span></span>
-<span></span>
-<span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">strand1</span>, <span class="va">strand2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 4 rows and 3 columns</span></span>
-<span><span class="co">#&gt;   strand1 strand2         n</span></span>
-<span><span class="co">#&gt;     &lt;Rle&gt;   &lt;Rle&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt; 1       +       +     14046</span></span>
-<span><span class="co">#&gt; 2       +       -     10824</span></span>
-<span><span class="co">#&gt; 3       -       +     10288</span></span>
-<span><span class="co">#&gt; 4       -       -     14843</span></span></code></pre></div>
+<span><span class="co">#&gt; 1       FALSE      10288      10823</span></span>
+<span><span class="co">#&gt; 2        TRUE      14843      14046</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="filtering-columns">Filtering columns<a class="anchor" aria-label="anchor" href="#filtering-columns"></a>
@@ -1211,7 +1212,7 @@ to cite the package and the overall approach. Thank you!</p>
 <span><span class="co">#&gt; To cite package 'plyinteractions' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Serizay J (2023). _plyinteractions: Extending tidy verbs to genomic</span></span>
-<span><span class="co">#&gt;   interactions_. R package version 0.98.9,</span></span>
+<span><span class="co">#&gt;   interactions_. R package version 0.99.0,</span></span>
 <span><span class="co">#&gt;   &lt;https://github.com/js2264/plyinteractions&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
@@ -1220,7 +1221,7 @@ to cite the package and the overall approach. Thank you!</p>
 <span><span class="co">#&gt;     title = {plyinteractions: Extending tidy verbs to genomic interactions},</span></span>
 <span><span class="co">#&gt;     author = {Jacques Serizay},</span></span>
 <span><span class="co">#&gt;     year = {2023},</span></span>
-<span><span class="co">#&gt;     note = {R package version 0.98.9},</span></span>
+<span><span class="co">#&gt;     note = {R package version 0.99.0},</span></span>
 <span><span class="co">#&gt;     url = {https://github.com/js2264/plyinteractions},</span></span>
 <span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
@@ -1284,7 +1285,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-09-18</span></span>
+<span><span class="co">#&gt;  date     2023-09-29</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -1310,13 +1311,13 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  desc                   1.4.2     <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  digest                 0.6.33    <span style="color: #555555;">2023-07-07</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  dplyr                  1.1.3     <span style="color: #555555;">2023-09-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  evaluate               0.21      <span style="color: #555555;">2023-05-05</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  evaluate               0.22      <span style="color: #555555;">2023-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  fansi                  1.0.4     <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  fastmap                1.1.1     <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  fs                     1.6.3     <span style="color: #555555;">2023-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  generics               0.1.3     <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDb         * 1.37.4    <span style="color: #555555;">2023-09-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  GenomeInfoDbData       1.2.10    <span style="color: #555555;">2023-08-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDbData       1.2.10    <span style="color: #555555;">2023-09-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomicAlignments      1.37.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomicRanges        * 1.53.1    <span style="color: #555555;">2023-05-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  glue                   1.6.2     <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -1329,16 +1330,16 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  knitr                  1.44      <span style="color: #555555;">2023-09-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  lattice                0.21-8    <span style="color: #555555;">2023-04-05</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  lifecycle              1.0.3     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  lubridate              1.9.2     <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  lubridate              1.9.3     <span style="color: #555555;">2023-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  magrittr               2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  Matrix                 1.6-1     <span style="color: #555555;">2023-08-14</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  Matrix                 1.6-1.1   <span style="color: #555555;">2023-09-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  MatrixGenerics       * 1.13.1    <span style="color: #555555;">2023-07-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  matrixStats          * 1.0.0     <span style="color: #555555;">2023-06-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  memoise                2.0.1     <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pillar                 1.9.0     <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig              2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgdown                2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  plyinteractions      * 0.98.9    <span style="color: #555555;">2023-09-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  plyinteractions      * 0.99.0    <span style="color: #555555;">2023-09-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  plyr                   1.8.8     <span style="color: #555555;">2022-11-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  plyranges              1.21.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  purrr                  1.0.2     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -1355,7 +1356,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  Rsamtools              2.17.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  rtracklayer            1.61.1    <span style="color: #555555;">2023-08-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  S4Arrays               1.1.6     <span style="color: #555555;">2023-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  S4Vectors            * 0.39.1    <span style="color: #555555;">2023-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  S4Vectors            * 0.39.2    <span style="color: #555555;">2023-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  sass                   0.4.7     <span style="color: #555555;">2023-07-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  sessioninfo          * 1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  SparseArray            1.1.12    <span style="color: #555555;">2023-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -1369,7 +1370,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  timechange             0.2.0     <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  utf8                   1.2.3     <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  vctrs                  0.6.3     <span style="color: #555555;">2023-06-14</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  withr                  2.5.0     <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  withr                  2.5.1     <span style="color: #555555;">2023-09-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  xfun                   0.40      <span style="color: #555555;">2023-08-09</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  XML                    3.99-0.14 <span style="color: #555555;">2023-03-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  xml2                   1.3.5     <span style="color: #555555;">2023-07-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -1435,7 +1436,7 @@ Computing</em>. R Foundation for Statistical Computing. Vienna, Austria,
 <p>
 <a id="bib-serizay2023plyinteractions"></a><a href="#cite-serizay2023plyinteractions">[8]</a><cite>
 J. Serizay. <em>plyinteractions: Extending tidy verbs to genomic
-interactions</em>. R package version 0.98.9. 2023. URL:
+interactions</em>. R package version 0.99.0. 2023. URL:
 <a href="https://github.com/js2264/plyinteractions" class="external-link">https://github.com/js2264/plyinteractions</a>.</cite>
 </p>
 <p>
