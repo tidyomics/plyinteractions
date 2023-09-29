@@ -1,0 +1,267 @@
+---
+title: "Hi-C arithmetic with plyinteractions"
+output: 
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_folding: show
+date: "`r doc_date()`"
+package: "`r pkg_ver('plyinteractions')`"
+vignette: >
+  %\VignetteIndexEntry{HiCarithmetic}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
+)
+```
+
+```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
+## Pre-load libraries
+library(tidyverse)
+library(plyinteractions)
+```
+
+The `r Biocpkg("plyinteractions")` package facilitates data aggregation, for 
+up to hundreds of thousands and even millions of 
+genomic interactions. In this vignette, we explore two different use cases 
+which can arise when exploring Hi-C data stored in `pairs` files. 
+
+We will use a real-life `pairs` file provided by the `4DN` Consortium. This 
+file has been generated from processing Hi-C performed in mouse from brain 
+cell primary culture during neural development (Bonev et al., Cell 2017). Pairs
+have been filtered to only those mapped over `chr13`. 
+
+```{r}
+library(tidyverse)
+library(plyinteractions)
+
+## Importing it in R
+pairs_file <- HiContactsData::HiContactsData('mESCs', 'pairs.gz')
+pairs_df <- vroom::vroom(pairs_file, delim = "\t", col_names = FALSE, comment = "#") |> 
+    set_names(c(
+        "ID", "seqnames1", "start1", "seqnames2", "start2", "strand1", "strand2"
+    ))
+pairs <- as_ginteractions(pairs_df, end1 = start1, end2 = start2, keep.extra.columns = TRUE)
+pairs
+```
+
+## Estimating pairs filtering thresholds
+
+We can first *in silico* digest the mouse genome to obtain the coordinates 
+of each genomic fragment after digestion by **DpnII**. 
+
+```{r}
+## Prepare DpnII-digested genomic fragments
+library(purrr)
+library(GenomicRanges)
+library(Biostrings)
+library(plyranges)
+genome <- BSgenome.Mmusculus.UCSC.mm10::BSgenome.Mmusculus.UCSC.mm10
+cutter <- DNAStringSet(c("GATC", "GANTC"))  ## DpnII cutting site
+fragments <- BiocParallel::bplapply(BPPARAM = BiocParallel::MulticoreParam(workers = 8), 
+    names(genome), function(.x) {
+        seq <- genome[[.x]]
+        mids <- lapply(
+            cutter, 
+            function(cutsite) {
+                hits <- matchPattern(cutsite, seq, fixed = "subject")
+                start(hits) + {end(hits) - start(hits)}
+            }
+        ) |> unlist() |> sort()
+        GRanges(seqnames = .x, IRanges(
+            start = c(1, mids), end = c(mids-1, length(seq))
+        ))
+    }
+) |> 
+    set_names(names(genome)) |> 
+    GRangesList() |> 
+    unlist()
+fragments$binID <- seq_along(fragments)
+```
+
+We can then use the `annotate` function from `plyinteractions` to recover,
+for each interaction, which restriction enzyme fragment each anchor
+overlaps with, and how many restriction enzyme cutting sites are found between 
+them. 
+
+```{r}
+## Annotate for each anchor set which genomic fragment it overlaps with
+annotated_pairs <- pairs |> 
+    annotate(fragments, by = "binID") |> 
+    mutate(n_fragments = binID.2 - binID.1, group = paste0(strand1, strand2))
+annotated_pairs
+```
+
+Next, we can plot the distribution of `strand1` and `strand2` cominations 
+as a function of the number of restriction enzyme cutting sites between 
+anchors of each interaction. 
+
+```{r}
+df <- annotated_pairs |> 
+    head(n = 1e6) |> 
+    group_by(strand1, strand2, n_fragments) |> 
+    count() |> 
+    as_tibble() |> 
+    mutate(group = paste0(strand1, strand2)) |> 
+    select(group, n_fragments, n)
+p <- ggplot(df, aes(x = n_fragments, y = n, group = group, col = group)) + 
+    geom_line() + 
+    geom_point() + 
+    xlim(c(0, 15)) + 
+    scale_y_log10(limits = c(1e3, 5e5)) + 
+    annotation_logticks(sides = 'l') + 
+    theme_bw() + 
+    labs(
+        x = "Number of restriction sites between anchors", 
+        y = "Number of pairs"
+    )
+```
+
+From this distribution, we can see that `--` and `++` pairs have a decreasing 
+frequency over increasing numbers of cut sites between 
+anchors of each interaction. These pairs are unambiguous, as the orientation 
+of each sequenced end can only come from true cutting and religation event, 
+(except the set of `--` and `++` pairs which have `0` cut sites between 
+each anchor, which cannot be explained); all these pairs can be kept. 
+
+The over-representation of `+-` pairs at short distance likely represent 
+uncut fragments subsequently sequenced on each end. The under-representation 
+of `-+` pairs at short distance likely represent self-religated fragments. We
+can estimate a threshold for each of these pairs sets by computing the MAD and 
+expected , as described in 
+[Cournac et al., 2012](https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-13-436). 
+
+```{r}
+filters <- df |> 
+    filter(n_fragments <= 50) |> 
+    arrange(n_fragments) |> 
+    group_by(n_fragments) |> 
+    mutate(median = median(n)) |> 
+    ungroup() |> 
+    mutate(MAD = median(abs(n - median))) |> 
+    mutate(withinMAD = abs(n - median) <= MAD / 0.67449) |> 
+    filter(withinMAD) |> 
+    slice_head(by = group, n = 1) |> 
+    select(group, n_fragments) |> 
+    dplyr::rename(threshold = n_fragments)
+filters
+```
+
+## Filtering pairs using appropriate thresholds
+
+```{r}
+annotated_pairs <- annotated_pairs |> 
+    mutate(threshold = left_join(as_tibble(mcols(annotated_pairs)), filters)$threshold) |> 
+    mutate(type = case_when(
+        group %in% c('--', '++') & n_fragments < threshold ~ "excluded", 
+        group == '+-' & n_fragments < threshold ~ "uncut", 
+        group == '-+' & n_fragments < threshold ~ "religated", 
+        .default = "kept"
+    ))
+mcols(annotated_pairs) |>
+    as_tibble() |> 
+    count(type) |> 
+    mutate(n = scales::percent(n/sum(n)))
+
+filtered_pairs <- filter(annotated_pairs, type == 'kept')
+```
+
+## Computing distance law from pairs
+
+Another typical step when analyzing Hi-C processed data is the modeling of a so-called
+"distance law", (a.k.a "P(s)"), which describes the genomic distance-dependant 
+contact frequency between pairs of genomic loci from a Hi-C experiment. 
+
+We can easily recover the distance between the two anchors of each 
+interaction (noted *s*) and plot the interaction frequency 
+(noted *P(s)*) as a function of this genomic distance. 
+
+### Plotting distance law: first try 
+
+```{r}
+dat <- filtered_pairs |> 
+    mutate(s = abs(end2 - start1)) |> 
+    group_by(s) |> 
+    count(name = "n") |>
+    as_tibble() |> 
+    mutate(Ps = n/sum(n)) |> 
+p <- ggplot(dat, aes(x = s, y = Ps)) + geom_line()
+```
+
+This is not very informative, as the distances span several orders of magnitude
+in both dimensions. 
+
+### Second try: switching to logarithmic scale 
+
+Swtiching to a `log` scale in `ggplot2` is very easy.
+
+```{r}
+p <- ggplot(dat, aes(x = s, y = Ps)) + geom_line() + 
+    scale_x_log10() + scale_y_log10() + 
+    annotation_logticks()
+```
+
+### Third try: aggregating data before plotting
+
+The previous P(s) plot is precise at the base-pair resolution. 
+We can aggregate counts by binned distances: 
+
+```{r}
+# Calculate distance breaks evenly spaced on a log scale (base 1.1)
+x <- 1.1^(1:200-1)
+lmc <- coef(lm(c(1,1161443398)~c(x[1], x[200])))
+bins_breaks <- unique(round(lmc[2]*x + lmc[1]))
+bins_widths <- lead(bins_breaks) - bins_breaks
+
+# Bin distances
+dat <- filtered_pairs |> 
+    mutate(s = abs(end2 - start1)) |> 
+    mutate(
+        binned_s = breaks[as.numeric(cut(s, bins_breaks))], 
+        bin_width = breaks_widths[as.numeric(cut(s, bins_breaks))]
+    ) |> 
+    group_by(binned_s, bin_width) |> 
+    count(name = "n") |>
+    as_tibble() |> 
+    mutate(Ps = n / sum(n) / bin_width)
+
+# Plot results
+p <- ggplot(dat, aes(x = binned_s, y = Ps)) + geom_line() + 
+    scale_x_log10() + scale_y_log10() + 
+    annotation_logticks()
+```
+
+### With some polishing
+
+```{r}
+p <- ggplot(dat, aes(x = binned_s, y = Ps)) + 
+    geom_line() + 
+    scale_x_log10(limits = c(1e3, 1e8)) +    ## This changes x axis to log scale
+    scale_y_log10() +                        ## This changes y axis to log scale
+    annotation_logticks() +                  ## This adds log ticks
+    labs(
+        x = "Genomic distance (s)", 
+        y = "P(s)", 
+        title = "Distance-dependant genomic frequency P(s) in mESC (chr. 13)"
+    ) +                                      ## This fixes axes titles
+    theme_bw()                               ## This changes default plot theme
+```
+
+# Reproducibility 
+
+`R` session information:
+
+```{r reproduce3, echo=FALSE}
+## Session info
+library("sessioninfo")
+options(width = 120)
+session_info()
+```

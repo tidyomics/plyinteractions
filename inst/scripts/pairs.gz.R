@@ -1,0 +1,6 @@
+pairs_file <- HiContactsData::HiContactsData('yeast_wt', 'pairs.gz') 
+processx::run('zcat', args = c(pairs_file, '-k'), stdout = 'tmp.pairs')
+processx::run('head', args = c('-n 50020', "tmp.pairs"), stdout = 'tmp_subset.pairs')
+processx::run('gzip', args = c("tmp_subset.pairs", "--force"))
+processx::run('mv', args = c("tmp_subset.pairs.gz", "inst/extdata/pairs.gz"))
+unlink("tmp.pairs")

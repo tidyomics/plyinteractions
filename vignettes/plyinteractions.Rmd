@@ -113,7 +113,8 @@ tabular data import functions (including `fread` or `vroom` for larger files),
 and readily coerced into `GInteractions` with `as_ginteractions`. 
 
 ```{r}
-pairs_file <- system.file('extdata', 'pairs.gz', package = 'plyinteractions')
+pairs_file <- system.file('extdata', 'pairs.gz', package = 'plyinteractions') |> 
+    gzfile()
 pairs_df <- read.delim(pairs_file, sep = "\t", header = FALSE, comment.char = "#")
 head(pairs_df)
 pairs <- as_ginteractions(pairs_df, 
@@ -329,18 +330,18 @@ gi |> group_by(seqnames2, cis = seqnames1 == seqnames2)
 
 ## Summarizing columns 
 
-Summarizing grouped GInteractions can be extremely powerful. 
+Summarizing grouped `GInteractions` can be extremely powerful. 
 
 ```{r}
+pairs |> count(strand1, strand2)
+
+pairs |> group_by(same_strand = strand1 == strand2) |> tally()
+
 pairs |> group_by(same_strand = strand1 == strand2) |> 
     summarize(
         neg_strand = sum(strand1 == "-"), 
         pos_strand = sum(strand1 == "+")
     )
-
-pairs |> group_by(same_strand = strand1 == strand2) |> tally()
-
-pairs |> count(strand1, strand2)
 ```
 
 ## Filtering columns 
