@@ -113,8 +113,7 @@ tabular data import functions (including `fread` or `vroom` for larger files),
 and readily coerced into `GInteractions` with `as_ginteractions`. 
 
 ```{r}
-pairs_file <- system.file('extdata', 'pairs.gz', package = 'plyinteractions') |> 
-    gzfile()
+pairs_file <- system.file('extdata', 'pairs.gz', package = 'plyinteractions') 
 pairs_df <- read.delim(pairs_file, sep = "\t", header = FALSE, comment.char = "#")
 head(pairs_df)
 pairs <- as_ginteractions(pairs_df, 

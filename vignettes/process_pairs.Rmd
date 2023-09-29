@@ -39,7 +39,7 @@ file has been generated from processing Hi-C performed in mouse from brain
 cell primary culture during neural development (Bonev et al., Cell 2017). Pairs
 have been filtered to only those mapped over `chr13`. 
 
-```{r}
+```{r importPairs}
 library(tidyverse)
 library(plyinteractions)
 
@@ -58,7 +58,7 @@ pairs
 We can first *in silico* digest the mouse genome to obtain the coordinates 
 of each genomic fragment after digestion by **DpnII and HinfI**. 
 
-```{r}
+```{r cutGenome}
 ## Prepare DpnII/HinfI-digested genomic fragments
 library(purrr)
 library(GenomicRanges)
@@ -92,7 +92,7 @@ for each interaction, which restriction enzyme fragment each anchor
 overlaps with, and how many restriction enzyme cutting sites are found between 
 them. 
 
-```{r}
+```{r annotatePairs}
 ## Annotate for each anchor set which genomic fragment it overlaps with
 annotated_pairs <- pairs |> 
     annotate(fragments, by = "binID") |> 
@@ -104,7 +104,7 @@ Next, we can plot the distribution of `strand1` and `strand2` cominations
 as a function of the number of restriction enzyme cutting sites between 
 anchors of each interaction. 
 
-```{r}
+```{r getDistrib}
 df <- annotated_pairs |> 
     head(n = 1e6) |> 
     group_by(strand1, strand2, n_fragments) |> 
@@ -139,7 +139,7 @@ can estimate a threshold for each of these pairs sets by computing the MAD and
 expected , as described in 
 [Cournac et al., 2012](https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-13-436). 
 
-```{r}
+```{r getThresholds}
 filters <- df |> 
     filter(n_fragments <= 50) |> 
     arrange(n_fragments) |> 
@@ -157,7 +157,7 @@ filters
 
 ## Filtering pairs using appropriate thresholds
 
-```{r}
+```{r filterPairs}
 annotated_pairs <- annotated_pairs |> 
     mutate(threshold = left_join(as_tibble(mcols(annotated_pairs)), filters)$threshold) |> 
     mutate(type = case_when(
@@ -186,7 +186,7 @@ interaction (noted *s*) and plot the interaction frequency
 
 ### Plotting distance law: first try 
 
-```{r}
+```{r Ps1}
 dat <- filtered_pairs |> 
     mutate(s = abs(end2 - start1)) |> 
     group_by(s) |> 
@@ -203,7 +203,7 @@ in both dimensions.
 
 Swtiching to a `log` scale in `ggplot2` is very easy.
 
-```{r}
+```{r Ps2}
 ggplot(dat, aes(x = s, y = Ps)) + geom_line() + 
     scale_x_log10() + scale_y_log10() + 
     annotation_logticks()
@@ -214,7 +214,7 @@ ggplot(dat, aes(x = s, y = Ps)) + geom_line() +
 The previous P(s) plot is precise at the base-pair resolution. 
 We can aggregate counts by binned distances: 
 
-```{r}
+```{r Ps3}
 # Calculate distance breaks evenly spaced on a log scale (base 1.1)
 x <- 1.1^(1:200-1)
 lmc <- coef(lm(c(1,1161443398)~c(x[1], x[200])))
@@ -241,7 +241,7 @@ p <- ggplot(dat, aes(x = binned_s, y = Ps)) + geom_line() +
 
 ### With some polishing
 
-```{r}
+```{r Ps4}
 p <- ggplot(dat, aes(x = binned_s, y = Ps)) + 
     geom_line() + 
     scale_x_log10(limits = c(1e3, 1e8)) +    ## This changes x axis to log scale
@@ -259,7 +259,7 @@ p <- ggplot(dat, aes(x = binned_s, y = Ps)) +
 
 `R` session information:
 
-```{r reproduce3, echo=FALSE}
+```{r sessioninfo, echo=FALSE}
 ## Session info
 library("sessioninfo")
 options(width = 120)
