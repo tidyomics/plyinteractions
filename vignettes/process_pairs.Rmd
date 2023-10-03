@@ -27,6 +27,10 @@ knitr::opts_chunk$set(
 ## Pre-load libraries
 library(tidyverse)
 library(plyinteractions)
+library(purrr)
+library(GenomicRanges)
+library(Biostrings)
+library(plyranges)
 ```
 
 The `r Biocpkg("plyinteractions")` package facilitates data aggregation, for 
@@ -112,7 +116,7 @@ df <- annotated_pairs |>
     as_tibble() |> 
     mutate(group = paste0(strand1, strand2)) |> 
     select(group, n_fragments, n)
-p <- ggplot(df, aes(x = n_fragments, y = n, group = group, col = group)) + 
+ggplot(df, aes(x = n_fragments, y = n, group = group, col = group)) + 
     geom_line() + 
     geom_point() + 
     xlim(c(0, 15)) + 
@@ -194,6 +198,7 @@ dat <- filtered_pairs |>
     as_tibble() |> 
     mutate(Ps = n/sum(n)) 
 p <- ggplot(dat, aes(x = s, y = Ps)) + geom_line()
+p
 ```
 
 This is not very informative, as the distances span several orders of magnitude
@@ -204,9 +209,7 @@ in both dimensions.
 Swtiching to a `log` scale in `ggplot2` is very easy.
 
 ```{r Ps2}
-ggplot(dat, aes(x = s, y = Ps)) + geom_line() + 
-    scale_x_log10() + scale_y_log10() + 
-    annotation_logticks()
+p + scale_x_log10() + scale_y_log10() + annotation_logticks()
 ```
 
 ### Third try: aggregating data before plotting
@@ -234,15 +237,14 @@ dat <- filtered_pairs |>
     mutate(Ps = n / sum(n) / bin_width)
 
 # Plot results
-p <- ggplot(dat, aes(x = binned_s, y = Ps)) + geom_line() + 
-    scale_x_log10() + scale_y_log10() + 
-    annotation_logticks()
+ggplot(dat, aes(x = binned_s, y = Ps)) + geom_line() + 
+    scale_x_log10() + scale_y_log10() + annotation_logticks()
 ```
 
 ### With some polishing
 
 ```{r Ps4}
-p <- ggplot(dat, aes(x = binned_s, y = Ps)) + 
+ggplot(dat, aes(x = binned_s, y = Ps)) + 
     geom_line() + 
     scale_x_log10(limits = c(1e3, 1e8)) +    ## This changes x axis to log scale
     scale_y_log10() +                        ## This changes y axis to log scale
