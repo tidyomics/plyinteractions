@@ -33,7 +33,6 @@ Imports:
     utils
 Suggests: 
     tidyverse, 
-    vroom, 
     BSgenome.Mmusculus.UCSC.mm10, 
     Biostrings, 
     BiocParallel, 

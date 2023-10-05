@@ -49,7 +49,7 @@ library(plyinteractions)
 
 ## Importing it in R
 pairs_file <- HiContactsData::HiContactsData('mESCs', 'pairs.gz')
-pairs_df <- vroom::vroom(pairs_file, delim = "\t", col_names = FALSE, comment = "#") |> 
+pairs_df <- read.delim(pairs_file, sep = "\t", header = FALSE, comment.char = "#") |> 
     set_names(c(
         "ID", "seqnames1", "start1", "seqnames2", "start2", "strand1", "strand2"
     ))
