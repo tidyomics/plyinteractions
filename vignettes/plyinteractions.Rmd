@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
     comment = "#>",
     crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
 )
+options(width = 9999)
 ```
 
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
@@ -47,9 +48,13 @@ bib <- c(
 )
 ```
 
+# Introduction
+
 The `r Biocpkg("plyinteractions")` package
 introduces tidy methods for the `GInteractions` class defined in the 
 `r Biocpkg("InteractionSet")` package `r Citep(bib[["InteractionSet"]])`. 
+
+## `GInteractions` objects
 
 `GInteractions` are objects describing interactions between two parallel 
 sets of genomic ranges. 
@@ -64,6 +69,38 @@ gi <- GInteractions(anchor1, anchor2)
 gi
 ```
 
+The `r Biocpkg("InteractionSet")` package provides basic methods to interact
+with this class, but does not support tidy grammar principles. 
+
+## Tidy grammar principles
+
+The grammar of tidy genomic data transformation defined in 
+`r Biocpkg("plyranges")` 
+and available for `GInteractions` currently supports: 
+
+- `dplyr` verbs (for `GInteractions` and `GroupedGInteractions`): 
+
+  - Group genomic interactions with `group_by`; 
+  - Summarize grouped genomic interactions with `summarize`; 
+  - Tally/count grouped genomic interactions with `tally` and `count`; 
+  - Modify genomic interactions with `mutate`; 
+  - Subset genomic interactions with `filter` using
+  [`<data-masking>`](https://rlang.r-lib.org/reference/args_data_masking.html) 
+  and logical expressions; 
+  - Pick out any columns from the associated metadata with `select` 
+  using [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html); 
+  - Subset using indices with `slice`;
+  - Order genomic interactions with `arrange` using categorical/numerical 
+  variables. 
+
+
+- `plyranges` verbs (for `PinnedGInteractions` and `AnchoredPinnedGInteractions`): 
+
+  - Stretch specific anchors of genomic interactions to a given width with `stretch`;
+  - `anchor_*` functions to control how stretching is performed; 
+  - Shift specific anchors of genomic interactions with `shift`;
+  - Obtain flanking `GRanges` from specific anchors of genomic interactions with `flank`.
+
 # Importing genomic interactions in R
 
 `r Biocpkg("plyinteractions")` provides a consistent interface for importing 
@@ -77,6 +114,7 @@ Tidy genomic data maniuplation implies that we first parse genomic
 files stored on disk as tabular data frames. 
 
 ```{r "start", message=FALSE}
+## This uses an example `bedpe` file provided in the `rtracklayer` package
 bedpe_file <- system.file("tests", "test.bedpe", package = "rtracklayer")
 bedpe_df <- read.delim(bedpe_file, header = FALSE, sep = '\t')
 
@@ -113,6 +151,7 @@ tabular data import functions (including `fread` or `vroom` for larger files),
 and readily coerced into `GInteractions` with `as_ginteractions`. 
 
 ```{r}
+## This uses an example `pairs` file provided in this package
 pairs_file <- system.file('extdata', 'pairs.gz', package = 'plyinteractions') 
 pairs_df <- read.delim(pairs_file, sep = "\t", header = FALSE, comment.char = "#")
 head(pairs_df)
@@ -136,7 +175,7 @@ tibble::as_tibble(gi)
 
 # Getter functions
 
-### `anchors{12}`
+## `anchors{12}`
 
 A `GInteractions` object consists of two sets of **_anchors_**: 
 `anchors1` and `anchors2`.
@@ -156,7 +195,13 @@ col.names = c(
 ) |> 
   as_ginteractions()
 
+## `anchors` returns the two sets of anchors (i.e. "left" and "right" 
+## loci) for each genomic interaction
+
 anchors(gi)
+
+## `anchors1` and `anchors2` specifically return the "left" OR "right" 
+## loci) for each genomic interaction
 
 anchors1(gi)
 
@@ -169,13 +214,16 @@ interactions. This is different from the `anchor` term used in `plyranges`.
 This is due to the fact that *"anchor"* is used in the chromatin interaction 
 field to refer to the ends of a potential chromatin loop.
 
-### Core `GInteractions` fields
+## Core `GInteractions` fields
 
 `seqnames`, `start`/`end`, `width` and `strand` return informative core fields 
 of a `GRanges` object. Appending `1` or `2` to these functions allow 
 the end-user to fetch the corresponding fields from `GInteractions` objects. 
 
 ```{r}
+## Similarly to `GRanges` accessors, `seqnames`, `start`, `end`, `strand` and 
+## `width` are all available for each set of `anchors` of a `GInteractions`. 
+
 seqnames1(gi)
 
 start1(gi)
@@ -187,7 +235,7 @@ strand2(gi)
 width2(gi)
 ```
 
-### Metadata columns
+## Metadata columns
 
 `GInteractions` contain associated metadata stored as a `DataFrame` which 
 can be recovered using the standard `mcols` function: 
@@ -203,7 +251,10 @@ Auto-completion is enabled for this method.
 gi$type
 ```
 
-### Extra genomic-related informations 
+## Extra genomic-related informations 
+
+Accessor functions provided in the `r Biocpkg("InteractionSet")` 
+package (which defines the `GInteractions` class) are also available. 
 
 ```{r}
 regions(gi)
@@ -226,6 +277,9 @@ Pinning a `GInteractions` object is used to specify which set of anchors
 (i.e. `anchors1` or `anchors2`) should be affected by `plyranges` functions. 
 
 ```{r}
+## `pin_by` is used to pin a `GInteractions` on "first" (i.e. "left") or 
+## "second" (i.e. "right") anchors. 
+
 gi |> pin_by("first")
 
 pgi <- gi |> pin_by("second")
@@ -243,9 +297,10 @@ unpin(pgi)
 
 ## `AnchoredPinnedGInteractions`
 
-Some `plyranges` operations can work on "`anchored"` **_GRanges_**. To 
-enable these operations either on `anchors1` or `anchors2`, the pinned
-`anchors{12}` of a `GInteractions` object can be further "anchored". 
+Some `plyranges` operations can work on "`anchored"` **_`GRanges`_**. To 
+enable these operations either on `anchors1` or `anchors2` from 
+a **_`GInteractions`_** object, the "pinned"
+`anchors{12}` of the `GInteractions` object can be further "anchored". 
 
 ```{r pin}
 gi |> pin_by("first") |> anchor_5p()
@@ -276,9 +331,17 @@ to specify which set of anchors should be affected by `plyranges` functions.
 ```{r pin_stretch}
 gi
 
+## This pins the "first" (i.e. "left") anchors and strecthes them by 10bp
+
 gi |> pin_by("first") |> stretch(10)
 
+## This pins the "first" (i.e. "left") anchors and shift them 
+## by 20bp to the right
+
 gi |> pin_by("first") |> shift_right(20)
+
+## This pins the "first" (i.e. "left") anchors and extracts 20bp 
+## flanking these "first" anchors
 
 gi |> pin_by("first") |> flank_right(20)
 ```
@@ -291,7 +354,13 @@ relies on the anchoring:
 ![](../man/figures/stretch.png)
 
 ```{r pin_anchor_stretch}
+## This pins the "first" (i.e. "left") anchors and strecthes them by 10bp, 
+## with the "first" anchors being anchored at their **start**. 
+
 gi |> pin_by("first") |> anchor_start() |> stretch(10)
+
+## This pins the "first" (i.e. "left") anchors and strecthes them by 10bp, 
+## with the "first" anchors being anchored at their **center**. 
 
 gi |> pin_by("first") |> anchor_center() |> stretch(10)
 ```
@@ -308,9 +377,16 @@ interactions. The verbs extend `dplyr` functionalities to operate on a
 `mutate` supports accessing other existing columns:
 
 ```{r}
+## This creates a new metadata column named `cis`
+
 gi |> mutate(cis = seqnames1 == seqnames2)
 
+## This creates a new metadata column named `both_chr`
+
 gi |> mutate(both_chr = paste(seqnames1, seqnames2, sep = "_"))
+
+## This modifies `start1`, i.e. the `start` coordinates of the "first"
+## (i.e. "left") anchors of the `GInteractions` object. 
 
 gi |> mutate(start1 = 1)
 ```
@@ -320,9 +396,17 @@ gi |> mutate(start1 = 1)
 `group_by` supports accessing both core and metadata columns:
 
 ```{r}
+## This groups the `GInteractions` object using the `seqnames2` variable
+## (i.e. the `seqnames` of the "second" anchors of the `GInteractions`). 
+
 gi |> group_by(seqnames2)
 
+## This groups the `GInteractions` object by a new variable named `cis`
+
 gi |> group_by(cis = seqnames1 == seqnames2)
+
+## This groups the `GInteractions` object by two variables, `seqnames2` 
+## and the new variable `cis`
 
 gi |> group_by(seqnames2, cis = seqnames1 == seqnames2)
 ```
@@ -332,9 +416,18 @@ gi |> group_by(seqnames2, cis = seqnames1 == seqnames2)
 Summarizing grouped `GInteractions` can be extremely powerful. 
 
 ```{r}
+## This counts the number of occurences of each combination of the variables
+## `strand1` and `strand2`
+
 pairs |> count(strand1, strand2)
 
-pairs |> group_by(same_strand = strand1 == strand2) |> tally()
+## This counts the number of pairs located on the same strand 
+## or different strands
+
+gi |> group_by(same_strand = strand1 == strand2) |> tally()
+
+## This counts the number of pairs located on the same strand 
+## or different strands
 
 pairs |> group_by(same_strand = strand1 == strand2) |> 
     summarize(
@@ -360,6 +453,9 @@ gi |> filter(seqnames1 == seqnames2)
 `select` supports [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html):
 
 ```{r}
+## This only keeps the "type" column from the metadata columns, 
+## using <tidy-select> methodology
+
 gi |> select(type)
 
 gi |> select(contains("typ"))
@@ -374,6 +470,7 @@ loss of required information (the other non-selected core fields).
 
 ```{r}
 ## This does not restrict to `seqnames1` and `seqnames2` columns. 
+
 gi |> select(starts_with('seq')) 
 ```
 
@@ -384,13 +481,17 @@ into a `DataFrame`.
 ```{r}
 ## This selects `seqnames1` and `seqnames2` columns but converts the output
 ## into a `DataFrame`.
+
 gi |> select(starts_with('seq'), .drop_ranges = TRUE) 
 ```
 
 ## Slicing rows 
 
 ```{r}
+## This only retains specific pair indices
+
 gi |> slice(1, 2)
+
 gi |> slice(-3)
 ```
 
@@ -414,22 +515,40 @@ counterparts for when strandness is required.
 
 ## Overlapping `GInteractions`
 
+`overlap`ping methods defined for `GInteractions` have also been adapted to 
+work in a "tidy" manner. 
+
 ```{r}
 gr <- GRanges(c("chr1:25-30:-", "chr2:16-20:+"))
 gi$id <- seq_len(length(gi))
 gr$id <- seq_len(length(gr))
 
+## This returns the `GInteractions` entries overlapping with a `GRanges`
+## (with either of both anchors)
+
 find_overlaps(gi, gr)
 
+## This overlap requires the same strandness between 
+## the `GInteractions` anchors and the `GRanges` object
+
 find_overlaps_directed(gi, gr)
+
+## This counts how many times each entry in a `GInteractions` object 
+## overlaps with a `GRanges` object (with either of both anchors)
 
 count_overlaps(gi, gr)
 
 count_overlaps_directed(gi, gr)
 
+## This filters a `GInteractions` object to only retain the entries 
+## overlapping (or not) with a `GRanges` (with either of both anchors)
+
 filter_by_overlaps(gi, gr)
 
 filter_by_non_overlaps(gi, gr)
+
+## This performs a left join between `GInteractions` entries and
+## a `GRanges` of interest (with/without considering strandness)
 
 join_overlap_left(gi, gr)
 
@@ -442,37 +561,15 @@ join_overlap_left_directed(gi, gr)
 only the pinned anchors are used when computing overlaps. 
 
 ```{r}
+## This returns the `GInteractions` entries for which 
+## the "first" anchor overlaps with a `GRanges`
+
 gi |> pin_by("first") |> find_overlaps(gr)
 
+## This returns the `GInteractions` entries for which 
+## the "second" anchor overlaps with a `GRanges`
+
 gi |> pin_by("second") |> find_overlaps(gr)
-
-gi |> pin_by("first") |> find_overlaps_directed(gr)
-
-gi |> pin_by("second") |> find_overlaps_directed(gr)
-
-gi |> pin_by("first") |> count_overlaps(gr)
-
-gi |> pin_by("second") |> count_overlaps(gr)
-
-gi |> pin_by("first") |> count_overlaps_directed(gr)
-
-gi |> pin_by("second") |> count_overlaps_directed(gr)
-
-gi |> pin_by("first") |> filter_by_overlaps(gr)
-
-gi |> pin_by("second") |> filter_by_overlaps(gr)
-
-gi |> pin_by("first") |> filter_by_non_overlaps(gr)
-
-gi |> pin_by("second") |> filter_by_non_overlaps(gr)
-
-gi |> pin_by("first") |> join_overlap_left(gr)
-
-gi |> pin_by("second") |> join_overlap_left(gr)
-
-gi |> pin_by("first") |> join_overlap_left_directed(gr)
-
-gi |> pin_by("second") |> join_overlap_left_directed(gr)
 ```
 
 # Citing `plyinteractions`

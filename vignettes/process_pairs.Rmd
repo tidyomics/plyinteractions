@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
     comment = "#>",
     crop = NULL ## Related to https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016656.html
 )
+options(width = 9999)
 ```
 
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
@@ -35,7 +36,7 @@ library(plyranges)
 
 The `r Biocpkg("plyinteractions")` package facilitates data aggregation, for 
 up to hundreds of thousands and even millions of 
-genomic interactions. In this vignette, we explore two different use cases 
+genomic interactions. In this vignette, we explore several use cases 
 which can arise when exploring Hi-C data stored in `pairs` files. 
 
 We will use a real-life `pairs` file provided by the `4DN` Consortium. This 
@@ -57,7 +58,7 @@ pairs <- as_ginteractions(pairs_df, end1 = start1, end2 = start2, keep.extra.col
 pairs
 ```
 
-## Estimating pairs filtering thresholds
+# Estimating pairs filtering thresholds
 
 We can first *in silico* digest the mouse genome to obtain the coordinates 
 of each genomic fragment after digestion by **DpnII and HinfI**. 
@@ -120,7 +121,6 @@ ggplot(df, aes(x = n_fragments, y = n, group = group, col = group)) +
     geom_line() + 
     geom_point() + 
     xlim(c(0, 15)) + 
-    scale_y_log10(limits = c(1e3, 5e5)) + 
     annotation_logticks(sides = 'l') + 
     theme_bw() + 
     labs(
@@ -159,7 +159,7 @@ filters <- df |>
 filters
 ```
 
-## Filtering pairs using appropriate thresholds
+# Filtering pairs using appropriate thresholds
 
 ```{r filterPairs}
 annotated_pairs <- annotated_pairs |> 
@@ -178,17 +178,17 @@ mcols(annotated_pairs) |>
 filtered_pairs <- filter(annotated_pairs, type == 'kept')
 ```
 
-## Computing distance law from pairs
+# Computing distance law from pairs
 
 Another typical step when analyzing Hi-C processed data is the modeling of a so-called
-"distance law", (a.k.a "P(s)"), which describes the genomic distance-dependant 
+"distance law", (a.k.a "P(s)"), which describes the genomic distance-dependent 
 contact frequency between pairs of genomic loci from a Hi-C experiment. 
 
 We can easily recover the distance between the two anchors of each 
 interaction (noted *s*) and plot the interaction frequency 
 (noted *P(s)*) as a function of this genomic distance. 
 
-### Plotting distance law: first try 
+## Plotting distance law: first try 
 
 ```{r Ps1}
 dat <- filtered_pairs |> 
@@ -204,7 +204,7 @@ p
 This is not very informative, as the distances span several orders of magnitude
 in both dimensions. 
 
-### Second try: switching to logarithmic scale 
+## Second try: switching to logarithmic scale 
 
 Swtiching to a `log` scale in `ggplot2` is very easy.
 
@@ -212,7 +212,7 @@ Swtiching to a `log` scale in `ggplot2` is very easy.
 p + scale_x_log10() + scale_y_log10() + annotation_logticks()
 ```
 
-### Third try: aggregating data before plotting
+## Third try: aggregating data before plotting
 
 The previous P(s) plot is precise at the base-pair resolution. 
 We can aggregate counts by binned distances: 
@@ -241,7 +241,7 @@ ggplot(dat, aes(x = binned_s, y = Ps)) + geom_line() +
     scale_x_log10() + scale_y_log10() + annotation_logticks()
 ```
 
-### With some polishing
+## With some polishing
 
 ```{r Ps4}
 ggplot(dat, aes(x = binned_s, y = Ps)) + 
@@ -252,7 +252,7 @@ ggplot(dat, aes(x = binned_s, y = Ps)) +
     labs(
         x = "Genomic distance (s)", 
         y = "P(s)", 
-        title = "Distance-dependant genomic frequency P(s) in mESC (chr. 13)"
+        title = "Distance-dependent genomic frequency P(s) in mESC (chr. 13)"
     ) +                                      ## This fixes axes titles
     theme_bw()                               ## This changes default plot theme
 ```
