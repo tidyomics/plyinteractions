@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,10 +111,10 @@ fundamentally creates a new data frame</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 2 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     21-30       + |  0.370396</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     51-55       + |  0.880958</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     51-55       - |  0.506880</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     51-60       - |  0.620467</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     21-30       + | 0.0306618</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     51-55       + | 0.2334073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     51-55       - | 0.0593697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     51-60       - | 0.9191178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
@@ -129,15 +129,15 @@ fundamentally creates a new data frame</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 2 rows and 2 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          type         m</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;character&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         cis  0.586078</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       trans  0.620467</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         cis  0.107813</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       trans  0.919118</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">strand1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 2 rows and 2 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   strand1         m</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;Rle&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       +  0.625677</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       -  0.563673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       +  0.132035</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       -  0.489244</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">gi</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">strand1</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
@@ -146,8 +146,8 @@ fundamentally creates a new data frame</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 2 rows and 3 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   strand1         m             n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;Rle&gt; &lt;numeric&gt; &lt;IntegerList&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       +  0.625677           2,0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       -  0.563673           1,1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       +  0.132035           2,0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       -  0.489244           1,1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">n</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> IntegerList of length 2</span>
@@ -164,9 +164,9 @@ fundamentally creates a new data frame</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 3 rows and 4 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   strand1 seqnames2         m             n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;Rle&gt;     &lt;Rle&gt; &lt;numeric&gt; &lt;IntegerList&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       +      chr1  0.625677           2,0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       -      chr1  0.506880           1,0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       -      chr2  0.620467           0,1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       +      chr1 0.1320345           2,0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       -      chr1 0.0593697           1,0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       -      chr2 0.9191178           0,1</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
