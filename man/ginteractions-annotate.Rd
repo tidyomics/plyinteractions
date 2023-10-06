@@ -53,6 +53,7 @@ annotate_directed(gi, gr, by = 'id')
 # 2. Match loops with tiled genomic bins
 ####################################################################
 
+data(GM12878_HiCCUPS)
 loops <- GM12878_HiCCUPS |> 
     pin_by('first') |> 
     anchor_center() |> 
@@ -75,6 +76,8 @@ annotate(loops, genomic_bins, by = 'binID') |>
 # 3. Annotate interactions by a set of regulatory elements
 ####################################################################
 
+data(ce10_ARCC)
+data(ce10_REs)
 annotate(ce10_ARCC, ce10_REs, by = 'annot') |> 
    count(annot.1, annot.2) |> 
    as.data.frame() |> 
