@@ -87,6 +87,6 @@ Collate:
     'slice.R'
     'stretch.R'
     'summarize.R'
-LazyData: true
+LazyData: false
 Depends: 
-    R (>= 2.10)
+    R (>= 4.3.0)
