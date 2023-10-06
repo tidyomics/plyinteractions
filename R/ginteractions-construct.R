@@ -143,7 +143,7 @@ as_ginteractions.data.frame <- function(
     required_names <- c("seqnames1", "start1", "seqnames2", "start2")
     for (name in required_names) {
         if (!(any(name %in% c(names(rd), names(.data))))) {
-            stop(paste0(name, " column is required for GInteractions."), call. = FALSE)
+            stop(name, "column is required for GInteractions.", call. = FALSE)
         }
     }
     

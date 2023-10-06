@@ -2,10 +2,11 @@
     if (length(quosures) > 0) {
         valid_args <- names(quosures) %in% valid_names
         if (any(!valid_args)) {
-            stop(paste(
+            stop(
                 "Named arguments can only be",
-                paste(valid_names, collapse = ", ")
-            ), call. = FALSE)
+                paste(valid_names, collapse = ", "), 
+                call. = FALSE
+            )
         }
     }
 }
