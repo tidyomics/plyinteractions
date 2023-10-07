@@ -167,7 +167,7 @@ join_overlap_left_directed.GInteractions <- function(
 }
 
 .na_dframe <- function(dframe, nrows) {
-  
+    
     empty <- new("DFrame", nrows = as.integer(nrows))
     
     # IRanges special case for mcols is null
@@ -182,7 +182,7 @@ join_overlap_left_directed.GInteractions <- function(
     }
 
     empty
-  
+    
 }
 
 #' @importFrom S4Vectors subjectHits

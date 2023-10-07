@@ -10,7 +10,7 @@
 #' - `pinned_anchors` returns an (Anchored)GenomicRanges object corresponding 
 #' to the pinned anchors of a PinnedGInteractions object. 
 #'
-#' @rdname ginteractions-pin
+#' @name ginteractions-pin
 #' 
 #' @examples
 #' gi <- read.table(text = "
@@ -47,9 +47,7 @@
 #' ####################################################################
 #' 
 #' gi |> pin("second") |> unpin()
-#' 
-#' @export
-setGeneric("pin", function(x, anchors) standardGeneric("pin"))
+NULL
 
 #' @rdname ginteractions-pin
 setMethod("pin", signature(x = "GroupedGInteractions", anchors = "character"), function(x, anchors) {
@@ -104,10 +102,6 @@ setMethod("pin", signature(x = "AnchoredPinnedGInteractions", anchors = "numeric
 })
 
 
-#' @export
-#' @rdname ginteractions-pin
-setGeneric("pin_by", function(x, anchors) pin(x, anchors))
-
 #' @rdname ginteractions-pin
 #' @export
 pin_first <- function(x) pin_by(x, 1)
@@ -126,10 +120,6 @@ pin_anchors2 <- function(x) pin_by(x, 2)
 
 #' @rdname ginteractions-pin
 #' @export
-setGeneric("unpin", function(x) standardGeneric("unpin"))
-
-#' @rdname ginteractions-pin
-#' @export
 setMethod("unpin", signature(x = "AnchoredPinnedGInteractions"), function(x) {
     unpin(unanchor(x))
 })
@@ -145,10 +135,6 @@ setMethod("unpin", signature(x = "PinnedGInteractions"), function(x) {
 setMethod("unpin", signature(x = "GInteractions"), function(x) {
     x
 })
-
-#' @rdname ginteractions-pin
-#' @export
-setGeneric("pinned_anchors", function(x) standardGeneric("pinned_anchors"))
 
 #' @rdname ginteractions-pin
 #' @export

@@ -30,26 +30,6 @@ setReplaceMethod("second", "GInteractions", function(x, value) {
 })
 
 #' @rdname ginteractions-setters
-setGeneric("set_seqnames1", function(x, value) standardGeneric("set_seqnames1"))
-#' @rdname ginteractions-setters
-setGeneric("set_seqnames2", function(x, value) standardGeneric("set_seqnames2"))
-#' @rdname ginteractions-setters
-setGeneric("set_start1", function(x, value) standardGeneric("set_start1"))
-#' @rdname ginteractions-setters
-setGeneric("set_start2", function(x, value) standardGeneric("set_start2"))
-#' @rdname ginteractions-setters
-setGeneric("set_end1", function(x, value) standardGeneric("set_end1"))
-#' @rdname ginteractions-setters
-setGeneric("set_end2", function(x, value) standardGeneric("set_end2"))
-#' @rdname ginteractions-setters
-setGeneric("set_width1", function(x, value) standardGeneric("set_width1"))
-#' @rdname ginteractions-setters
-setGeneric("set_width2", function(x, value) standardGeneric("set_width2"))
-#' @rdname ginteractions-setters
-setGeneric("set_strand1", function(x, value) standardGeneric("set_strand1"))
-#' @rdname ginteractions-setters
-setGeneric("set_strand2", function(x, value) standardGeneric("set_strand2"))
-#' @rdname ginteractions-setters
 setMethod("set_seqnames1", signature("GInteractions", "factor"), function(x, value) {
     GenomeInfoDb::seqnames(S4Vectors::first(x)) <- value
     x

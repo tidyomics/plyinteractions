@@ -3,14 +3,6 @@
 #' @importFrom S4Vectors Rle
 #' @importFrom utils capture.output
 #' @importFrom methods show
-#' @include DelegatingGInteractions-class.R
-setClass("PinnedGInteractions",
-    slot = c(
-        pin = "integer"
-    ),
-    contains = c("DelegatingGInteractions")
-)
-
 #' @importFrom InteractionSet GInteractions
 #' @importFrom methods setMethod initialize
 setMethod("initialize", "PinnedGInteractions", function(

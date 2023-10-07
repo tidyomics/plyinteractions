@@ -50,8 +50,7 @@
 #'     "chr2:1-2", "chr2:2-3", "chr2:3-4", "chr2:4-5"
 #'   ))) 
 #' 
-#' @export
-setGeneric("replace_anchors", function(x, id, value) standardGeneric("replace_anchors"))
+NULL
 
 #' @rdname replace_anchors
 #' @export

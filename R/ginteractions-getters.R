@@ -41,49 +41,6 @@ setMethod("$", "GInteractions",
 
 #' @rdname ginteractions-getters
 #' @export
-setGeneric("anchors1", function(x) standardGeneric("anchors1"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("anchors2", function(x) standardGeneric("anchors2"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("seqnames1", function(x) standardGeneric("seqnames1"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("seqnames2", function(x) standardGeneric("seqnames2"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("start1", function(x) standardGeneric("start1"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("start2", function(x) standardGeneric("start2"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("end1", function(x) standardGeneric("end1"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("end2", function(x) standardGeneric("end2"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("width1", function(x) standardGeneric("width1"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("width2", function(x) standardGeneric("width2"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("strand1", function(x) standardGeneric("strand1"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("strand2", function(x) standardGeneric("strand2"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("ranges1", function(x) standardGeneric("ranges1"))
-#' @rdname ginteractions-getters
-#' @export
-setGeneric("ranges2", function(x) standardGeneric("ranges2"))
-
-#' @rdname ginteractions-getters
-#' @export
 setMethod("anchors1", signature("GInteractions"), function(x) {
     S4Vectors::first(x)
 })

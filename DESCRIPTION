@@ -50,11 +50,8 @@ Config/testthat/edition: 3
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3
 Collate: 
-    'ginteractions-getters.R'
-    'DelegatingGInteractions-class.R'
-    'PinnedGInteractions-class.R'
-    'AnchoredPinnedGInteractions-class.R'
-    'GroupedGInteractions-class.R'
+    'AllGenerics.R'
+    'AllClasses.R'
     'anchor.R'
     'annotate.R'
     'arrange.R'
@@ -67,6 +64,7 @@ Collate:
     'flank.R'
     'ginteractions-construct.R'
     'ginteractions-env.R'
+    'ginteractions-getters.R'
     'ginteractions-scoping.R'
     'ginteractions-setters.R'
     'tbl_vars.R'
@@ -74,6 +72,10 @@ Collate:
     'group_by.R'
     'internals.R'
     'join-overlap-left.R'
+    'methods-AnchoredPinnedGInteractions.R'
+    'methods-DelegatingGInteractions.R'
+    'methods-GroupedGInteractions.R'
+    'methods-PinnedGInteractions.R'
     'methods-show.R'
     'mutate.R'
     'pin.R'

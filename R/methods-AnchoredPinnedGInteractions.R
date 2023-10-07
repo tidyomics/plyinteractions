@@ -3,14 +3,6 @@
 #' @importFrom S4Vectors Rle
 #' @importFrom utils capture.output
 #' @importFrom methods show
-#' @include PinnedGInteractions-class.R
-setClass("AnchoredPinnedGInteractions",
-    slot = c(
-        anchor = "character"
-    ),
-    contains = c("PinnedGInteractions")
-)
-
 #' @importFrom InteractionSet GInteractions
 #' @importFrom methods setMethod initialize
 setMethod("initialize", "AnchoredPinnedGInteractions", function(

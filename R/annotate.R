@@ -67,10 +67,6 @@ NULL
 
 #' @rdname ginteractions-annotate
 #' @export
-setGeneric("annotate", function(x, y, by) standardGeneric("annotate"))
-
-#' @rdname ginteractions-annotate
-#' @export
 setMethod(
     "annotate", 
     signature(x = "GInteractions", y = "GRanges", by = "character"), 
@@ -106,10 +102,6 @@ setMethod(
     
     }
 )
-
-#' @rdname ginteractions-annotate
-#' @export
-setGeneric("annotate_directed", function(x, y, by) standardGeneric("annotate_directed"))
 
 #' @rdname ginteractions-annotate
 #' @export
