@@ -22,6 +22,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/news/index.html</loc>
+  </url>
+  <url>
     <loc>/reference/GM12878_HiCCUPS.html</loc>
   </url>
   <url>
@@ -95,6 +98,9 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plyinteractions-package.html</loc>
   </url>
   <url>
     <loc>/reference/plyranges-flank.html</loc>

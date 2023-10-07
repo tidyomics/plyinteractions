@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +54,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/process_pairs.html">Hi-C arithmetic with plyinteractions</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -81,7 +84,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Hi-C arithmetic with plyinteractions</h1>
             
-            <h4 data-toc-skip class="date">6 October 2023</h4>
+            <h4 data-toc-skip class="date">7 October 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/plyinteractions/blob/HEAD/vignettes/process_pairs.Rmd" class="external-link"><code>vignettes/process_pairs.Rmd</code></a></small>
       <div class="d-none name"><code>process_pairs.Rmd</code></div>
@@ -92,8 +95,8 @@
 <p>The <em><a href="https://bioconductor.org/packages/3.18/plyinteractions" class="external-link">plyinteractions</a></em>
 package facilitates data aggregation, for up to hundreds of thousands
 and even millions of genomic interactions. In this vignette, we explore
-two different use cases which can arise when exploring Hi-C data stored
-in <code>pairs</code> files.</p>
+several use cases which can arise when exploring Hi-C data stored in
+<code>pairs</code> files.</p>
 <p>We will use a real-life <code>pairs</code> file provided by the
 <code>4DN</code> Consortium. This file has been generated from
 processing Hi-C performed in mouse from brain cell primary culture
@@ -114,38 +117,25 @@ filtered to only those mapped over <code>chr13</code>.</p>
 <span><span class="va">pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ginteractions-construct.html">as_ginteractions</a></span><span class="op">(</span><span class="va">pairs_df</span>, end1 <span class="op">=</span> <span class="va">start1</span>, end2 <span class="op">=</span> <span class="va">start2</span>, keep.extra.columns <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">pairs</span></span>
 <span><span class="co">#&gt; GInteractions object with 5150011 interactions and 1 metadata column:</span></span>
-<span><span class="co">#&gt;             seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |</span></span>
-<span><span class="co">#&gt;                 &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; |</span></span>
-<span><span class="co">#&gt;         [1]     chr13  17057558       + ---     chr13  17176616       - |</span></span>
-<span><span class="co">#&gt;         [2]     chr13  68759440       - ---     chr13 113578864       - |</span></span>
-<span><span class="co">#&gt;         [3]     chr13  47940999       + ---     chr13  48134537       + |</span></span>
-<span><span class="co">#&gt;         [4]     chr13  80638451       + ---     chr13  80638826       - |</span></span>
-<span><span class="co">#&gt;         [5]     chr13   4362498       - ---     chr13  96982617       + |</span></span>
-<span><span class="co">#&gt;         ...       ...       ...     ... ...       ...       ...     ... .</span></span>
-<span><span class="co">#&gt;   [5150007]     chr13  95480277       - ---     chr13  96105587       + |</span></span>
-<span><span class="co">#&gt;   [5150008]     chr13  55523047       + ---     chr13  55523339       - |</span></span>
-<span><span class="co">#&gt;   [5150009]     chr13  88318766       - ---     chr13  89456475       + |</span></span>
-<span><span class="co">#&gt;   [5150010]     chr13  69859492       + ---     chr13  69859712       - |</span></span>
-<span><span class="co">#&gt;   [5150011]     chr13  18990870       + ---     chr13  19369755       - |</span></span>
-<span><span class="co">#&gt;                               ID</span></span>
-<span><span class="co">#&gt;                      &lt;character&gt;</span></span>
-<span><span class="co">#&gt;         [1]        SRR5339749.58</span></span>
-<span><span class="co">#&gt;         [2]       SRR5339749.105</span></span>
-<span><span class="co">#&gt;         [3]       SRR5339749.169</span></span>
-<span><span class="co">#&gt;         [4]       SRR5339749.170</span></span>
-<span><span class="co">#&gt;         [5]       SRR5339749.249</span></span>
-<span><span class="co">#&gt;         ...                  ...</span></span>
-<span><span class="co">#&gt;   [5150007] SRR5339749.237063036</span></span>
-<span><span class="co">#&gt;   [5150008] SRR5339749.237063218</span></span>
-<span><span class="co">#&gt;   [5150009] SRR5339749.237063267</span></span>
-<span><span class="co">#&gt;   [5150010] SRR5339749.237063274</span></span>
-<span><span class="co">#&gt;   [5150011] SRR5339749.237063301</span></span>
+<span><span class="co">#&gt;             seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |                   ID</span></span>
+<span><span class="co">#&gt;                 &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; |          &lt;character&gt;</span></span>
+<span><span class="co">#&gt;         [1]     chr13  17057558       + ---     chr13  17176616       - |        SRR5339749.58</span></span>
+<span><span class="co">#&gt;         [2]     chr13  68759440       - ---     chr13 113578864       - |       SRR5339749.105</span></span>
+<span><span class="co">#&gt;         [3]     chr13  47940999       + ---     chr13  48134537       + |       SRR5339749.169</span></span>
+<span><span class="co">#&gt;         [4]     chr13  80638451       + ---     chr13  80638826       - |       SRR5339749.170</span></span>
+<span><span class="co">#&gt;         [5]     chr13   4362498       - ---     chr13  96982617       + |       SRR5339749.249</span></span>
+<span><span class="co">#&gt;         ...       ...       ...     ... ...       ...       ...     ... .                  ...</span></span>
+<span><span class="co">#&gt;   [5150007]     chr13  95480277       - ---     chr13  96105587       + | SRR5339749.237063036</span></span>
+<span><span class="co">#&gt;   [5150008]     chr13  55523047       + ---     chr13  55523339       - | SRR5339749.237063218</span></span>
+<span><span class="co">#&gt;   [5150009]     chr13  88318766       - ---     chr13  89456475       + | SRR5339749.237063267</span></span>
+<span><span class="co">#&gt;   [5150010]     chr13  69859492       + ---     chr13  69859712       - | SRR5339749.237063274</span></span>
+<span><span class="co">#&gt;   [5150011]     chr13  18990870       + ---     chr13  19369755       - | SRR5339749.237063301</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 9013760 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 1 sequence from an unspecified genome; no seqlengths</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="estimating-pairs-filtering-thresholds">Estimating pairs filtering thresholds<a class="anchor" aria-label="anchor" href="#estimating-pairs-filtering-thresholds"></a>
-</h3>
+<div class="section level2">
+<h2 id="estimating-pairs-filtering-thresholds">Estimating pairs filtering thresholds<a class="anchor" aria-label="anchor" href="#estimating-pairs-filtering-thresholds"></a>
+</h2>
 <p>We can first <em>in silico</em> digest the mouse genome to obtain the
 coordinates of each genomic fragment after digestion by <strong>DpnII
 and HinfI</strong>.</p>
@@ -187,32 +177,19 @@ restriction enzyme cutting sites are found between them.</p>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>n_fragments <span class="op">=</span> <span class="va">binID.2</span> <span class="op">-</span> <span class="va">binID.1</span>, group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">strand1</span>, <span class="va">strand2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">annotated_pairs</span></span>
 <span><span class="co">#&gt; GInteractions object with 5150011 interactions and 5 metadata columns:</span></span>
-<span><span class="co">#&gt;             seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |</span></span>
-<span><span class="co">#&gt;                 &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; |</span></span>
-<span><span class="co">#&gt;         [1]     chr13  17057558       + ---     chr13  17176616       - |</span></span>
-<span><span class="co">#&gt;         [2]     chr13  68759440       - ---     chr13 113578864       - |</span></span>
-<span><span class="co">#&gt;         [3]     chr13  47940999       + ---     chr13  48134537       + |</span></span>
-<span><span class="co">#&gt;         [4]     chr13  80638451       + ---     chr13  80638826       - |</span></span>
-<span><span class="co">#&gt;         [5]     chr13   4362498       - ---     chr13  96982617       + |</span></span>
-<span><span class="co">#&gt;         ...       ...       ...     ... ...       ...       ...     ... .</span></span>
-<span><span class="co">#&gt;   [5150007]     chr13  95480277       - ---     chr13  96105587       + |</span></span>
-<span><span class="co">#&gt;   [5150008]     chr13  55523047       + ---     chr13  55523339       - |</span></span>
-<span><span class="co">#&gt;   [5150009]     chr13  88318766       - ---     chr13  89456475       + |</span></span>
-<span><span class="co">#&gt;   [5150010]     chr13  69859492       + ---     chr13  69859712       - |</span></span>
-<span><span class="co">#&gt;   [5150011]     chr13  18990870       + ---     chr13  19369755       - |</span></span>
-<span><span class="co">#&gt;                               ID   binID.1   binID.2 n_fragments       group</span></span>
-<span><span class="co">#&gt;                      &lt;character&gt; &lt;integer&gt; &lt;integer&gt;   &lt;integer&gt; &lt;character&gt;</span></span>
-<span><span class="co">#&gt;         [1]        SRR5339749.58   9591352   9592012         660          +-</span></span>
-<span><span class="co">#&gt;         [2]       SRR5339749.105   9880169  10124404      244235          --</span></span>
-<span><span class="co">#&gt;         [3]       SRR5339749.169   9762274   9763393        1119          ++</span></span>
-<span><span class="co">#&gt;         [4]       SRR5339749.170   9946878   9946878           0          +-</span></span>
-<span><span class="co">#&gt;         [5]       SRR5339749.249   9521271  10034142      512871          -+</span></span>
-<span><span class="co">#&gt;         ...                  ...       ...       ...         ...         ...</span></span>
-<span><span class="co">#&gt;   [5150007] SRR5339749.237063036  10025960  10029363        3403          -+</span></span>
-<span><span class="co">#&gt;   [5150008] SRR5339749.237063218   9805472   9805473           1          +-</span></span>
-<span><span class="co">#&gt;   [5150009] SRR5339749.237063267   9987886   9993753        5867          -+</span></span>
-<span><span class="co">#&gt;   [5150010] SRR5339749.237063274   9886256   9886256           0          +-</span></span>
-<span><span class="co">#&gt;   [5150011] SRR5339749.237063301   9601640   9603730        2090          +-</span></span>
+<span><span class="co">#&gt;             seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |                   ID   binID.1   binID.2 n_fragments       group</span></span>
+<span><span class="co">#&gt;                 &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; |          &lt;character&gt; &lt;integer&gt; &lt;integer&gt;   &lt;integer&gt; &lt;character&gt;</span></span>
+<span><span class="co">#&gt;         [1]     chr13  17057558       + ---     chr13  17176616       - |        SRR5339749.58   9591352   9592012         660          +-</span></span>
+<span><span class="co">#&gt;         [2]     chr13  68759440       - ---     chr13 113578864       - |       SRR5339749.105   9880169  10124404      244235          --</span></span>
+<span><span class="co">#&gt;         [3]     chr13  47940999       + ---     chr13  48134537       + |       SRR5339749.169   9762274   9763393        1119          ++</span></span>
+<span><span class="co">#&gt;         [4]     chr13  80638451       + ---     chr13  80638826       - |       SRR5339749.170   9946878   9946878           0          +-</span></span>
+<span><span class="co">#&gt;         [5]     chr13   4362498       - ---     chr13  96982617       + |       SRR5339749.249   9521271  10034142      512871          -+</span></span>
+<span><span class="co">#&gt;         ...       ...       ...     ... ...       ...       ...     ... .                  ...       ...       ...         ...         ...</span></span>
+<span><span class="co">#&gt;   [5150007]     chr13  95480277       - ---     chr13  96105587       + | SRR5339749.237063036  10025960  10029363        3403          -+</span></span>
+<span><span class="co">#&gt;   [5150008]     chr13  55523047       + ---     chr13  55523339       - | SRR5339749.237063218   9805472   9805473           1          +-</span></span>
+<span><span class="co">#&gt;   [5150009]     chr13  88318766       - ---     chr13  89456475       + | SRR5339749.237063267   9987886   9993753        5867          -+</span></span>
+<span><span class="co">#&gt;   [5150010]     chr13  69859492       + ---     chr13  69859712       - | SRR5339749.237063274   9886256   9886256           0          +-</span></span>
+<span><span class="co">#&gt;   [5150011]     chr13  18990870       + ---     chr13  19369755       - | SRR5339749.237063301   9601640   9603730        2090          +-</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 9013760 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 1 sequence from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -232,15 +209,14 @@ interaction.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e3</span>, <span class="fl">5e5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_logticks.html" class="external-link">annotation_logticks</a></span><span class="op">(</span>sides <span class="op">=</span> <span class="st">'l'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>        x <span class="op">=</span> <span class="st">"Number of restriction sites between anchors"</span>, </span>
 <span>        y <span class="op">=</span> <span class="st">"Number of pairs"</span></span>
 <span>    <span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 267541 rows containing missing values (`geom_line()`).</span></span>
-<span><span class="co">#&gt; Warning: Removed 267541 rows containing missing values (`geom_point()`).</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Removed 267493 rows containing missing values (`geom_line()`).</span></span>
+<span><span class="co">#&gt; Warning: Removed 267493 rows containing missing values (`geom_point()`).</span></span></code></pre></div>
 <p><img src="process_pairs_files/figure-html/getDistrib-1.png" width="700"></p>
 <p>From this distribution, we can see that <code>--</code> and
 <code>++</code> pairs have a decreasing frequency over increasing
@@ -279,9 +255,9 @@ et al., 2012</a>.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> -+            8</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> +-           10</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="filtering-pairs-using-appropriate-thresholds">Filtering pairs using appropriate thresholds<a class="anchor" aria-label="anchor" href="#filtering-pairs-using-appropriate-thresholds"></a>
-</h3>
+<div class="section level2">
+<h2 id="filtering-pairs-using-appropriate-thresholds">Filtering pairs using appropriate thresholds<a class="anchor" aria-label="anchor" href="#filtering-pairs-using-appropriate-thresholds"></a>
+</h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">annotated_pairs</span> <span class="op">&lt;-</span> <span class="va">annotated_pairs</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>threshold <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">mcols</a></span><span class="op">(</span><span class="va">annotated_pairs</span><span class="op">)</span><span class="op">)</span>, <span class="va">filters</span><span class="op">)</span><span class="op">$</span><span class="va">threshold</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -306,19 +282,19 @@ et al., 2012</a>.</p>
 <span></span>
 <span><span class="va">filtered_pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">annotated_pairs</span>, <span class="va">type</span> <span class="op">==</span> <span class="st">'kept'</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="computing-distance-law-from-pairs">Computing distance law from pairs<a class="anchor" aria-label="anchor" href="#computing-distance-law-from-pairs"></a>
-</h3>
+<div class="section level2">
+<h2 id="computing-distance-law-from-pairs">Computing distance law from pairs<a class="anchor" aria-label="anchor" href="#computing-distance-law-from-pairs"></a>
+</h2>
 <p>Another typical step when analyzing Hi-C processed data is the
 modeling of a so-called “distance law”, (a.k.a “P(s)”), which describes
-the genomic distance-dependant contact frequency between pairs of
+the genomic distance-dependent contact frequency between pairs of
 genomic loci from a Hi-C experiment.</p>
 <p>We can easily recover the distance between the two anchors of each
 interaction (noted <em>s</em>) and plot the interaction frequency (noted
 <em>P(s)</em>) as a function of this genomic distance.</p>
-<div class="section level4">
-<h4 id="plotting-distance-law-first-try">Plotting distance law: first try<a class="anchor" aria-label="anchor" href="#plotting-distance-law-first-try"></a>
-</h4>
+<div class="section level3">
+<h3 id="plotting-distance-law-first-try">Plotting distance law: first try<a class="anchor" aria-label="anchor" href="#plotting-distance-law-first-try"></a>
+</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">filtered_pairs</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">end2</span> <span class="op">-</span> <span class="va">start1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -332,18 +308,18 @@ interaction (noted <em>s</em>) and plot the interaction frequency (noted
 <p>This is not very informative, as the distances span several orders of
 magnitude in both dimensions.</p>
 </div>
-<div class="section level4">
-<h4 id="second-try-switching-to-logarithmic-scale">Second try: switching to logarithmic scale<a class="anchor" aria-label="anchor" href="#second-try-switching-to-logarithmic-scale"></a>
-</h4>
+<div class="section level3">
+<h3 id="second-try-switching-to-logarithmic-scale">Second try: switching to logarithmic scale<a class="anchor" aria-label="anchor" href="#second-try-switching-to-logarithmic-scale"></a>
+</h3>
 <p>Swtiching to a <code>log</code> scale in <code>ggplot2</code> is very
 easy.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_logticks.html" class="external-link">annotation_logticks</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="process_pairs_files/figure-html/Ps2-1.png" width="700"></p>
 </div>
-<div class="section level4">
-<h4 id="third-try-aggregating-data-before-plotting">Third try: aggregating data before plotting<a class="anchor" aria-label="anchor" href="#third-try-aggregating-data-before-plotting"></a>
-</h4>
+<div class="section level3">
+<h3 id="third-try-aggregating-data-before-plotting">Third try: aggregating data before plotting<a class="anchor" aria-label="anchor" href="#third-try-aggregating-data-before-plotting"></a>
+</h3>
 <p>The previous P(s) plot is precise at the base-pair resolution. We can
 aggregate counts by binned distances:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -370,9 +346,9 @@ aggregate counts by binned distances:</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_logticks.html" class="external-link">annotation_logticks</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="process_pairs_files/figure-html/Ps3-1.png" width="700"></p>
 </div>
-<div class="section level4">
-<h4 id="with-some-polishing">With some polishing<a class="anchor" aria-label="anchor" href="#with-some-polishing"></a>
-</h4>
+<div class="section level3">
+<h3 id="with-some-polishing">With some polishing<a class="anchor" aria-label="anchor" href="#with-some-polishing"></a>
+</h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">binned_s</span>, y <span class="op">=</span> <span class="va">Ps</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -382,7 +358,7 @@ aggregate counts by binned distances:</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>        x <span class="op">=</span> <span class="st">"Genomic distance (s)"</span>, </span>
 <span>        y <span class="op">=</span> <span class="st">"P(s)"</span>, </span>
-<span>        title <span class="op">=</span> <span class="st">"Distance-dependant genomic frequency P(s) in mESC (chr. 13)"</span></span>
+<span>        title <span class="op">=</span> <span class="st">"Distance-dependent genomic frequency P(s) in mESC (chr. 13)"</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span>                                      <span class="co">## This fixes axes titles</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span>                               <span class="co">## This changes default plot theme</span></span>
 <span><span class="co">#&gt; Warning: Removed 44 rows containing missing values (`geom_line()`).</span></span></code></pre></div>
@@ -403,7 +379,7 @@ aggregate counts by binned distances:</p>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-10-06</span></span>
+<span><span class="co">#&gt;  date     2023-10-07</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -459,7 +435,7 @@ aggregate counts by binned distances:</p>
 <span><span class="co">#&gt;  gtable                         0.3.4     <span style="color: #555555;">2023-08-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  HiContactsData               * 1.3.0     <span style="color: #555555;">2023-04-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  hms                            1.1.3     <span style="color: #555555;">2023-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  htmltools                      0.5.6     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  htmltools                      0.5.6.1   <span style="color: #555555;">2023-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  httpuv                         1.6.11    <span style="color: #555555;">2023-05-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  httr                           1.4.7     <span style="color: #555555;">2023-08-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  InteractionSet                 1.29.1    <span style="color: #555555;">2023-06-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -471,7 +447,7 @@ aggregate counts by binned distances:</p>
 <span><span class="co">#&gt;  knitr                          1.44      <span style="color: #555555;">2023-09-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  labeling                       0.4.3     <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  later                          1.3.1     <span style="color: #555555;">2023-05-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  lattice                        0.21-8    <span style="color: #555555;">2023-04-05</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  lattice                        0.21-9    <span style="color: #555555;">2023-10-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  lifecycle                      1.0.3     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  lubridate                    * 1.9.3     <span style="color: #555555;">2023-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  magrittr                       2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -484,7 +460,7 @@ aggregate counts by binned distances:</p>
 <span><span class="co">#&gt;  pillar                         1.9.0     <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig                      2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgdown                        2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  plyinteractions              * 0.99.4    <span style="color: #555555;">2023-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  plyinteractions              * 0.99.5    <span style="color: #555555;">2023-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  plyranges                    * 1.21.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  png                            0.1-8     <span style="color: #555555;">2022-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  promises                       1.2.1     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>

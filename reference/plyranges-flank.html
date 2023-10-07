@@ -14,7 +14,7 @@ with plyranges"><meta property="og:image" content="/logo.png"><!-- mathjax --><s
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,9 @@ with plyranges"><meta property="og:image" content="/logo.png"><!-- mathjax --><s
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/process_pairs.html">Hi-C arithmetic with plyinteractions</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -137,10 +140,10 @@ x. The width can be negative in which case the flanking region is reversed.</p><
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 2 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     21-30       + | 0.2348342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     51-55       + | 0.0787065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     51-55       - | 0.5805136</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     51-60       - | 0.3968002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     21-30       + |  0.418512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     51-55       + |  0.800874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     51-55       - |  0.237974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     51-60       - |  0.915535</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
@@ -156,10 +159,10 @@ x. The width can be negative in which case the flanking region is reversed.</p><
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pinned on: anchors1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-12       + ---      chr1     21-30       + | 0.2348342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-12       + ---      chr1     51-55       + | 0.0787065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-12       - ---      chr1     51-55       - | 0.5805136</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-12       - ---      chr2     51-60       - | 0.3968002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-12       + ---      chr1     21-30       + |  0.418512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-12       + ---      chr1     51-55       + |  0.800874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-12       - ---      chr1     51-55       - |  0.237974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-12       - ---      chr2     51-60       - |  0.915535</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
@@ -175,10 +178,10 @@ x. The width can be negative in which case the flanking region is reversed.</p><
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pinned on: anchors2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     17-20       + | 0.2348342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     47-50       + | 0.0787065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     56-59       - | 0.5805136</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     61-64       - | 0.3968002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     17-20       + |  0.418512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     47-50       + |  0.800874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     56-59       - |  0.237974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     61-64       - |  0.915535</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
@@ -200,10 +203,10 @@ x. The width can be negative in which case the flanking region is reversed.</p><
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pinned on: anchors2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      9-10       + ---      chr1     31-32       + | 0.2348342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      9-10       + ---      chr1     56-57       + | 0.0787065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1      9-10       - ---      chr1     56-57       - | 0.5805136</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1      9-10       - ---      chr2     61-62       - | 0.3968002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1      9-10       + ---      chr1     31-32       + |  0.418512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1      9-10       + ---      chr1     56-57       + |  0.800874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1      9-10       - ---      chr1     56-57       - |  0.237974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1      9-10       - ---      chr2     61-62       - |  0.915535</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>

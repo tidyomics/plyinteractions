@@ -12,7 +12,7 @@ the pairs of annotations from the GRanges object it overlaps with."><meta proper
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,9 @@ the pairs of annotations from the GRanges object it overlaps with."><meta proper
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/process_pairs.html">Hi-C arithmetic with plyinteractions</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -140,6 +143,7 @@ the pairs of annotations from the <code>GRanges</code> object it overlaps with.<
 <span class="r-in"><span><span class="co"># 2. Match loops with tiled genomic bins</span></span></span>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">GM12878_HiCCUPS</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">loops</span> <span class="op">&lt;-</span> <span class="va">GM12878_HiCCUPS</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>    <span class="fu"><a href="ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">'first'</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-anchor.html" class="external-link">anchor_center</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
@@ -192,6 +196,8 @@ the pairs of annotations from the <code>GRanges</code> object it overlaps with.<
 <span class="r-in"><span><span class="co"># 3. Annotate interactions by a set of regulatory elements</span></span></span>
 <span class="r-in"><span><span class="co">####################################################################</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ce10_ARCC</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ce10_REs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">annotate</span><span class="op">(</span><span class="va">ce10_ARCC</span>, <span class="va">ce10_REs</span>, by <span class="op">=</span> <span class="st">'annot'</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">annot.1</span>, <span class="va">annot.2</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>

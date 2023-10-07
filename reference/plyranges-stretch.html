@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +29,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/process_pairs.html">Hi-C arithmetic with plyinteractions</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -104,10 +107,10 @@ an integer vector of length 1 or an integer vector the same length as x.</p></dd
 <span class="r-out co"><span class="r-pr">#&gt;</span> GInteractions object with 4 interactions and 2 metadata columns:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     21-30       + |  0.242884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     51-55       + |  0.931599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     51-55       - |  0.155798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     51-60       - |  0.755302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     21-30       + |  0.190090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     51-55       + |  0.327070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     51-55       - |  0.739470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     51-60       - |  0.234003</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
@@ -123,10 +126,10 @@ an integer vector of length 1 or an integer vector the same length as x.</p></dd
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pinned on: anchors1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-35       + ---      chr1     21-30       + |  0.242884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-35       + ---      chr1     51-55       + |  0.931599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-45       - ---      chr1     51-55       - |  0.155798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-45       - ---      chr2     51-60       - |  0.755302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-35       + ---      chr1     21-30       + |  0.190090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-35       + ---      chr1     51-55       + |  0.327070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-45       - ---      chr1     51-55       - |  0.739470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-45       - ---      chr2     51-60       - |  0.234003</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
@@ -142,10 +145,10 @@ an integer vector of length 1 or an integer vector the same length as x.</p></dd
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pinned on: anchors2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     16-35       + |  0.242884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     46-60       + |  0.931599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     46-60       - |  0.155798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     46-65       - |  0.755302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1     16-35       + |  0.190090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     46-60       + |  0.327070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     46-60       - |  0.739470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     46-65       - |  0.234003</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
@@ -161,10 +164,10 @@ an integer vector of length 1 or an integer vector the same length as x.</p></dd
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pinned on: anchors2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1      1-30       + |  0.242884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     31-55       + |  0.931599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     51-75       - |  0.155798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     51-80       - |  0.755302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-20       + ---      chr1      1-30       + |  0.190090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-20       + ---      chr1     31-55       + |  0.327070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-30       - ---      chr1     51-75       - |  0.739470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       - ---      chr2     51-80       - |  0.234003</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>
@@ -186,10 +189,10 @@ an integer vector of length 1 or an integer vector the same length as x.</p></dd
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pinned on: anchors2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |     score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-40       + ---      chr1     11-40       + |  0.242884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-40       + ---      chr1     41-65       + |  0.931599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-50       - ---      chr1     41-65       - |  0.155798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-50       - ---      chr2     41-70       - |  0.755302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]      chr1     11-40       + ---      chr1     11-40       + |  0.190090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]      chr1     11-40       + ---      chr1     41-65       + |  0.327070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]      chr1     11-50       - ---      chr1     41-65       - |  0.739470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-50       - ---      chr2     41-70       - |  0.234003</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;character&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1]         cis</span>

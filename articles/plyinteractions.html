@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +54,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/process_pairs.html">Hi-C arithmetic with plyinteractions</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -81,7 +84,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>plyinteractions</h1>
             
-            <h4 data-toc-skip class="date">6 October 2023</h4>
+            <h4 data-toc-skip class="date">7 October 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/plyinteractions/blob/HEAD/vignettes/plyinteractions.Rmd" class="external-link"><code>vignettes/plyinteractions.Rmd</code></a></small>
       <div class="d-none name"><code>plyinteractions.Rmd</code></div>
@@ -89,10 +92,17 @@
 
     
     
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>The <em><a href="https://bioconductor.org/packages/3.18/plyinteractions" class="external-link">plyinteractions</a></em>
 package introduces tidy methods for the <code>GInteractions</code> class
 defined in the <em><a href="https://bioconductor.org/packages/3.18/InteractionSet" class="external-link">InteractionSet</a></em>
 package (Lun, Perry, and Ing-Simmons, 2016).</p>
+<div class="section level3">
+<h3 id="ginteractions-objects">
+<code>GInteractions</code> objects<a class="anchor" aria-label="anchor" href="#ginteractions-objects"></a>
+</h3>
 <p><code>GInteractions</code> are objects describing interactions
 between two parallel sets of genomic ranges.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -110,6 +120,55 @@ between two parallel sets of genomic ranges.</p>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 2 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 1 sequence from an unspecified genome; no seqlengths</span></span></code></pre></div>
+<p>The <em><a href="https://bioconductor.org/packages/3.18/InteractionSet" class="external-link">InteractionSet</a></em>
+package provides basic methods to interact with this class, but does not
+support tidy grammar principles.</p>
+</div>
+<div class="section level3">
+<h3 id="tidy-grammar-principles">Tidy grammar principles<a class="anchor" aria-label="anchor" href="#tidy-grammar-principles"></a>
+</h3>
+<p>The grammar of tidy genomic data transformation defined in <em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
+and available for <code>GInteractions</code> currently supports:</p>
+<ul>
+<li>
+<p><code>dplyr</code> verbs (for <code>GInteractions</code> and
+<code>GroupedGInteractions</code>):</p>
+<ul>
+<li>Group genomic interactions with <code>group_by</code>;</li>
+<li>Summarize grouped genomic interactions with
+<code>summarize</code>;</li>
+<li>Tally/count grouped genomic interactions with <code>tally</code> and
+<code>count</code>;</li>
+<li>Modify genomic interactions with <code>mutate</code>;</li>
+<li>Subset genomic interactions with <code>filter</code> using <a href="https://rlang.r-lib.org/reference/args_data_masking.html" class="external-link"><code>&lt;data-masking&gt;</code></a>
+and logical expressions;</li>
+<li>Pick out any columns from the associated metadata with
+<code>select</code> using <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link"><code>&lt;tidy-select&gt;</code>
+arguments</a>;</li>
+<li>Subset using indices with <code>slice</code>;</li>
+<li>Order genomic interactions with <code>arrange</code> using
+categorical/numerical variables.</li>
+</ul>
+</li>
+<li>
+<p><code>plyranges</code> verbs (for
+<code>PinnedGInteractions</code> and
+<code>AnchoredPinnedGInteractions</code>):</p>
+<ul>
+<li>Stretch specific anchors of genomic interactions to a given width
+with <code>stretch</code>;</li>
+<li>
+<code>anchor_*</code> functions to control how stretching is
+performed;</li>
+<li>Shift specific anchors of genomic interactions with
+<code>shift</code>;</li>
+<li>Obtain flanking <code>GRanges</code> from specific anchors of
+genomic interactions with <code>flank</code>.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section level2">
 <h2 id="importing-genomic-interactions-in-r">Importing genomic interactions in R<a class="anchor" aria-label="anchor" href="#importing-genomic-interactions-in-r"></a>
 </h2>
@@ -124,18 +183,15 @@ ecosystem.</p>
 <p>Tidy genomic data maniuplation implies that we first parse genomic
 files stored on disk as tabular data frames.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bedpe_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"tests"</span>, <span class="st">"test.bedpe"</span>, package <span class="op">=</span> <span class="st">"rtracklayer"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## This uses an example `bedpe` file provided in the `rtracklayer` package</span></span>
+<span><span class="va">bedpe_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"tests"</span>, <span class="st">"test.bedpe"</span>, package <span class="op">=</span> <span class="st">"rtracklayer"</span><span class="op">)</span></span>
 <span><span class="va">bedpe_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.delim</a></span><span class="op">(</span><span class="va">bedpe_file</span>, header <span class="op">=</span> <span class="cn">FALSE</span>, sep <span class="op">=</span> <span class="st">'\t'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bedpe_df</span></span>
-<span><span class="co">#&gt;      V1        V2        V3    V4        V5        V6                      V7</span></span>
-<span><span class="co">#&gt; 1  chr7 118965072 118965122  chr7 118970079 118970129 TUPAC_0001:3:1:0:1452#0</span></span>
-<span><span class="co">#&gt; 2 chr11  46765606  46765656 chr10  46769934  46769984 TUPAC_0001:3:1:0:1472#0</span></span>
-<span><span class="co">#&gt; 3 chr20  54704674  54704724 chr20  54708987  54709037 TUPAC_0001:3:1:1:1833#0</span></span>
-<span><span class="co">#&gt;   V8 V9 V10</span></span>
-<span><span class="co">#&gt; 1 37  +   -</span></span>
-<span><span class="co">#&gt; 2 37  +   -</span></span>
-<span><span class="co">#&gt; 3 37  +   -</span></span></code></pre></div>
+<span><span class="co">#&gt;      V1        V2        V3    V4        V5        V6                      V7 V8 V9 V10</span></span>
+<span><span class="co">#&gt; 1  chr7 118965072 118965122  chr7 118970079 118970129 TUPAC_0001:3:1:0:1452#0 37  +   -</span></span>
+<span><span class="co">#&gt; 2 chr11  46765606  46765656 chr10  46769934  46769984 TUPAC_0001:3:1:0:1472#0 37  +   -</span></span>
+<span><span class="co">#&gt; 3 chr20  54704674  54704724 chr20  54708987  54709037 TUPAC_0001:3:1:1:1833#0 37  +   -</span></span></code></pre></div>
 <p>Genomic interactions in tabular format are not easy to manipulate. We
 can easily parse a <code>data.frame</code> into a
 <code>GInteractions</code> object using the
@@ -156,16 +212,11 @@ can easily parse a <code>data.frame</code> into a
 <span></span>
 <span><span class="va">gi</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129</span></span>
-<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984</span></span>
-<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037</span></span>
-<span><span class="co">#&gt;       strand2 |                     V7        V8</span></span>
-<span><span class="co">#&gt;         &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]       - | TUPAC_0001:3:1:0:145..        37</span></span>
-<span><span class="co">#&gt;   [2]       - | TUPAC_0001:3:1:0:147..        37</span></span>
-<span><span class="co">#&gt;   [3]       - | TUPAC_0001:3:1:1:183..        37</span></span>
+<span><span class="co">#&gt;       seqnames1             ranges1 strand1     seqnames2             ranges2 strand2 |                     V7        V8</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt;           &lt;IRanges&gt;   &lt;Rle&gt; |            &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr7 118965073-118965122       + ---      chr7 118970080-118970129       - | TUPAC_0001:3:1:0:145..        37</span></span>
+<span><span class="co">#&gt;   [2]     chr11   46765607-46765656       + ---     chr10   46769935-46769984       - | TUPAC_0001:3:1:0:147..        37</span></span>
+<span><span class="co">#&gt;   [3]     chr20   54704675-54704724       + ---     chr20   54708988-54709037       - | TUPAC_0001:3:1:1:183..        37</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 4 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -185,7 +236,8 @@ can easily parse a <code>data.frame</code> into a
 and readily coerced into <code>GInteractions</code> with
 <code>as_ginteractions</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pairs_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'pairs.gz'</span>, package <span class="op">=</span> <span class="st">'plyinteractions'</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="co">## This uses an example `pairs` file provided in this package</span></span>
+<span><span class="va">pairs_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'pairs.gz'</span>, package <span class="op">=</span> <span class="st">'plyinteractions'</span><span class="op">)</span> </span>
 <span><span class="va">pairs_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.delim</a></span><span class="op">(</span><span class="va">pairs_file</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">FALSE</span>, comment.char <span class="op">=</span> <span class="st">"#"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pairs_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                           V1 V2  V3 V4     V5 V6 V7   V8   V9</span></span>
@@ -230,21 +282,20 @@ from the <code>tibble</code> package:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 12</span></span></span>
-<span><span class="co">#&gt;   seqnames1  start1   end1 width1 strand1 seqnames2 start2   end2 width2 strand2</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> chr7       1.19<span style="color: #949494;">e</span>8 1.19<span style="color: #949494;">e</span>8     50 +       chr7      1.19<span style="color: #949494;">e</span>8 1.19<span style="color: #949494;">e</span>8     50 -      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> chr11      4.68<span style="color: #949494;">e</span>7 4.68<span style="color: #949494;">e</span>7     50 +       chr10     4.68<span style="color: #949494;">e</span>7 4.68<span style="color: #949494;">e</span>7     50 -      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> chr20      5.47<span style="color: #949494;">e</span>7 5.47<span style="color: #949494;">e</span>7     50 +       chr20     5.47<span style="color: #949494;">e</span>7 5.47<span style="color: #949494;">e</span>7     50 -      </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: V7 &lt;chr&gt;, V8 &lt;int&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   seqnames1    start1      end1 width1 strand1 seqnames2    start2      end2 width2 strand2 V7                         V8</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> chr7      118<span style="text-decoration: underline;">965</span>073 118<span style="text-decoration: underline;">965</span>122     50 +       chr7      118<span style="text-decoration: underline;">970</span>080 118<span style="text-decoration: underline;">970</span>129     50 -       TUPAC_0001:3:1:0:1452#0    37</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> chr11      46<span style="text-decoration: underline;">765</span>607  46<span style="text-decoration: underline;">765</span>656     50 +       chr10      46<span style="text-decoration: underline;">769</span>935  46<span style="text-decoration: underline;">769</span>984     50 -       TUPAC_0001:3:1:0:1472#0    37</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> chr20      54<span style="text-decoration: underline;">704</span>675  54<span style="text-decoration: underline;">704</span>724     50 +       chr20      54<span style="text-decoration: underline;">708</span>988  54<span style="text-decoration: underline;">709</span>037     50 -       TUPAC_0001:3:1:1:1833#0    37</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="getter-functions">Getter functions<a class="anchor" aria-label="anchor" href="#getter-functions"></a>
 </h2>
-<div class="section level4">
-<h4 id="anchors12">
+<div class="section level3">
+<h3 id="anchors12">
 <code>anchors{12}</code><a class="anchor" aria-label="anchor" href="#anchors12"></a>
-</h4>
+</h3>
 <p>A <code>GInteractions</code> object consists of two sets of
 <strong><em>anchors</em></strong>: <code>anchors1</code> and
 <code>anchors2</code>.</p>
@@ -261,6 +312,9 @@ from the <code>tibble</code> package:</p>
 <span>  <span class="st">"type"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/ginteractions-construct.html">as_ginteractions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## `anchors` returns the two sets of anchors (i.e. "left" and "right" </span></span>
+<span><span class="co">## loci) for each genomic interaction</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/interaction-accessors.html" class="external-link">anchors</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $first</span></span>
@@ -284,6 +338,9 @@ from the <code>tibble</code> package:</p>
 <span><span class="co">#&gt;   [4]     chr2     11-30      -</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
+<span></span>
+<span><span class="co">## `anchors1` and `anchors2` specifically return the "left" OR "right" </span></span>
+<span><span class="co">## loci) for each genomic interaction</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ginteractions-getters.html">anchors1</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GRanges object with 4 ranges and 0 metadata columns:</span></span>
@@ -315,16 +372,19 @@ different from the <code>anchor</code> term used in
 is used in the chromatin interaction field to refer to the ends of a
 potential chromatin loop.</p>
 </div>
-<div class="section level4">
-<h4 id="core-ginteractions-fields">Core <code>GInteractions</code> fields<a class="anchor" aria-label="anchor" href="#core-ginteractions-fields"></a>
-</h4>
+<div class="section level3">
+<h3 id="core-ginteractions-fields">Core <code>GInteractions</code> fields<a class="anchor" aria-label="anchor" href="#core-ginteractions-fields"></a>
+</h3>
 <p><code>seqnames</code>, <code>start</code>/<code>end</code>,
 <code>width</code> and <code>strand</code> return informative core
 fields of a <code>GRanges</code> object. Appending <code>1</code> or
 <code>2</code> to these functions allow the end-user to fetch the
 corresponding fields from <code>GInteractions</code> objects.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ginteractions-getters.html">seqnames1</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## Similarly to `GRanges` accessors, `seqnames`, `start`, `end`, `strand` and </span></span>
+<span><span class="co">## `width` are all available for each set of `anchors` of a `GInteractions`. </span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/ginteractions-getters.html">seqnames1</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; factor-Rle of length 4 with 1 run</span></span>
 <span><span class="co">#&gt;   Lengths:    4</span></span>
 <span><span class="co">#&gt;   Values : chr1</span></span>
@@ -345,9 +405,9 @@ corresponding fields from <code>GInteractions</code> objects.</p>
 <span><span class="fu"><a href="../reference/ginteractions-getters.html">width2</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 15 20 25 20</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="metadata-columns">Metadata columns<a class="anchor" aria-label="anchor" href="#metadata-columns"></a>
-</h4>
+<div class="section level3">
+<h3 id="metadata-columns">Metadata columns<a class="anchor" aria-label="anchor" href="#metadata-columns"></a>
+</h3>
 <p><code>GInteractions</code> contain associated metadata stored as a
 <code>DataFrame</code> which can be recovered using the standard
 <code>mcols</code> function:</p>
@@ -366,9 +426,12 @@ corresponding fields from <code>GInteractions</code> objects.</p>
 <code class="sourceCode R"><span><span class="va">gi</span><span class="op">$</span><span class="va">type</span></span>
 <span><span class="co">#&gt; [1] "cis"   "cis"   "cis"   "trans"</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="extra-genomic-related-informations">Extra genomic-related informations<a class="anchor" aria-label="anchor" href="#extra-genomic-related-informations"></a>
-</h4>
+<div class="section level3">
+<h3 id="extra-genomic-related-informations">Extra genomic-related informations<a class="anchor" aria-label="anchor" href="#extra-genomic-related-informations"></a>
+</h3>
+<p>Accessor functions provided in the <em><a href="https://bioconductor.org/packages/3.18/InteractionSet" class="external-link">InteractionSet</a></em>
+package (which defines the <code>GInteractions</code> class) are also
+available.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/interaction-accessors.html" class="external-link">regions</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GRanges object with 8 ranges and 0 metadata columns:</span></span>
@@ -410,7 +473,10 @@ workflow for <code>GInteractions</code>, two classes were defined:
 set of anchors (i.e. <code>anchors1</code> or <code>anchors2</code>)
 should be affected by <code>plyranges</code> functions.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## `pin_by` is used to pin a `GInteractions` on "first" (i.e. "left") or </span></span>
+<span><span class="co">## "second" (i.e. "right") anchors. </span></span>
+<span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; PinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>
 <span><span class="co">#&gt; Pinned on: anchors1</span></span>
 <span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
@@ -457,10 +523,12 @@ unpinned <code>GInteractions</code> object.</p>
 <code>AnchoredPinnedGInteractions</code><a class="anchor" aria-label="anchor" href="#anchoredpinnedginteractions"></a>
 </h3>
 <p>Some <code>plyranges</code> operations can work on
-“<code>anchored"</code> <strong><em>GRanges</em></strong>. To enable
-these operations either on <code>anchors1</code> or
-<code>anchors2</code>, the pinned <code>anchors{12}</code> of a
-<code>GInteractions</code> object can be further”anchored”.</p>
+“<code>anchored"</code> <strong><em><code>GRanges</code></em></strong>.
+To enable these operations either on <code>anchors1</code> or
+<code>anchors2</code> from a
+<strong><em><code>GInteractions</code></em></strong> object, the”pinned”
+<code>anchors{12}</code> of the <code>GInteractions</code> object can be
+further “anchored”.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-anchor.html" class="external-link">anchor_5p</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; AnchoredPinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>
@@ -515,6 +583,8 @@ to specify which set of anchors should be affected by
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
+<span><span class="co">## This pins the "first" (i.e. "left") anchors and strecthes them by 10bp</span></span>
+<span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; PinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>
 <span><span class="co">#&gt; Pinned on: anchors1</span></span>
@@ -528,6 +598,9 @@ to specify which set of anchors should be affected by
 <span><span class="co">#&gt;   regions: 7 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
+<span><span class="co">## This pins the "first" (i.e. "left") anchors and shift them </span></span>
+<span><span class="co">## by 20bp to the right</span></span>
+<span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/plyranges-shift.html">shift_right</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">#&gt; PinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>
 <span><span class="co">#&gt; Pinned on: anchors1</span></span>
@@ -540,6 +613,9 @@ to specify which set of anchors should be affected by
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
+<span></span>
+<span><span class="co">## This pins the "first" (i.e. "left") anchors and extracts 20bp </span></span>
+<span><span class="co">## flanking these "first" anchors</span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/plyranges-flank.html">flank_right</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">#&gt; PinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>
@@ -562,7 +638,10 @@ to specify which set of anchors should be affected by
 anchoring:</p>
 <p><img src="../reference/figures/stretch.png"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-anchor.html" class="external-link">anchor_start</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## This pins the "first" (i.e. "left") anchors and strecthes them by 10bp, </span></span>
+<span><span class="co">## with the "first" anchors being anchored at their **start**. </span></span>
+<span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-anchor.html" class="external-link">anchor_start</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; PinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>
 <span><span class="co">#&gt; Pinned on: anchors1</span></span>
 <span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
@@ -574,6 +653,9 @@ anchoring:</p>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 6 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
+<span></span>
+<span><span class="co">## This pins the "first" (i.e. "left") anchors and strecthes them by 10bp, </span></span>
+<span><span class="co">## with the "first" anchors being anchored at their **center**. </span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-anchor.html" class="external-link">anchor_center</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/stretch.html" class="external-link">stretch</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; PinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>
@@ -604,41 +686,36 @@ object.</p>
 </h3>
 <p><code>mutate</code> supports accessing other existing columns:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cis <span class="op">=</span> <span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## This creates a new metadata column named `cis`</span></span>
+<span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cis <span class="op">=</span> <span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 4 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;         cis</span></span>
-<span><span class="co">#&gt;       &lt;Rle&gt;</span></span>
-<span><span class="co">#&gt;   [1]  TRUE</span></span>
-<span><span class="co">#&gt;   [2]  TRUE</span></span>
-<span><span class="co">#&gt;   [3]  TRUE</span></span>
-<span><span class="co">#&gt;   [4] FALSE</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type   cis</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans FALSE</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
+<span><span class="co">## This creates a new metadata column named `both_chr`</span></span>
+<span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>both_chr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">seqnames1</span>, <span class="va">seqnames2</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 4 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;        both_chr</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt;</span></span>
-<span><span class="co">#&gt;   [1] chr1_chr1</span></span>
-<span><span class="co">#&gt;   [2] chr1_chr1</span></span>
-<span><span class="co">#&gt;   [3] chr1_chr1</span></span>
-<span><span class="co">#&gt;   [4] chr1_chr2</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type  both_chr</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;     &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis chr1_chr1</span></span>
+<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis chr1_chr1</span></span>
+<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis chr1_chr1</span></span>
+<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans chr1_chr2</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
+<span></span>
+<span><span class="co">## This modifies `start1`, i.e. the `start` coordinates of the "first"</span></span>
+<span><span class="co">## (i.e. "left") anchors of the `GInteractions` object. </span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>start1 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 4 interactions and 1 metadata column:</span></span>
@@ -658,7 +735,10 @@ object.</p>
 <p><code>group_by</code> supports accessing both core and metadata
 columns:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">seqnames2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## This groups the `GInteractions` object using the `seqnames2` variable</span></span>
+<span><span class="co">## (i.e. the `seqnames` of the "second" anchors of the `GInteractions`). </span></span>
+<span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">seqnames2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GroupedGInteractions object with 4 interactions and 1 metadata column:</span></span>
 <span><span class="co">#&gt; Groups: seqnames2 [2]</span></span>
 <span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
@@ -671,40 +751,33 @@ columns:</p>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
+<span><span class="co">## This groups the `GInteractions` object by a new variable named `cis`</span></span>
+<span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>cis <span class="op">=</span> <span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GroupedGInteractions object with 4 interactions and 2 metadata columns:</span></span>
 <span><span class="co">#&gt; Groups: cis [2]</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;         cis</span></span>
-<span><span class="co">#&gt;       &lt;Rle&gt;</span></span>
-<span><span class="co">#&gt;   [1]  TRUE</span></span>
-<span><span class="co">#&gt;   [2]  TRUE</span></span>
-<span><span class="co">#&gt;   [3]  TRUE</span></span>
-<span><span class="co">#&gt;   [4] FALSE</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type   cis</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans FALSE</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
+<span><span class="co">## This groups the `GInteractions` object by two variables, `seqnames2` </span></span>
+<span><span class="co">## and the new variable `cis`</span></span>
+<span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">seqnames2</span>, cis <span class="op">=</span> <span class="va">seqnames1</span> <span class="op">==</span> <span class="va">seqnames2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GroupedGInteractions object with 4 interactions and 2 metadata columns:</span></span>
 <span><span class="co">#&gt; Groups: seqnames2, cis [2]</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;         cis</span></span>
-<span><span class="co">#&gt;       &lt;Rle&gt;</span></span>
-<span><span class="co">#&gt;   [1]  TRUE</span></span>
-<span><span class="co">#&gt;   [2]  TRUE</span></span>
-<span><span class="co">#&gt;   [3]  TRUE</span></span>
-<span><span class="co">#&gt;   [4] FALSE</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type   cis</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;Rle&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis  TRUE</span></span>
+<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans FALSE</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -715,7 +788,10 @@ columns:</p>
 <p>Summarizing grouped <code>GInteractions</code> can be extremely
 powerful.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">strand1</span>, <span class="va">strand2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## This counts the number of occurences of each combination of the variables</span></span>
+<span><span class="co">## `strand1` and `strand2`</span></span>
+<span></span>
+<span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">strand1</span>, <span class="va">strand2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; DataFrame with 4 rows and 3 columns</span></span>
 <span><span class="co">#&gt;   strand1 strand2         n</span></span>
 <span><span class="co">#&gt;     &lt;Rle&gt;   &lt;Rle&gt; &lt;integer&gt;</span></span>
@@ -724,12 +800,17 @@ powerful.</p>
 <span><span class="co">#&gt; 3       -       +     10288</span></span>
 <span><span class="co">#&gt; 4       -       -     14843</span></span>
 <span></span>
-<span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>same_strand <span class="op">=</span> <span class="va">strand1</span> <span class="op">==</span> <span class="va">strand2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">tally</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 2 rows and 2 columns</span></span>
+<span><span class="co">## This counts the number of pairs located on the same strand </span></span>
+<span><span class="co">## or different strands</span></span>
+<span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>same_strand <span class="op">=</span> <span class="va">strand1</span> <span class="op">==</span> <span class="va">strand2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">tally</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 1 row and 2 columns</span></span>
 <span><span class="co">#&gt;   same_strand         n</span></span>
 <span><span class="co">#&gt;         &lt;Rle&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt; 1       FALSE     21111</span></span>
-<span><span class="co">#&gt; 2        TRUE     28889</span></span>
+<span><span class="co">#&gt; 1        TRUE         4</span></span>
+<span></span>
+<span><span class="co">## This counts the number of pairs located on the same strand </span></span>
+<span><span class="co">## or different strands</span></span>
 <span></span>
 <span><span class="va">pairs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span>same_strand <span class="op">=</span> <span class="va">strand1</span> <span class="op">==</span> <span class="va">strand2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
@@ -780,7 +861,10 @@ powerful.</p>
 <p><code>select</code> supports <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link"><code>&lt;tidy-select&gt;</code>
 arguments</a>:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## This only keeps the "type" column from the metadata columns, </span></span>
+<span><span class="co">## using &lt;tidy-select&gt; methodology</span></span>
+<span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 4 interactions and 1 metadata column:</span></span>
 <span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
 <span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
@@ -822,6 +906,7 @@ metadata columns are parsed. Selecting a subset of core fields from a
 (the other non-selected core fields).</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This does not restrict to `seqnames1` and `seqnames2` columns. </span></span>
+<span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">'seq'</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; GInteractions object with 4 interactions and 0 metadata columns:</span></span>
 <span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span></span>
@@ -840,6 +925,7 @@ results in the coercion of the selected columns into a
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This selects `seqnames1` and `seqnames2` columns but converts the output</span></span>
 <span><span class="co">## into a `DataFrame`.</span></span>
+<span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">'seq'</span><span class="op">)</span>, .drop_ranges <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; DataFrame with 4 rows and 2 columns</span></span>
 <span><span class="co">#&gt;   seqnames1 seqnames2</span></span>
@@ -853,7 +939,9 @@ results in the coercion of the selected columns into a
 <h3 id="slicing-rows">Slicing rows<a class="anchor" aria-label="anchor" href="#slicing-rows"></a>
 </h3>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## This only retains specific pair indices</span></span>
+<span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 1 metadata column:</span></span>
 <span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
 <span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
@@ -862,6 +950,7 @@ results in the coercion of the selected columns into a
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
+<span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 1 metadata column:</span></span>
 <span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
@@ -901,40 +990,43 @@ counterparts for when strandness is required.</p>
 <div class="section level3">
 <h3 id="overlapping-ginteractions">Overlapping <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#overlapping-ginteractions"></a>
 </h3>
+<p><code>overlap</code>ping methods defined for
+<code>GInteractions</code> have also been adapted to work in a “tidy”
+manner.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chr1:25-30:-"</span>, <span class="st">"chr2:16-20:+"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">gi</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">gr</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co">## This returns the `GInteractions` entries overlapping with a `GRanges`</span></span>
+<span><span class="co">## (with either of both anchors)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps</a></span><span class="op">(</span><span class="va">gi</span>, <span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 3 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;   [3]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         3         1</span></span>
-<span><span class="co">#&gt;   [2]         4         1</span></span>
-<span><span class="co">#&gt;   [3]         4         2</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type      id.x      id.y</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis         3         1</span></span>
+<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans         4         1</span></span>
+<span><span class="co">#&gt;   [3]      chr1     11-30       - ---      chr2     11-30       - |       trans         4         2</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
+<span><span class="co">## This overlap requires the same strandness between </span></span>
+<span><span class="co">## the `GInteractions` anchors and the `GRanges` object</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps_directed</a></span><span class="op">(</span><span class="va">gi</span>, <span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         3         1</span></span>
-<span><span class="co">#&gt;   [2]         4         1</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type      id.x      id.y</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis         3         1</span></span>
+<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans         4         1</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
+<span></span>
+<span><span class="co">## This counts how many times each entry in a `GInteractions` object </span></span>
+<span><span class="co">## overlaps with a `GRanges` object (with either of both anchors)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-count-overlaps.html" class="external-link">count_overlaps</a></span><span class="op">(</span><span class="va">gi</span>, <span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0 0 1 2</span></span>
@@ -942,68 +1034,53 @@ counterparts for when strandness is required.</p>
 <span><span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-count-overlaps.html" class="external-link">count_overlaps_directed</a></span><span class="op">(</span><span class="va">gi</span>, <span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0 0 1 1</span></span>
 <span></span>
+<span><span class="co">## This filters a `GInteractions` object to only retain the entries </span></span>
+<span><span class="co">## overlapping (or not) with a `GRanges` (with either of both anchors)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-filter-overlaps.html" class="external-link">filter_by_overlaps</a></span><span class="op">(</span><span class="va">gi</span>, <span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;              id</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         3</span></span>
-<span><span class="co">#&gt;   [2]         4</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type        id</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis         3</span></span>
+<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans         4</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-filter-overlaps.html" class="external-link">filter_by_non_overlaps</a></span><span class="op">(</span><span class="va">gi</span>, <span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;              id</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1</span></span>
-<span><span class="co">#&gt;   [2]         2</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type        id</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis         1</span></span>
+<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis         2</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
+<span><span class="co">## This performs a left join between `GInteractions` entries and</span></span>
+<span><span class="co">## a `GRanges` of interest (with/without considering strandness)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/overlap-joins.html" class="external-link">join_overlap_left</a></span><span class="op">(</span><span class="va">gi</span>, <span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 5 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;   [5]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [2]         2      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [3]         3         1</span></span>
-<span><span class="co">#&gt;   [4]         4         1</span></span>
-<span><span class="co">#&gt;   [5]         4         2</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type      id.x      id.y</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis         1      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis         2      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis         3         1</span></span>
+<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans         4         1</span></span>
+<span><span class="co">#&gt;   [5]      chr1     11-30       - ---      chr2     11-30       - |       trans         4         2</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/overlap-joins.html" class="external-link">join_overlap_left_directed</a></span><span class="op">(</span><span class="va">gi</span>, <span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 4 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [2]         2      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [3]         3         1</span></span>
-<span><span class="co">#&gt;   [4]         4         1</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type      id.x      id.y</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis         1      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis         2      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis         3         1</span></span>
+<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans         4         1</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -1015,192 +1092,27 @@ counterparts for when strandness is required.</p>
 functions. In this case, only the pinned anchors are used when computing
 overlaps.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## This returns the `GInteractions` entries for which </span></span>
+<span><span class="co">## the "first" anchor overlaps with a `GRanges`</span></span>
+<span></span>
+<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 1 interaction and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         4         1</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type      id.x      id.y</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1     11-30       - ---      chr2     11-30       - |       trans         4         1</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
+<span></span>
+<span><span class="co">## This returns the `GInteractions` entries for which </span></span>
+<span><span class="co">## the "second" anchor overlaps with a `GRanges`</span></span>
 <span></span>
 <span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"second"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 2 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         3         1</span></span>
-<span><span class="co">#&gt;   [2]         4         2</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps_directed</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 1 interaction and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         4         1</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"second"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps_directed</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 1 interaction and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         3         1</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-count-overlaps.html" class="external-link">count_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0 0 0 1</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"second"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-count-overlaps.html" class="external-link">count_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0 0 1 1</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-count-overlaps.html" class="external-link">count_overlaps_directed</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0 0 0 1</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"second"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-count-overlaps.html" class="external-link">count_overlaps_directed</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0 0 1 0</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-filter-overlaps.html" class="external-link">filter_by_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 1 interaction and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;              id</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         4</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"second"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-filter-overlaps.html" class="external-link">filter_by_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 2 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;              id</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         3</span></span>
-<span><span class="co">#&gt;   [2]         4</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-filter-overlaps.html" class="external-link">filter_by_non_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 3 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;              id</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1</span></span>
-<span><span class="co">#&gt;   [2]         2</span></span>
-<span><span class="co">#&gt;   [3]         3</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"second"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-filter-overlaps.html" class="external-link">filter_by_non_overlaps</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 2 interactions and 2 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;              id</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1</span></span>
-<span><span class="co">#&gt;   [2]         2</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/overlap-joins.html" class="external-link">join_overlap_left</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 4 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [2]         2      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [3]         3      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [4]         4         1</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"second"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/overlap-joins.html" class="external-link">join_overlap_left</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 4 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [2]         2      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [3]         3         1</span></span>
-<span><span class="co">#&gt;   [4]         4         2</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/overlap-joins.html" class="external-link">join_overlap_left_directed</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 4 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [2]         2      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [3]         3      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [4]         4         1</span></span>
-<span><span class="co">#&gt;   -------</span></span>
-<span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
-<span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
-<span></span>
-<span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"second"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/overlap-joins.html" class="external-link">join_overlap_left_directed</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; GInteractions object with 4 interactions and 3 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1      1-10       + ---      chr1      1-15       + |         cis</span></span>
-<span><span class="co">#&gt;   [2]      chr1      6-15       + ---      chr1      1-20       + |         cis</span></span>
-<span><span class="co">#&gt;   [3]      chr1      6-20       - ---      chr1      6-30       - |         cis</span></span>
-<span><span class="co">#&gt;   [4]      chr1     11-30       - ---      chr2     11-30       - |       trans</span></span>
-<span><span class="co">#&gt;            id.x      id.y</span></span>
-<span><span class="co">#&gt;       &lt;integer&gt; &lt;integer&gt;</span></span>
-<span><span class="co">#&gt;   [1]         1      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [2]         2      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   [3]         3         1</span></span>
-<span><span class="co">#&gt;   [4]         4      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2 |        type      id.x      id.y</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt; | &lt;character&gt; &lt;integer&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1      6-20       - ---      chr1      6-30       - |         cis         3         1</span></span>
+<span><span class="co">#&gt;   [2]      chr1     11-30       - ---      chr2     11-30       - |       trans         4         2</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 8 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -1217,9 +1129,7 @@ to cite the package and the overall approach. Thank you!</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"plyinteractions"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite package 'plyinteractions' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Serizay J (2023). _plyinteractions: Extending tidy verbs to genomic</span></span>
-<span><span class="co">#&gt;   interactions_. R package version 0.99.4,</span></span>
-<span><span class="co">#&gt;   &lt;https://github.com/js2264/plyinteractions&gt;.</span></span>
+<span><span class="co">#&gt;   Serizay J (2023). _plyinteractions: Extending tidy verbs to genomic interactions_. R package version 0.99.5, &lt;https://github.com/js2264/plyinteractions&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1227,7 +1137,7 @@ to cite the package and the overall approach. Thank you!</p>
 <span><span class="co">#&gt;     title = {plyinteractions: Extending tidy verbs to genomic interactions},</span></span>
 <span><span class="co">#&gt;     author = {Jacques Serizay},</span></span>
 <span><span class="co">#&gt;     year = {2023},</span></span>
-<span><span class="co">#&gt;     note = {R package version 0.99.4},</span></span>
+<span><span class="co">#&gt;     note = {R package version 0.99.5},</span></span>
 <span><span class="co">#&gt;     url = {https://github.com/js2264/plyinteractions},</span></span>
 <span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
@@ -1291,7 +1201,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-10-06</span></span>
+<span><span class="co">#&gt;  date     2023-10-07</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -1327,14 +1237,14 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  GenomicAlignments      1.37.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomicRanges        * 1.53.1    <span style="color: #555555;">2023-05-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  glue                   1.6.2     <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  htmltools              0.5.6     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  htmltools              0.5.6.1   <span style="color: #555555;">2023-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  httr                   1.4.7     <span style="color: #555555;">2023-08-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  InteractionSet       * 1.29.1    <span style="color: #555555;">2023-06-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  IRanges              * 2.35.2    <span style="color: #555555;">2023-06-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  jquerylib              0.1.4     <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  jsonlite               1.8.7     <span style="color: #555555;">2023-06-29</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  knitr                  1.44      <span style="color: #555555;">2023-09-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  lattice                0.21-8    <span style="color: #555555;">2023-04-05</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  lattice                0.21-9    <span style="color: #555555;">2023-10-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  lifecycle              1.0.3     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  lubridate              1.9.3     <span style="color: #555555;">2023-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  magrittr               2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -1345,7 +1255,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  pillar                 1.9.0     <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig              2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgdown                2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  plyinteractions      * 0.99.4    <span style="color: #555555;">2023-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  plyinteractions      * 0.99.5    <span style="color: #555555;">2023-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  plyr                   1.8.9     <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  plyranges              1.21.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  purrr                  1.0.2     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -1442,7 +1352,7 @@ Computing</em>. R Foundation for Statistical Computing. Vienna, Austria,
 <p>
 <a id="bib-serizay2023plyinteractions"></a><a href="#cite-serizay2023plyinteractions">[8]</a><cite>
 J. Serizay. <em>plyinteractions: Extending tidy verbs to genomic
-interactions</em>. R package version 0.99.4. 2023. URL:
+interactions</em>. R package version 0.99.5. 2023. URL:
 <a href="https://github.com/js2264/plyinteractions" class="external-link">https://github.com/js2264/plyinteractions</a>.</cite>
 </p>
 <p>
