@@ -21,6 +21,9 @@ template:
         btn-border-radius: 0.25rem
 
 reference:
+- title: "About plyinteractions"
+  contents: 
+  - plyinteractions-package
 - title: "Constructors"
   contents: 
   - as_ginteractions
