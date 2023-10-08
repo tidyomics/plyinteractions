@@ -3,12 +3,15 @@
 \name{dplyr-group_by}
 \alias{dplyr-group_by}
 \alias{group_by.GInteractions}
-\alias{ungroup.GInteractions}
+\alias{group_by.DelegatingGInteractions}
+\alias{ungroup.GroupedGInteractions}
 \title{Group GInteractions by columns}
 \usage{
 \method{group_by}{GInteractions}(.data, ..., .add = FALSE)
 
-\method{ungroup}{GInteractions}(x, ...)
+\method{group_by}{DelegatingGInteractions}(.data, ..., .add = FALSE)
+
+\method{ungroup}{GroupedGInteractions}(x, ...)
 }
 \arguments{
 \item{.data, x}{a (Grouped)GInteractions object}
@@ -19,7 +22,9 @@
 groups. To add to the existing groups, use .add = TRUE.}
 }
 \value{
-a GInteractions object.
+a \code{GroupedGInteractions} object. When a
+\verb{(Anchored)PinnedGInteractions} object is grouped, both anchoring and
+pinning are dropped.
 }
 \description{
 Group GInteractions by columns

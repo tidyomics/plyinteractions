@@ -8,7 +8,9 @@
 NULL
 
 setClass("DelegatingGInteractions",
-    slots = list(delegate="GInteractions"),
+    slots = c(
+        delegate="GInteractions"
+    ),
     contains=c("GInteractions", "VIRTUAL")
 )
 

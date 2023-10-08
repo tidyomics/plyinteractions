@@ -5,7 +5,9 @@
 #' @param .add When FALSE, the default, group_by() will override existing
 #' groups. To add to the existing groups, use .add = TRUE.
 #' 
-#' @return a GInteractions object.
+#' @return a `GroupedGInteractions` object. When a 
+#' `(Anchored)PinnedGInteractions` object is grouped, both anchoring and 
+#' pinning are dropped. 
 #'
 #' @importFrom tidyselect eval_select
 #' @importFrom rlang syms
@@ -115,9 +117,15 @@ group_by.GInteractions <- function(.data, ..., .add = FALSE) {
 }
 
 #' @rdname dplyr-group_by
+#' @export
+group_by.DelegatingGInteractions <- function(.data, ..., .add = FALSE) {
+    group_by(unpin(.data), ..., .add = FALSE)
+}
+
+#' @rdname dplyr-group_by
 #' @importFrom dplyr ungroup
 #' @export
-ungroup.GInteractions <- function(x, ...) {
+ungroup.GroupedGInteractions <- function(x, ...) {
     ungroups <- enquos(...)
     ungroups <- rlang::quos_auto_name(ungroups)
     if (length(ungroups) == 0L) {
