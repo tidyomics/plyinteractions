@@ -38,7 +38,10 @@ rename.GInteractions <- function(.data, ...) {
         stop("Core GInteractions columns cannot be renamed.", call. = FALSE)
     }
     if (!all(old_colnames %in% colnames(mcols(.data)))) {
-        stop("Old column names not found. Use `new_name = old_name` syntax.", call. = FALSE)
+        stop(
+            "Old column names not found. Use `new_name = old_name` syntax.", 
+            call. = FALSE
+        )
     }
 
     ## Rename with `eval_rename`

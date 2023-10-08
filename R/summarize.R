@@ -86,7 +86,8 @@ summarise.GroupedGInteractions <- function(.data, ...) {
     if (any(is_list)) {
         nr <- .data@n
         for (i in which(is_list)) {
-            ## If scalar, repeat the scalar as many times as the number of groups
+            ## If scalar, repeat the scalar 
+            ## as many times as the number of groups
             if (length(evaled_quosures[[i]]) == 1) {
                 evaled_quosures[[i]] <- as(
                     rep(evaled_quosures[[i]], nr), "CompressedList"

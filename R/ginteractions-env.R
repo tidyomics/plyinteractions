@@ -48,7 +48,9 @@ setMethod("as.env", "GInteractions", function(x, enclos, tform = identity) {
     env <- S4Vectors::as.env(
         x@delegate, 
         envir, 
-        tform = function(col) unname(S4Vectors::splitAsList(col, x@group_indices))
+        tform = function(col) unname(
+            S4Vectors::splitAsList(col, x@group_indices)
+        )
     )
     rlang::new_data_mask(env, top = parent.env(env))
 }

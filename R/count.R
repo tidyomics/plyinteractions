@@ -66,7 +66,9 @@
 #' @importFrom rlang expr
 #' @importFrom dplyr desc
 #' @export
-tally.GroupedGInteractions <- function(x, wt = NULL, sort = FALSE, name = NULL) {
+tally.GroupedGInteractions <- function(
+    x, wt = NULL, sort = FALSE, name = NULL
+) {
 
     ## Check provided name against gorup names
     name <- check_n_name(name, group_vars(x))

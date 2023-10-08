@@ -88,19 +88,28 @@ anchor_5p.PinnedGInteractions <- function(x) {
 #' @name ginteractions-anchor
 #' @export
 anchor_start.AnchoredPinnedGInteractions <- function(x) {
-    new("AnchoredPinnedGInteractions", unanchor(x), pin = pin(x), anchor = "start")
+    new(
+        "AnchoredPinnedGInteractions", 
+        unanchor(x), pin = pin(x), anchor = "start"
+    )
 }
 
 #' @name ginteractions-anchor
 #' @export
 anchor_end.AnchoredPinnedGInteractions <- function(x) {
-    new("AnchoredPinnedGInteractions", unanchor(x), pin = pin(x), anchor = "end")
+    new(
+        "AnchoredPinnedGInteractions", 
+        unanchor(x), pin = pin(x), anchor = "end"
+    )
 }
 
 #' @name ginteractions-anchor
 #' @export
 anchor_center.AnchoredPinnedGInteractions <- function(x) {
-    new("AnchoredPinnedGInteractions", unanchor(x), pin = pin(x), anchor = "center")
+    new(
+        "AnchoredPinnedGInteractions", 
+        unanchor(x), pin = pin(x), anchor = "center"
+    )
 }
 
 #' @name ginteractions-anchor

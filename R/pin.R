@@ -18,7 +18,10 @@
 #' chr1 11 20 chr1 51 55
 #' chr1 11 30 chr1 51 55
 #' chr1 11 30 chr2 51 60",
-#' col.names = c("seqnames1", "start1", "end1", "seqnames2", "start2", "end2")) |> 
+#' col.names = c(
+#'     "seqnames1", "start1", "end1", 
+#'     "seqnames2", "start2", "end2")
+#' ) |> 
 #'   as_ginteractions() |> 
 #'   mutate(type = c('cis', 'cis', 'cis', 'trans'), score = runif(4))
 #' 
@@ -50,56 +53,87 @@
 NULL
 
 #' @rdname ginteractions-pin
-setMethod("pin", signature(x = "GroupedGInteractions", anchors = "character"), function(x, anchors) {
-    methods::new("PinnedGInteractions", ungroup(x), anchors)
-})
+setMethod("pin", 
+    signature(x = "GroupedGInteractions", anchors = "character"), 
+    function(x, anchors) {
+        methods::new("PinnedGInteractions", ungroup(x), anchors)
+    }
+)
 
 #' @rdname ginteractions-pin
-setMethod("pin", signature(x = "GroupedGInteractions", anchors = "numeric"), function(x, anchors) {
-    methods::new("PinnedGInteractions", ungroup(x), as.character(anchors))
-})
+setMethod("pin", 
+    signature(x = "GroupedGInteractions", anchors = "numeric"), 
+    function(x, anchors) {
+        methods::new("PinnedGInteractions", ungroup(x), as.character(anchors))
+    }
+)
 
 #' @rdname ginteractions-pin
-setMethod("pin", signature(x = "GInteractions", anchors = "character"), function(x, anchors) {
-    methods::new("PinnedGInteractions", x, anchors)
-})
+setMethod("pin", 
+    signature(x = "GInteractions", anchors = "character"), 
+    function(x, anchors) {
+        methods::new("PinnedGInteractions", x, anchors)
+    }
+)
 
 #' @rdname ginteractions-pin
-setMethod("pin", signature(x = "GInteractions", anchors = "numeric"), function(x, anchors) {
-    if (!anchors %in% c(1, 2)) stop("`anchors` can only be set to `1` or `2`")
-    methods::new("PinnedGInteractions", x, as.character(anchors))
-})
-
-#' @rdname ginteractions-pin
-#' @export
-setMethod("pin", signature(x = "PinnedGInteractions", anchors = "missing"), function(x, anchors) {
-    x@pin
-})
-
-#' @rdname ginteractions-pin
-#' @export
-setMethod("pin", signature(x = "PinnedGInteractions", anchors = "character"), function(x, anchors) {
-    methods::new("PinnedGInteractions", unpin(x), anchors)
-})
-
-#' @rdname ginteractions-pin
-#' @export
-setMethod("pin", signature(x = "PinnedGInteractions", anchors = "numeric"), function(x, anchors) {
-    if (!anchors %in% c(1, 2)) stop("`anchors` can only be set to `1` or `2`")
-    methods::new("PinnedGInteractions", unpin(x), as.character(anchors))
-})
+setMethod("pin", 
+    signature(x = "GInteractions", anchors = "numeric"), 
+    function(x, anchors) {
+        if (!anchors %in% c(1, 2)) 
+            stop("`anchors` can only be set to `1` or `2`")
+        methods::new("PinnedGInteractions", x, as.character(anchors))
+    }
+)
 
 #' @rdname ginteractions-pin
 #' @export
-setMethod("pin", signature(x = "AnchoredPinnedGInteractions", anchors = "character"), function(x, anchors) {
-    methods::new("PinnedGInteractions", unpin(unanchor(x)), anchors)
-})
+setMethod("pin", 
+    signature(x = "PinnedGInteractions", anchors = "missing"), 
+    function(x, anchors) {
+        x@pin
+    }
+)
 
 #' @rdname ginteractions-pin
 #' @export
-setMethod("pin", signature(x = "AnchoredPinnedGInteractions", anchors = "numeric"), function(x, anchors) {
-    methods::new("PinnedGInteractions", unpin(unanchor(x)), as.character(anchors))
-})
+setMethod("pin", 
+    signature(x = "PinnedGInteractions", anchors = "character"), 
+    function(x, anchors) {
+        methods::new("PinnedGInteractions", unpin(x), anchors)
+    }
+)
+
+#' @rdname ginteractions-pin
+#' @export
+setMethod("pin", 
+    signature(x = "PinnedGInteractions", anchors = "numeric"), 
+    function(x, anchors) {
+        if (!anchors %in% c(1, 2)) 
+            stop("`anchors` can only be set to `1` or `2`")
+        methods::new("PinnedGInteractions", unpin(x), as.character(anchors))
+    }
+)
+
+#' @rdname ginteractions-pin
+#' @export
+setMethod("pin", 
+    signature(x = "AnchoredPinnedGInteractions", anchors = "character"), 
+    function(x, anchors) {
+        methods::new("PinnedGInteractions", unpin(unanchor(x)), anchors)
+    }
+)
+
+#' @rdname ginteractions-pin
+#' @export
+setMethod("pin", 
+    signature(x = "AnchoredPinnedGInteractions", anchors = "numeric"), 
+    function(x, anchors) {
+        methods::new(
+            "PinnedGInteractions", unpin(unanchor(x)), as.character(anchors)
+        )
+    }
+)
 
 
 #' @rdname ginteractions-pin
@@ -145,7 +179,9 @@ setMethod("pinned_anchors", signature(x = "PinnedGInteractions"), function(x) {
 
 #' @rdname ginteractions-pin
 #' @export
-setMethod("pinned_anchors", signature(x = "AnchoredPinnedGInteractions"), function(x) {
-    y <- pinned_anchors(unanchor(x))
-    do.call(paste0("anchor_", anchor(x)), list(y))
-})
+setMethod("pinned_anchors", 
+    signature(x = "AnchoredPinnedGInteractions"), function(x) {
+        y <- pinned_anchors(unanchor(x))
+        do.call(paste0("anchor_", anchor(x)), list(y))
+    }
+)

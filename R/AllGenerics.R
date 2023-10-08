@@ -1,6 +1,8 @@
 #' @rdname replace_anchors
 #' @export
-setGeneric("replace_anchors", function(x, id, value) standardGeneric("replace_anchors"))
+setGeneric("replace_anchors", 
+    function(x, id, value) standardGeneric("replace_anchors")
+)
 
 
 
@@ -27,7 +29,9 @@ setGeneric("unpin", function(x) standardGeneric("unpin"))
 setGeneric("annotate", function(x, y, by) standardGeneric("annotate"))
 #' @rdname ginteractions-annotate
 #' @export
-setGeneric("annotate_directed", function(x, y, by) standardGeneric("annotate_directed"))
+setGeneric("annotate_directed", 
+    function(x, y, by) standardGeneric("annotate_directed")
+)
 
 
 

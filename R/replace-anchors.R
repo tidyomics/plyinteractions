@@ -16,7 +16,10 @@
 #' chr1 11 20 chr1 51 55
 #' chr1 11 30 chr1 51 55
 #' chr1 11 30 chr2 51 60",
-#' col.names = c("seqnames1", "start1", "end1", "seqnames2", "start2", "end2")) |> 
+#' col.names = c(
+#'     "seqnames1", "start1", "end1", 
+#'     "seqnames2", "start2", "end2")
+#' ) |> 
 #'   as_ginteractions() |> 
 #'   mutate(type = c('cis', 'cis', 'cis', 'trans'), score = runif(4))
 #' 
@@ -90,7 +93,9 @@ setMethod(
 #' @export
 setMethod(
     "replace_anchors", 
-    signature(x = "PinnedGInteractions", id = "missing", value = "GenomicRanges"), 
+    signature(
+        x = "PinnedGInteractions", id = "missing", value = "GenomicRanges"
+    ), 
     function(x, id, value) {
         x@delegate <- replace_anchors(x@delegate, id = pin(x), value = value)
         x
@@ -101,7 +106,9 @@ setMethod(
 #' @export
 setMethod(
     "replace_anchors", 
-    signature(x = "AnchoredPinnedGInteractions", id = "missing", value = "GRanges"), 
+    signature(
+        x = "AnchoredPinnedGInteractions", id = "missing", value = "GRanges"
+    ), 
     function(x, id, value) {
         x@delegate@delegate <- replace_anchors(
             unpin(x), id = pin(x), value = value
@@ -114,7 +121,9 @@ setMethod(
 #' @export
 setMethod(
     "replace_anchors", 
-    signature(x = "AnchoredPinnedGInteractions", id = "numeric", value = "GRanges"), 
+    signature(
+        x = "AnchoredPinnedGInteractions", id = "numeric", value = "GRanges"
+    ), 
     function(x, id, value) {
         x@delegate@delegate <- replace_anchors(
             unpin(x), id = id, value = value

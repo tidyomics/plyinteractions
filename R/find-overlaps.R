@@ -3,10 +3,11 @@
 #' @section Rationale:  
 #' 
 #' `find_overlaps()` will search for any overlap between `GInteractions` 
-#' in `x` and `GRanges` in `y`. It will return a `GInteractions` object of length 
-#' equal to the number of times `x` overlaps `y`. This `GInteractions` will 
-#' have additional metadata columns corresponding to the metadata from `y`. 
-#' `find_overlaps_directed()` takes the strandness of each object into account. 
+#' in `x` and `GRanges` in `y`. It will return a `GInteractions` 
+#' object of length equal to the number of times `x` overlaps `y`. 
+#' This `GInteractions` will have additional metadata columns 
+#' corresponding to the metadata from `y`. `find_overlaps_directed()` 
+#' takes the strandness of each object into account. 
 #' 
 #' @section Pinned `GInteractions`:  
 #' 
@@ -38,10 +39,15 @@
 #'     chr1 11 20 - chr1 51 55 + 
 #'     chr1 21 30 - chr1 51 55 + 
 #'     chr1 21 30 - chr2 51 60 +",  
-#'     col.names = c("seqnames1", "start1", "end1", "strand1", "seqnames2", "start2", "end2", "strand2")
+#'     col.names = c(
+#'         "seqnames1", "start1", "end1", "strand1", 
+#'         "seqnames2", "start2", "end2", "strand2"
+#'     )
 #' ) |> as_ginteractions() |> mutate(id = 1:4, type = 'gi')
 #' 
-#' gr <- GenomicRanges::GRanges(c("chr1:20-30:+", "chr2:55-65:-")) |> plyranges::mutate(id = 1:2, type = 'gr')
+#' gr <- GenomicRanges::GRanges(
+#'     c("chr1:20-30:+", "chr2:55-65:-")
+#' ) |> plyranges::mutate(id = 1:2, type = 'gr')
 #' 
 #' gi
 #' 
@@ -168,7 +174,9 @@ find_overlaps_directed.GInteractions <- function(
     
 }
 
-.mcols_overlaps_update <- function(left, right, suffix, return_data_frame = FALSE) {
+.mcols_overlaps_update <- function(
+    left, right, suffix, return_data_frame = FALSE
+) {
 
     left_names <- names(mcols(left))
     right_names <- names(mcols(right))
@@ -176,11 +184,15 @@ find_overlaps_directed.GInteractions <- function(
     lname_inx <- left_names %in% common_name
     rname_inx <- right_names %in% common_name
     if (any(lname_inx)) {
-        names(mcols(left))[lname_inx] <- paste0(left_names[lname_inx], suffix[1])
+        names(mcols(left))[lname_inx] <- paste0(
+            left_names[lname_inx], suffix[1]
+        )
     }
 
     if (any(rname_inx)) {
-        names(mcols(right))[rname_inx] <- paste0(right_names[rname_inx], suffix[2])
+        names(mcols(right))[rname_inx] <- paste0(
+            right_names[rname_inx], suffix[2]
+        )
     }
 
     if (!is.null(mcols(left))) {

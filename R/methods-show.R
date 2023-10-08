@@ -27,7 +27,9 @@ setMethod("show", "GInteractions", function(object){
             seqnames1 = "Rle", ranges1 = "IRanges", strand1 = "Rle", "   "="", 
             seqnames2="Rle", ranges2="IRanges", strand2 = "Rle"
         )
-        classinfo <- S4Vectors::makeClassinfoRowForCompactPrinting(x, .COL2CLASS)
+        classinfo <- S4Vectors::makeClassinfoRowForCompactPrinting(
+            x, .COL2CLASS
+        )
         classinfo[,"   "] <- ""
         stopifnot(identical(colnames(classinfo), colnames(out)))
         out <- rbind(classinfo, out)
@@ -48,7 +50,10 @@ setMethod("show", "GInteractions", function(object){
             margin, "regions: ", nr, " ranges and ", ncr, 
             " metadata ", ifelse(ncr==1L, "column", "columns"), "\n", sep=""
         )
-        cat(margin, "seqinfo: ", summary(GenomeInfoDb::seqinfo(x)), "\n", sep="")
+        cat(
+            margin, "seqinfo: ", 
+            summary(GenomeInfoDb::seqinfo(x)), "\n", sep=""
+        )
     }
 }
 

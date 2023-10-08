@@ -60,7 +60,9 @@
 #' pair2 chr1 50000 chr1 70000 + +
 #' pair3 chr1 60000 chr2 10000 + +
 #' pair4 chr1 30000 chr3 40000 + -", 
-#' col.names = c("pairID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
+#' col.names = c(
+#'   "pairID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2")
+#' )
 #' pairs |> 
 #'   as_ginteractions(
 #'     seqnames1 = chr1, start1 = pos1, width1 = 1000, 
@@ -84,7 +86,9 @@
 #' chr1 1000 5000 chr1 3000 3800",
 #' col.names = c("chr1", "start1", "end1", "chr2", "start2", "end2"))
 #' df |> 
-#'   as_ginteractions(seqnames1 = chr1, seqnames2 = chr2, strand1 = '+', strand2 = '-')
+#'   as_ginteractions(
+#'     seqnames1 = chr1, seqnames2 = chr2, strand1 = '+', strand2 = '-'
+#'   )
 #' 
 #' data.frame(type = "cis", count = 3) |> 
 #'   as_ginteractions(
@@ -150,7 +154,9 @@ as_ginteractions.data.frame <- function(
     # Look for end*/width* fields
     for (name in c('end1', 'end2')) {
         if (!(any(name %in% c(names(rd), names(.data))))) {
-            if (!(any(gsub("end", "width", name) %in% c(names(rd), names(.data))))) {
+            if (!(any(
+                    gsub("end", "width", name) %in% c(names(rd), names(.data))
+                ))) {
                 stop(
                     "Please provide end/width information.", 
                     call. = FALSE
@@ -184,7 +190,9 @@ as_ginteractions.data.frame <- function(
     gi
 }
 
-.gi_construct <- function(.data, rd, col_names, core_gi, starts.in.df.are.0based) {
+.gi_construct <- function(
+    .data, rd, col_names, core_gi, starts.in.df.are.0based
+) {
 
     ## Check that all required columns are found, either in .data or ...
     match_cols_i <- names(core_gi) %in% col_names
@@ -192,7 +200,8 @@ as_ginteractions.data.frame <- function(
     if (sum(c(match_cols_i, match_quosures_i)) < 8) {
         stop("Unable to construct GInteractions from .data. 
             Specify the column name used for each required field: 
-            seqnames1, start1, end/wdith1, strand1, seqnames2, start2, end/wdith2, strand2",
+            seqnames1, start1, end/wdith1, strand1, 
+            seqnames2, start2, end/wdith2, strand2",
                 call. = FALSE)
     }
 

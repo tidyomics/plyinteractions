@@ -28,7 +28,10 @@ chr2 1 10 chr2 1 10
 chr3 1 10 chr3 1 10
 chr4 1 10 chr4 1 10
 chr5 1 10 chr5 1 10",
-col.names = c("seqnames1", "start1", "end1", "seqnames2", "start2", "end2")) |> 
+col.names = c(
+    "seqnames1", "start1", "end1", 
+    "seqnames2", "start2", "end2")
+) |> 
   as_ginteractions() |> 
   mutate(score = runif(5)*100, cis = TRUE, gc = runif(5))
   

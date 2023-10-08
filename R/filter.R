@@ -18,7 +18,10 @@
 #' chr3 3 10 chr3 1 10
 #' chr4 4 10 chr4 1 10
 #' chr5 5 10 chr5 1 10",
-#' col.names = c("seqnames1", "start1", "end1", "seqnames2", "start2", "end2")) |> 
+#' col.names = c(
+#'     "seqnames1", "start1", "end1", 
+#'     "seqnames2", "start2", "end2")
+#' ) |> 
 #'   as_ginteractions() |> 
 #'   mutate(cis = seqnames1 == seqnames2, score = runif(5)*100, gc = runif(5))
 #' gi

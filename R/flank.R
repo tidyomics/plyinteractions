@@ -51,7 +51,8 @@ NULL
 flank_downstream <- function(x, width) UseMethod("flank_downstream")
 #' @rdname plyranges-flank
 #' @export
-flank_downstream.Ranges <- function(x, width) plyranges::flank_downstream(x, width)
+flank_downstream.Ranges <- function(x, width) 
+    plyranges::flank_downstream(x, width)
 #' @rdname plyranges-flank
 #' @export
 flank_downstream.PinnedGInteractions <- function(x, width) {

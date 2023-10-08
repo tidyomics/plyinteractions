@@ -64,7 +64,9 @@ pair1 chr1 10000 chr1 20000 + +
 pair2 chr1 50000 chr1 70000 + +
 pair3 chr1 60000 chr2 10000 + +
 pair4 chr1 30000 chr3 40000 + -", 
-col.names = c("pairID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2"))
+col.names = c(
+  "pairID", "chr1", "pos1", "chr2", "pos2", "strand1", "strand2")
+)
 pairs |> 
   as_ginteractions(
     seqnames1 = chr1, start1 = pos1, width1 = 1000, 
@@ -88,7 +90,9 @@ chr1 100 200 chr1 5000 5100
 chr1 1000 5000 chr1 3000 3800",
 col.names = c("chr1", "start1", "end1", "chr2", "start2", "end2"))
 df |> 
-  as_ginteractions(seqnames1 = chr1, seqnames2 = chr2, strand1 = '+', strand2 = '-')
+  as_ginteractions(
+    seqnames1 = chr1, seqnames2 = chr2, strand1 = '+', strand2 = '-'
+  )
 
 data.frame(type = "cis", count = 3) |> 
   as_ginteractions(

@@ -11,10 +11,10 @@ GInteractions infrastructure in Bioconductor.
 }
 \details{
 plyinteractions provides a consistent interface for importing and
-wrangling genomic interactions from a variety of sources. The package defines a
-grammar of genomic interactions manipulation through a set of verbs. These verbs
-can be used to construct human-readable analysis pipelines based on
-\code{GInteractions}
+wrangling genomic interactions from a variety of sources. The package
+defines a grammar of genomic interactions manipulation through a set of
+verbs. These verbs can be used to construct human-readable analysis
+pipelines based on \code{GInteractions}.
 \itemize{
 \item Group genomic interactions with \code{group_by};
 \item Summarize grouped genomic interactions with \code{summarize};

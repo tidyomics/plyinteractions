@@ -50,7 +50,8 @@ NULL
 shift_downstream <- function(x, shift) UseMethod("shift_downstream")
 #' @rdname plyranges-shift
 #' @export
-shift_downstream.Ranges <- function(x, shift) plyranges::shift_downstream(x, shift)
+shift_downstream.Ranges <- function(x, shift) 
+    plyranges::shift_downstream(x, shift)
 #' @rdname plyranges-shift
 #' @export
 shift_downstream.PinnedGInteractions <- function(x, shift) {

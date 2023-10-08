@@ -4,10 +4,10 @@
 #' GInteractions infrastructure in Bioconductor.
 #'
 #' plyinteractions provides a consistent interface for importing and
-#' wrangling genomic interactions from a variety of sources. The package defines a
-#' grammar of genomic interactions manipulation through a set of verbs. These verbs
-#' can be used to construct human-readable analysis pipelines based on 
-#' `GInteractions`
+#' wrangling genomic interactions from a variety of sources. The package 
+#' defines a grammar of genomic interactions manipulation through a set of 
+#' verbs. These verbs can be used to construct human-readable analysis 
+#' pipelines based on `GInteractions`.
 #' 
 #'  - Group genomic interactions with `group_by`; 
 #'  - Summarize grouped genomic interactions with `summarize`; 
