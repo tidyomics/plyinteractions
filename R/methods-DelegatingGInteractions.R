@@ -8,6 +8,7 @@
 #' @title Methods for DelegatingGInteractions objects
 #' @name delegating-ginteractions-methods
 #' @keywords internal
+#' @return One of the core GInteractions fields (e.g. seqnames1, start1, ...)
 NULL 
 
 #' @rdname delegating-ginteractions-methods

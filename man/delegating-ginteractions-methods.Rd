@@ -61,6 +61,9 @@
 
 \S4method{show}{DelegatingGInteractions}(object)
 }
+\value{
+One of the core GInteractions fields (e.g. seqnames1, start1, ...)
+}
 \description{
 Methods for DelegatingGInteractions objects
 }
