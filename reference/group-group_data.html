@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,7 +109,10 @@
 <span class="r-in"><span><span class="st">chr1 11 20 chr1 51 55</span></span></span>
 <span class="r-in"><span><span class="st">chr1 11 30 chr1 51 55</span></span></span>
 <span class="r-in"><span><span class="st">chr1 11 30 chr2 51 60"</span>,</span></span>
-<span class="r-in"><span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seqnames1"</span>, <span class="st">"start1"</span>, <span class="st">"end1"</span>, <span class="st">"seqnames2"</span>, <span class="st">"start2"</span>, <span class="st">"end2"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
+<span class="r-in"><span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"seqnames1"</span>, <span class="st">"start1"</span>, <span class="st">"end1"</span>, </span></span>
+<span class="r-in"><span>    <span class="st">"seqnames2"</span>, <span class="st">"start2"</span>, <span class="st">"end2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="ginteractions-construct.html">as_ginteractions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cis'</span>, <span class="st">'cis'</span>, <span class="st">'cis'</span>, <span class="st">'trans'</span><span class="op">)</span>, score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -125,10 +128,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.350141</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.152557</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.984249</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.550158</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0.0805648</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] 0.3738485</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] 0.1452266</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] 0.1838986</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>

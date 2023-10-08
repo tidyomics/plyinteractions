@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Pin GInteractions by anchors set (anchors1 or anchors2).</h1>
-      <small class="dont-index">Source: <a href="https://github.com/js2264/plyinteractions/blob/HEAD/R/pin.R" class="external-link"><code>R/pin.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/js2264/plyinteractions/blob/HEAD/R/AllGenerics.R" class="external-link"><code>R/AllGenerics.R</code></a>, <a href="https://github.com/js2264/plyinteractions/blob/HEAD/R/pin.R" class="external-link"><code>R/pin.R</code></a></small>
       <div class="d-none name"><code>ginteractions-pin.Rd</code></div>
     </div>
 
@@ -61,6 +61,12 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pin</span><span class="op">(</span><span class="va">x</span>, <span class="va">anchors</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pin_by</span><span class="op">(</span><span class="va">x</span>, <span class="va">anchors</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pinned_anchors</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">unpin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for GroupedGInteractions,character</span></span>
 <span><span class="fu">pin</span><span class="op">(</span><span class="va">x</span>, <span class="va">anchors</span><span class="op">)</span></span>
@@ -89,8 +95,6 @@
 <span><span class="co"># S4 method for AnchoredPinnedGInteractions,numeric</span></span>
 <span><span class="fu">pin</span><span class="op">(</span><span class="va">x</span>, <span class="va">anchors</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">pin_by</span><span class="op">(</span><span class="va">x</span>, <span class="va">anchors</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">pin_first</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">pin_second</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -98,8 +102,6 @@
 <span><span class="fu">pin_anchors1</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">pin_anchors2</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">unpin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for AnchoredPinnedGInteractions</span></span>
 <span><span class="fu">unpin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -109,8 +111,6 @@
 <span></span>
 <span><span class="co"># S4 method for GInteractions</span></span>
 <span><span class="fu">unpin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">pinned_anchors</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for PinnedGInteractions</span></span>
 <span><span class="fu">pinned_anchors</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -147,7 +147,10 @@ to the pinned anchors of a PinnedGInteractions object.</p></li>
 <span class="r-in"><span><span class="st">chr1 11 20 chr1 51 55</span></span></span>
 <span class="r-in"><span><span class="st">chr1 11 30 chr1 51 55</span></span></span>
 <span class="r-in"><span><span class="st">chr1 11 30 chr2 51 60"</span>,</span></span>
-<span class="r-in"><span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seqnames1"</span>, <span class="st">"start1"</span>, <span class="st">"end1"</span>, <span class="st">"seqnames2"</span>, <span class="st">"start2"</span>, <span class="st">"end2"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
+<span class="r-in"><span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"seqnames1"</span>, <span class="st">"start1"</span>, <span class="st">"end1"</span>, </span></span>
+<span class="r-in"><span>    <span class="st">"seqnames2"</span>, <span class="st">"start2"</span>, <span class="st">"end2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="ginteractions-construct.html">as_ginteractions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'cis'</span>, <span class="st">'cis'</span>, <span class="st">'cis'</span>, <span class="st">'trans'</span><span class="op">)</span>, score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -166,10 +169,10 @@ to the pinned anchors of a PinnedGInteractions object.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0.1149558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] 0.1676860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] 0.5191899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] 0.0279537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.845148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.358133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.582961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.867793</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -185,10 +188,10 @@ to the pinned anchors of a PinnedGInteractions object.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0.1149558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] 0.1676860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] 0.5191899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] 0.0279537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.845148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.358133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.582961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.867793</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -204,10 +207,10 @@ to the pinned anchors of a PinnedGInteractions object.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0.1149558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] 0.1676860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] 0.5191899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] 0.0279537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.845148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.358133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.582961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.867793</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -227,10 +230,10 @@ to the pinned anchors of a PinnedGInteractions object.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0.1149558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] 0.1676860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] 0.5191899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] 0.0279537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.845148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.358133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.582961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.867793</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -246,10 +249,10 @@ to the pinned anchors of a PinnedGInteractions object.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0.1149558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] 0.1676860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] 0.5191899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] 0.0279537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.845148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.358133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.582961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.867793</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -265,10 +268,10 @@ to the pinned anchors of a PinnedGInteractions object.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0.1149558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] 0.1676860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] 0.5191899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] 0.0279537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.845148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.358133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.582961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.867793</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
@@ -287,14 +290,13 @@ to the pinned anchors of a PinnedGInteractions object.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [4]      chr1     11-30       * ---      chr2     51-60       * |       trans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 0.1149558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] 0.1676860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] 0.5191899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] 0.0279537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  0.845148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2]  0.358133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3]  0.582961</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4]  0.867793</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   regions: 5 ranges and 0 metadata columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
