@@ -3,70 +3,97 @@
 #' @importFrom S4Vectors Rle
 #' @importFrom utils capture.output
 #' @importFrom methods show
+#' @importFrom methods representation
+#' @importFrom methods prototype
 #' @include AllGenerics.R
 #' @keywords internal
 NULL
 
 setClass("DelegatingGInteractions",
-    slots = c(
+    representation(
         delegate="GInteractions"
     ),
+    prototype(
+        delegate = GInteractions(), 
+        elementMetadata=DataFrame(), 
+        metadata = list()
+    ), 
     contains=c("GInteractions", "VIRTUAL")
 )
 
 setClass("GroupedGInteractions",
-    slot = c(
-        group_keys = "DFrame", 
+    representation(
+        group_keys = "DataFrame", 
         group_indices = "Rle",
         n = "integer"
     ),
-    contains = c("DelegatingGInteractions")
+    prototype(
+        group_keys = DataFrame(), 
+        group_indices = Rle(),
+        n = 0L
+    ), 
+    contains = c("DelegatingGInteractions"), 
 )
 
-setValidity("GroupedGInteractions",
-    function(object)
-    {
-        if (nrow(object@group_keys) != object@n)
-            return("`n` should be equal to the number of rows in `group_keys`")
-        if (length(object@group_indices) != length(object@delegate))
-            return("`group_indices` and GInteractions lengths should be identical")
-        if (any(!colnames(object@group_keys) %in% 
-            colnames(as_tibble(object@delegate)))
-        )
-            return("Some column names in `group_keys` are not found in the GInteractions object")
-        TRUE
+setValidity("GroupedGInteractions", function(object) {
+    errors <- character()
+    if (nrow(object@group_keys) != object@n) {
+        msg <- "`n` should be equal to the number of rows in `group_keys`"
+        errors <- c(errors, msg)
     }
-)
+    if (length(object@group_indices) != length(object@delegate)) {
+        msg <- "`group_indices` and GInteractions lengths should be identical"
+        errors <- c(errors, msg)
+    }
+    group_names <- colnames(object@group_keys)
+    check_valid_groups <- !(group_names %in% tbl_vars(object))
+    if (any(check_valid_groups)) {
+        msg <- paste("Invalid groups slot:",
+            paste(group_names[check_valid_groups], collapse = ","),
+            "not found in data.")
+        errors <- c(errors, msg)
+    }
+    if (length(errors) == 0) TRUE else errors
+})
 
 setClass("PinnedGInteractions",
-    slot = c(
+    representation(
         pin = "integer"
     ),
+    prototype(
+        pin = 1L
+    ), 
     contains = c("DelegatingGInteractions")
 )
 
-setValidity("PinnedGInteractions",
-    function(object)
-    {
-        if (!object@pin %in% c(1, 2))
-            return("`pin` should be either `1L` or `2L`")
-        TRUE
+setValidity("PinnedGInteractions", function(object) {
+    errors <- character()
+    if (length(object@pin) != 1) {
+        msg <- "`pin` should be either `1L` or `2L`"
+        errors <- c(errors, msg)
     }
-)
+    if (any(!object@pin %in% c(1L, 2L))) {
+        msg <- "`pin` should be either `1L` or `2L`"
+        errors <- c(errors, msg)
+    }
+    if (length(errors) == 0) TRUE else errors
+})
 
 setClass("AnchoredPinnedGInteractions",
-    slot = c(
+    representation(
         anchor = "character"
     ),
+    prototype(
+        anchor = 'center'
+    ), 
     contains = c("PinnedGInteractions")
 )
 
-setValidity("AnchoredPinnedGInteractions",
-    function(object)
-    {
-        if (!object@anchor %in% c(1, 2))
-            return("`anchor` should be one of 'start', 'end', 'center', '5p' or '3p'")
-        TRUE
+setValidity("AnchoredPinnedGInteractions", function(object) {
+    errors <- character()
+    if (!object@anchor %in% c(1, 2)) {
+        msg <- "`anchor` should be one of 'start', 'end', 'center', '5p' or '3p'"
+        errors <- c(errors, msg)
     }
-)
-
+    if (length(errors) == 0) TRUE else errors
+})

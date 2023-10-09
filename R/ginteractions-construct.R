@@ -25,6 +25,7 @@
 #' @importFrom rlang quos
 #' @importFrom rlang quo_name
 #' @importFrom rlang eval_tidy
+#' @importFrom rlang set_names
 #' @importFrom InteractionSet GInteractions
 #' @importFrom GenomicRanges GRanges
 #' @importFrom IRanges IRanges

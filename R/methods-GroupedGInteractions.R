@@ -5,12 +5,14 @@ setMethod("initialize", "GroupedGInteractions",
         .Object, 
         delegate = InteractionSet::GInteractions(), 
         group_keys = DataFrame(), 
-        group_indices = Rle(), n = integer()
+        group_indices = Rle(), 
+        n = integer()
     ) {
         .Object@delegate <- delegate
         .Object@group_keys <- group_keys
         .Object@group_indices <- group_indices
         .Object@n <- n
+        validObject(.Object)
         .Object
     }
 )

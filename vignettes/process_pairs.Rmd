@@ -40,11 +40,16 @@ library(plyinteractions)
 
 ## Importing it in R
 pairs_file <- HiContactsData::HiContactsData('mESCs', 'pairs.gz')
-pairs_df <- read.delim(pairs_file, sep = "\t", header = FALSE, comment.char = "#") |> 
+pairs_df <- read.delim(
+    pairs_file, sep = "\t", header = FALSE, comment.char = "#"
+) |> 
     set_names(c(
-        "ID", "seqnames1", "start1", "seqnames2", "start2", "strand1", "strand2"
+        "ID", "seqnames1", "start1", 
+        "seqnames2", "start2", "strand1", "strand2"
     ))
-pairs <- as_ginteractions(pairs_df, end1 = start1, end2 = start2, keep.extra.columns = TRUE)
+pairs <- as_ginteractions(
+    pairs_df, end1 = start1, end2 = start2, keep.extra.columns = TRUE
+)
 pairs
 ```
 
@@ -55,7 +60,6 @@ of each genomic fragment after digestion by **DpnII and HinfI**.
 
 ```{r cutGenome}
 ## Prepare DpnII/HinfI-digested genomic fragments
-library(purrr)
 library(GenomicRanges)
 library(Biostrings)
 library(plyranges)
