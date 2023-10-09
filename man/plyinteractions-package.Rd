@@ -16,17 +16,17 @@ defines a grammar of genomic interactions manipulation through a set of
 verbs. These verbs can be used to construct human-readable analysis
 pipelines based on \code{GInteractions}.
 \itemize{
-\item Group genomic interactions with \code{group_by};
-\item Summarize grouped genomic interactions with \code{summarize};
-\item Tally/count grouped genomic interactions with \code{tally} and \code{count};
-\item Modify genomic interactions with \code{mutate};
-\item Subset genomic interactions with \code{filter} using
+\item Group genomic interactions with \code{\link[=dplyr-group_by]{group_by}};
+\item Summarize grouped genomic interactions with \code{\link[=dplyr-summarize]{summarize}};
+\item Tally/count grouped genomic interactions with \code{\link[=dplyr-count]{tally}} and \code{\link[=dplyr-count]{count}};
+\item Modify genomic interactions with \code{\link[=dplyr-mutate]{mutate}};
+\item Subset genomic interactions with \code{\link[=dplyr-filter]{filter}} using
 \href{https://rlang.r-lib.org/reference/args_data_masking.html}{\verb{<data-masking>}}
 and logical expressions;
-\item Pick out any columns from the associated metadata with \code{select}
+\item Pick out any columns from the associated metadata with \code{\link[=dplyr-select]{select}}
 using \href{https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html}{\verb{<tidy-select>} arguments};
-\item Subset using indices with \code{slice};
-\item Order genomic interactions with \code{arrange} using categorical/numerical
+\item Subset using indices with \code{\link[=dplyr-slice]{slice}};
+\item Order genomic interactions with \code{\link[=dplyr-arrange]{arrange}} using categorical/numerical
 variables.
 
 For more details on the features of plyinteractions, read the vignette:
