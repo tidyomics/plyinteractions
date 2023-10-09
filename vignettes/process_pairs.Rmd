@@ -82,7 +82,7 @@ fragments <- BiocParallel::bplapply(BPPARAM = BiocParallel::MulticoreParam(worke
 fragments$binID <- seq_along(fragments)
 ```
 
-We can then use the `annotate` function from `r Biocpkg("plyinteractions")` to recover,
+We can then use the `annotate()` function from `r Biocpkg("plyinteractions")` to recover,
 for each interaction, which restriction enzyme fragment each anchor
 overlaps with, and how many restriction enzyme cutting sites are found between 
 them. 
@@ -196,7 +196,7 @@ in both dimensions.
 
 ## Second try: switching to logarithmic scale 
 
-Swtiching to a `log` scale in `r CRANpkg("ggplot2")` is very easy.
+Switching to a `log` scale in `r CRANpkg("ggplot2")` is very easy.
 
 ```{r Ps2}
 p + scale_x_log10() + scale_y_log10() + annotation_logticks()

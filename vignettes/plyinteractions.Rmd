@@ -75,26 +75,26 @@ and available for `GInteractions` currently supports:
 
 - `r CRANpkg("dplyr")` verbs (for `GInteractions` and `GroupedGInteractions`): 
 
-  - Group genomic interactions with `group_by`; 
-  - Summarize grouped genomic interactions with `summarize`; 
-  - Tally/count grouped genomic interactions with `tally` and `count`; 
-  - Modify genomic interactions with `mutate`; 
-  - Subset genomic interactions with `filter` using
+  - Group genomic interactions with `group_by()`; 
+  - Summarize grouped genomic interactions with `summarize()`; 
+  - Tally/count grouped genomic interactions with `tally` and `count()`; 
+  - Modify genomic interactions with `mutate()`; 
+  - Subset genomic interactions with `filter()` using
   [`<data-masking>`](https://rlang.r-lib.org/reference/args_data_masking.html) 
   and logical expressions; 
-  - Pick out any columns from the associated metadata with `select` 
+  - Pick out any columns from the associated metadata with `select()` 
   using [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html); 
-  - Subset using indices with `slice`;
-  - Order genomic interactions with `arrange` using categorical/numerical 
+  - Subset using indices with `slice()`;
+  - Order genomic interactions with `arrange()` using categorical/numerical 
   variables. 
 
 
 - `r Biocpkg("plyranges")` verbs (for `PinnedGInteractions` and `AnchoredPinnedGInteractions`): 
 
-  - Stretch specific anchors of genomic interactions to a given width with `stretch`;
-  - `anchor_*` functions to control how stretching is performed; 
-  - Shift specific anchors of genomic interactions with `shift`;
-  - Obtain flanking `GRanges` from specific anchors of genomic interactions with `flank`.
+  - Stretch specific anchors of genomic interactions to a given width with `stretch()`;
+  - `anchor_*()` functions to control how stretching is performed; 
+  - Shift specific anchors of genomic interactions with `shift()`;
+  - Obtain flanking `GRanges` from specific anchors of genomic interactions with `flank()`.
 
 # Importing genomic interactions in R
 
@@ -118,7 +118,7 @@ bedpe_df
 
 Genomic interactions in tabular format are not easy to manipulate.
 We can easily parse a `data.frame` into a `GInteractions` object using 
-the `as_ginteractions` function. 
+the `as_ginteractions()` function. 
 
 ```{r}
 library(plyinteractions)
@@ -141,9 +141,9 @@ object (e.g. `seqnames1`, `strand2`, ...) can be specified using the
 The `pairs` file format has been formally defined by the **4DN consortium**. 
 Its specifications are available [here](https://github.com/4dn-dcic/pairix/blob/master/pairs_format_specification.md).  
 
-It can be imported in R as a `data.frame` using `read.delim` or any other 
-tabular data import functions (including `fread` or `vroom` for larger files), 
-and readily coerced into `GInteractions` with `as_ginteractions`. 
+It can be imported in R as a `data.frame` using `read.delim()` or any other 
+tabular data import functions (including `fread()` or `vroom()` for larger files), 
+and readily coerced into `GInteractions` with `as_ginteractions()`. 
 
 ```{r}
 ## This uses an example `pairs` file provided in this package
@@ -162,7 +162,7 @@ pairs
 ## Reverting from `GInteractions` to tabular data frames
 
 The reverse operation to coerce `GInteractions` back to a tabular form is 
-also possible using the `as_tibble` function from the `r CRANpkg("tibble")` package: 
+also possible using the `as_tibble()` function from the `r CRANpkg("tibble")` package: 
 
 ```{r}
 tibble::as_tibble(gi)
@@ -173,7 +173,8 @@ tibble::as_tibble(gi)
 ## `anchors{12}`
 
 A `GInteractions` object consists of two sets of **_anchors_**: 
-`anchors1` and `anchors2`.
+`anchors1` and `anchors2`. Each set can be accessed with the corresponding 
+function (`anchors1()` or `anchors2()`): 
 
 ![](../man/figures/ginteractions.png)
 
@@ -211,7 +212,7 @@ field to refer to the ends of a potential chromatin loop.
 
 ## Core `GInteractions` fields
 
-`seqnames`, `start`/`end`, `width` and `strand` return informative core fields 
+`seqnames()`, `start()`/`end()`, `width()` and `strand()` return informative core fields 
 of a `GRanges` object. Appending `1` or `2` to these functions allow 
 the end-user to fetch the corresponding fields from `GInteractions` objects. 
 
@@ -233,7 +234,7 @@ width2(gi)
 ## Metadata columns
 
 `GInteractions` contain associated metadata stored as a `DataFrame` which 
-can be recovered using the standard `mcols` function: 
+can be recovered using the standard `mcols()` function: 
 
 ```{r}
 mcols(gi)
@@ -260,7 +261,7 @@ seqinfo(gi)
 # Pinned (and anchored) `GInteractions`
 
 The anchoring approach developed in the `r Biocpkg("plyranges")` package allows handy control 
-over the way a `GRanges` object is extended when using the `stretch` 
+over the way a `GRanges` object is extended when using the `stretch()` 
 function. To enable such workflow for `GInteractions`, two classes were defined: 
 `PinnedGInteractions` and `AnchoredPinnedGInteractions`. 
 
@@ -310,7 +311,7 @@ gi |> pin_by("first") |> anchor_5p()
 (`anchors1` or `anchors2`) for `r Biocpkg("plyranges")` functions to work. Please use 
 `pin_by()` function to pin `GInteractions`. 
 
-**Important note 2:** the `stretch` function will behave on 
+**Important note 2:** the `stretch()` function will behave on 
 `PinnedGInteractions` and `AnchoredPinnedGInteractions` objects similarly 
 to `GRanges` or `AnchoredGRanges` objects. 
 
@@ -369,7 +370,7 @@ interactions. The verbs extend `r CRANpkg("dplyr")` functionalities to operate o
 
 ## Mutating columns 
 
-`mutate` supports accessing other existing columns:
+`mutate()` supports accessing other existing columns:
 
 ```{r}
 ## This creates a new metadata column named `cis`
@@ -388,7 +389,7 @@ gi |> mutate(start1 = 1)
 
 ## Grouping columns 
 
-`group_by` supports accessing both core and metadata columns:
+`group_by()` supports accessing both core and metadata columns:
 
 ```{r}
 ## This groups the `GInteractions` object using the `seqnames2` variable
@@ -408,7 +409,7 @@ gi |> group_by(seqnames2, cis = seqnames1 == seqnames2)
 
 ## Summarizing columns 
 
-Summarizing grouped `GInteractions` can be extremely powerful. 
+Summarizing grouped `GInteractions` with `summarize()` can be extremely powerful. 
 
 ```{r}
 ## This counts the number of occurences of each combination of the variables
@@ -433,7 +434,7 @@ pairs |> group_by(same_strand = strand1 == strand2) |>
 
 ## Filtering columns 
 
-`filter` supports logical expressions:
+`filter()` supports logical expressions:
 
 ```{r}
 gi |> filter(seqnames1 == 'chr11')
@@ -445,7 +446,7 @@ gi |> filter(seqnames1 == seqnames2)
 
 ## Selecting columns 
 
-`select` supports [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html):
+`select()` supports [`<tidy-select>` arguments](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html):
 
 ```{r}
 ## This only keeps the "type" column from the metadata columns, 
@@ -495,17 +496,17 @@ gi |> slice(-3)
 Several operlapping functions defined in `r Biocpkg("plyranges")` are available for 
 `GInteractions`: 
 
-- `find_overlaps`;
-- `count_overlaps`;
-- `filter_by_overlaps` and `filter_by_non_overlaps`;
-- `join_overlap_left`.
+- `find_overlaps()`;
+- `count_overlaps()`;
+- `filter_by_overlaps()` and `filter_by_non_overlaps()`;
+- `join_overlap_left()`.
 
 All these functions can take a `GInteractions` query and a `GRanges` subject
 to perform overlapping operations, and `maxgap` and `minoverlap` arguments 
 are available to refine the query. 
 
-These functions are **unstranded** by default. `find_overlaps`, 
-`count_overlaps` and `join_overlap_left` functions have `*_directed` 
+These functions are **unstranded** by default. `find_overlaps()`, 
+`count_overlaps()` and `join_overlap_left()` functions have `*_directed()` 
 counterparts for when strandness is required. 
 
 ## Overlapping `GInteractions`
