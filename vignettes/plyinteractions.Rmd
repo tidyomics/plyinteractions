@@ -25,11 +25,6 @@ options(width = 9999)
 ```
 
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
-## Pre-load libraries
-library(GenomicRanges)
-library(InteractionSet)
-library(plyinteractions)
-
 ## Bib setup
 library("RefManageR")
 bib <- c(
@@ -78,7 +73,7 @@ The grammar of tidy genomic data transformation defined in
 `r Biocpkg("plyranges")` 
 and available for `GInteractions` currently supports: 
 
-- `dplyr` verbs (for `GInteractions` and `GroupedGInteractions`): 
+- `r CRANpkg("dplyr")` verbs (for `GInteractions` and `GroupedGInteractions`): 
 
   - Group genomic interactions with `group_by`; 
   - Summarize grouped genomic interactions with `summarize`; 
@@ -94,7 +89,7 @@ and available for `GInteractions` currently supports:
   variables. 
 
 
-- `plyranges` verbs (for `PinnedGInteractions` and `AnchoredPinnedGInteractions`): 
+- `r Biocpkg("plyranges")` verbs (for `PinnedGInteractions` and `AnchoredPinnedGInteractions`): 
 
   - Stretch specific anchors of genomic interactions to a given width with `stretch`;
   - `anchor_*` functions to control how stretching is performed; 
@@ -167,7 +162,7 @@ pairs
 ## Reverting from `GInteractions` to tabular data frames
 
 The reverse operation to coerce `GInteractions` back to a tabular form is 
-also possible using the `as_tibble` function from the `tibble` package: 
+also possible using the `as_tibble` function from the `r CRANpkg("tibble")` package: 
 
 ```{r}
 tibble::as_tibble(gi)
@@ -210,7 +205,7 @@ anchors2(gi)
 
 **Important note**: the term **_anchors_**, when used for `GInteractions`, 
 refers to the "left-hand" or "right-hand" `GRanges` when looking at genomic 
-interactions. This is different from the `anchor` term used in `plyranges`. 
+interactions. This is different from the `anchor` term used in `r Biocpkg("plyranges")`. 
 This is due to the fact that *"anchor"* is used in the chromatin interaction 
 field to refer to the ends of a potential chromatin loop.
 
@@ -264,7 +259,7 @@ seqinfo(gi)
 
 # Pinned (and anchored) `GInteractions`
 
-The anchoring approach developed in the `plyranges` package allows handy control 
+The anchoring approach developed in the `r Biocpkg("plyranges")` package allows handy control 
 over the way a `GRanges` object is extended when using the `stretch` 
 function. To enable such workflow for `GInteractions`, two classes were defined: 
 `PinnedGInteractions` and `AnchoredPinnedGInteractions`. 
@@ -274,7 +269,7 @@ function. To enable such workflow for `GInteractions`, two classes were defined:
 ## `PinnedGInteractions`
 
 Pinning a `GInteractions` object is used to specify which set of anchors
-(i.e. `anchors1` or `anchors2`) should be affected by `plyranges` functions. 
+(i.e. `anchors1` or `anchors2`) should be affected by `r Biocpkg("plyranges")` functions. 
 
 ```{r}
 ## `pin_by` is used to pin a `GInteractions` on "first" (i.e. "left") or 
@@ -297,7 +292,7 @@ unpin(pgi)
 
 ## `AnchoredPinnedGInteractions`
 
-Some `plyranges` operations can work on "`anchored"` **_`GRanges`_**. To 
+Some `r Biocpkg("plyranges")` operations can work on "`anchored"` **_`GRanges`_**. To 
 enable these operations either on `anchors1` or `anchors2` from 
 a **_`GInteractions`_** object, the "pinned"
 `anchors{12}` of the `GInteractions` object can be further "anchored". 
@@ -308,11 +303,11 @@ gi |> pin_by("first") |> anchor_5p()
 
 # `plyranges` operations on `GInteractions`
 
-`plyranges` arithmetic functions are available for 
+`r Biocpkg("plyranges")` arithmetic functions are available for 
 `(Anchored)PinnedGInteractions` objects. 
 
 **Important note 1:** `GInteractions` must be pinned to a specific anchor set 
-(`anchors1` or `anchors2`) for `plyranges` functions to work. Please use 
+(`anchors1` or `anchors2`) for `r Biocpkg("plyranges")` functions to work. Please use 
 `pin_by()` function to pin `GInteractions`. 
 
 **Important note 2:** the `stretch` function will behave on 
@@ -348,7 +343,7 @@ gi |> pin_by("first") |> flank_right(20)
 
 ## On `AnchoredPinnedGInteractions` objects
 
-When a pinned `GInteractions` is further anchored, `stretch`ing with `plyranges`
+When a pinned `GInteractions` is further anchored, `stretch`ing with `r Biocpkg("plyranges")`
 relies on the anchoring:
 
 ![](../man/figures/stretch.png)
@@ -369,7 +364,7 @@ gi |> pin_by("first") |> anchor_center() |> stretch(10)
 
 `r Biocpkg("plyinteractions")` provides a set of verbs for developing 
 analysis pipelines based on `GInteractions` objects that represent genomic 
-interactions. The verbs extend `dplyr` functionalities to operate on a 
+interactions. The verbs extend `r CRANpkg("dplyr")` functionalities to operate on a 
 `GInteractions` object as if it were a tabular data object. 
 
 ## Mutating columns 
@@ -497,7 +492,7 @@ gi |> slice(-3)
 
 # Overlapping operations on `GInteractions`
 
-Several operlapping functions defined in `plyranges` are available for 
+Several operlapping functions defined in `r Biocpkg("plyranges")` are available for 
 `GInteractions`: 
 
 - `find_overlaps`;
