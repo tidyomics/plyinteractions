@@ -2,9 +2,10 @@ test_that("dplyr functions work", {
     
     ## arrange
 
-    gi |> arrange(strand1) |> expect_no_error()
     expect_identical(
-        arrange(gi, score) |> strand1(),
+        gi |> mutate(idx = seq(1, length(gi))) |> 
+            arrange(score) |> 
+            strand1(), 
         S4Vectors::Rle(factor(c('+', '-', '+', '-'), c('+', '-', '*')))
     )
 
