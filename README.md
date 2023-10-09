@@ -1,6 +1,7 @@
 # plyinteractions <img src="man/figures/logo.png" align="right" alt="" width="180" />
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/js2264/plyinteractions/branch/devel/graph/badge.svg)](https://app.codecov.io/gh/js2264/plyinteractions?branch=devel)
 <!-- badges: end -->
 
 `plyinteractions` provides a consistent interface for importing genomic 
