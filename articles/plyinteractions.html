@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">plyinteractions</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.99.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>plyinteractions</h1>
             
-            <h4 data-toc-skip class="date">8 October 2023</h4>
+            <h4 data-toc-skip class="date">9 October 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/plyinteractions/blob/HEAD/vignettes/plyinteractions.Rmd" class="external-link"><code>vignettes/plyinteractions.Rmd</code></a></small>
       <div class="d-none name"><code>plyinteractions.Rmd</code></div>
@@ -107,16 +107,57 @@ package (Lun, Perry, and Ing-Simmons, 2016).</p>
 between two parallel sets of genomic ranges.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/GenomicRanges" class="external-link">GenomicRanges</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: stats4</span></span>
+<span><span class="co">#&gt; Loading required package: BiocGenerics</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'BiocGenerics'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     IQR, mad, sd, var, xtabs</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     anyDuplicated, aperm, append, as.data.frame, basename, cbind, colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget, order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply, union, unique, unsplit, which.max, which.min</span></span>
+<span><span class="co">#&gt; Loading required package: S4Vectors</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'S4Vectors'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     findMatches</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     expand.grid, I, unname</span></span>
+<span><span class="co">#&gt; Loading required package: IRanges</span></span>
+<span><span class="co">#&gt; Loading required package: GenomeInfoDb</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">InteractionSet</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: SummarizedExperiment</span></span>
+<span><span class="co">#&gt; Loading required package: MatrixGenerics</span></span>
+<span><span class="co">#&gt; Loading required package: matrixStats</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'MatrixGenerics'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:matrixStats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse, colCounts, colCummaxs, colCummins, colCumprods, colCumsums, colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs, colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats, colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds, colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads, colWeightedMeans, colWeightedMedians, colWeightedSds, colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet, rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods, rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps, rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins, rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks, rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars, rowWeightedMads, rowWeightedMeans, rowWeightedMedians, rowWeightedSds, rowWeightedVars</span></span>
+<span><span class="co">#&gt; Loading required package: Biobase</span></span>
+<span><span class="co">#&gt; Welcome to Bioconductor</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     Vignettes contain introductory material; view with 'browseVignettes()'. To cite Bioconductor, see 'citation("Biobase")', and for packages 'citation("pkgname")'.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'Biobase'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:MatrixGenerics':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     rowMedians</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:matrixStats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     anyMissing, rowMedians</span></span>
 <span><span class="va">anchor1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="st">"chr1:10-20:+"</span><span class="op">)</span></span>
 <span><span class="va">anchor2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="st">"chr1:50-60:-"</span><span class="op">)</span></span>
 <span><span class="va">gi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/InteractionSet/man/GInteractions-class.html" class="external-link">GInteractions</a></span><span class="op">(</span><span class="va">anchor1</span>, <span class="va">anchor2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">gi</span></span>
 <span><span class="co">#&gt; GInteractions object with 1 interaction and 0 metadata columns:</span></span>
-<span><span class="co">#&gt;       seqnames1   ranges1 strand1     seqnames2   ranges2 strand2</span></span>
-<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;         &lt;Rle&gt; &lt;IRanges&gt;   &lt;Rle&gt;</span></span>
-<span><span class="co">#&gt;   [1]      chr1     10-20       + ---      chr1     50-60       -</span></span>
+<span><span class="co">#&gt;       seqnames1   ranges1     seqnames2   ranges2</span></span>
+<span><span class="co">#&gt;           &lt;Rle&gt; &lt;IRanges&gt;         &lt;Rle&gt; &lt;IRanges&gt;</span></span>
+<span><span class="co">#&gt;   [1]      chr1     10-20 ---      chr1     50-60</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   regions: 2 ranges and 0 metadata columns</span></span>
 <span><span class="co">#&gt;   seqinfo: 1 sequence from an unspecified genome; no seqlengths</span></span></code></pre></div>
@@ -131,39 +172,40 @@ support tidy grammar principles.</p>
 and available for <code>GInteractions</code> currently supports:</p>
 <ul>
 <li>
-<p><code>dplyr</code> verbs (for <code>GInteractions</code> and
+<p><em><a href="https://CRAN.R-project.org/package=dplyr" class="external-link">dplyr</a></em> verbs
+(for <code>GInteractions</code> and
 <code>GroupedGInteractions</code>):</p>
 <ul>
-<li>Group genomic interactions with <code>group_by</code>;</li>
+<li>Group genomic interactions with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code>;</li>
 <li>Summarize grouped genomic interactions with
-<code>summarize</code>;</li>
+<code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code>;</li>
 <li>Tally/count grouped genomic interactions with <code>tally</code> and
-<code>count</code>;</li>
-<li>Modify genomic interactions with <code>mutate</code>;</li>
-<li>Subset genomic interactions with <code>filter</code> using <a href="https://rlang.r-lib.org/reference/args_data_masking.html" class="external-link"><code>&lt;data-masking&gt;</code></a>
+<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count()</a></code>;</li>
+<li>Modify genomic interactions with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>;</li>
+<li>Subset genomic interactions with <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> using <a href="https://rlang.r-lib.org/reference/args_data_masking.html" class="external-link"><code>&lt;data-masking&gt;</code></a>
 and logical expressions;</li>
 <li>Pick out any columns from the associated metadata with
-<code>select</code> using <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link"><code>&lt;tidy-select&gt;</code>
+<code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> using <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link"><code>&lt;tidy-select&gt;</code>
 arguments</a>;</li>
-<li>Subset using indices with <code>slice</code>;</li>
-<li>Order genomic interactions with <code>arrange</code> using
+<li>Subset using indices with <code><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice()</a></code>;</li>
+<li>Order genomic interactions with <code><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange()</a></code> using
 categorical/numerical variables.</li>
 </ul>
 </li>
 <li>
-<p><code>plyranges</code> verbs (for
-<code>PinnedGInteractions</code> and
+<p><em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
+verbs (for <code>PinnedGInteractions</code> and
 <code>AnchoredPinnedGInteractions</code>):</p>
 <ul>
 <li>Stretch specific anchors of genomic interactions to a given width
-with <code>stretch</code>;</li>
+with <code><a href="https://rdrr.io/pkg/plyranges/man/stretch.html" class="external-link">stretch()</a></code>;</li>
 <li>
-<code>anchor_*</code> functions to control how stretching is
+<code>anchor_*()</code> functions to control how stretching is
 performed;</li>
 <li>Shift specific anchors of genomic interactions with
-<code>shift</code>;</li>
+<code><a href="https://rdrr.io/pkg/IRanges/man/intra-range-methods.html" class="external-link">shift()</a></code>;</li>
 <li>Obtain flanking <code>GRanges</code> from specific anchors of
-genomic interactions with <code>flank</code>.</li>
+genomic interactions with <code><a href="https://rdrr.io/pkg/IRanges/man/intra-range-methods.html" class="external-link">flank()</a></code>.</li>
 </ul>
 </li>
 </ul>
@@ -195,9 +237,23 @@ files stored on disk as tabular data frames.</p>
 <p>Genomic interactions in tabular format are not easy to manipulate. We
 can easily parse a <code>data.frame</code> into a
 <code>GInteractions</code> object using the
-<code>as_ginteractions</code> function.</p>
+<code><a href="../reference/ginteractions-construct.html">as_ginteractions()</a></code> function.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/js2264/plyinteractions" class="external-link">plyinteractions</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'plyinteractions'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:matrixStats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     count</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:IRanges':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     slice</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:S4Vectors':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     rename</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter</span></span>
 <span><span class="va">gi</span> <span class="op">&lt;-</span> <span class="va">bedpe_df</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="../reference/ginteractions-construct.html">as_ginteractions</a></span><span class="op">(</span></span>
 <span>        seqnames1 <span class="op">=</span> <span class="va">V1</span>, start1 <span class="op">=</span> <span class="va">V2</span>, end1 <span class="op">=</span> <span class="va">V3</span>, strand1 <span class="op">=</span> <span class="va">V9</span>, </span>
@@ -231,10 +287,10 @@ can easily parse a <code>data.frame</code> into a
 <p>The <code>pairs</code> file format has been formally defined by the
 <strong>4DN consortium</strong>. Its specifications are available <a href="https://github.com/4dn-dcic/pairix/blob/master/pairs_format_specification.md" class="external-link">here</a>.</p>
 <p>It can be imported in R as a <code>data.frame</code> using
-<code>read.delim</code> or any other tabular data import functions
-(including <code>fread</code> or <code>vroom</code> for larger files),
-and readily coerced into <code>GInteractions</code> with
-<code>as_ginteractions</code>.</p>
+<code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.delim()</a></code> or any other tabular data import functions
+(including <code>fread()</code> or <code>vroom()</code> for larger
+files), and readily coerced into <code>GInteractions</code> with
+<code><a href="../reference/ginteractions-construct.html">as_ginteractions()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This uses an example `pairs` file provided in this package</span></span>
 <span><span class="va">pairs_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'pairs.gz'</span>, package <span class="op">=</span> <span class="st">'plyinteractions'</span><span class="op">)</span> </span>
@@ -277,8 +333,9 @@ and readily coerced into <code>GInteractions</code> with
 frames<a class="anchor" aria-label="anchor" href="#reverting-from-ginteractions-to-tabular-data-frames"></a>
 </h3>
 <p>The reverse operation to coerce <code>GInteractions</code> back to a
-tabular form is also possible using the <code>as_tibble</code> function
-from the <code>tibble</code> package:</p>
+tabular form is also possible using the <code>as_tibble()</code>
+function from the <em><a href="https://CRAN.R-project.org/package=tibble" class="external-link">tibble</a></em>
+package:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 12</span></span></span>
@@ -298,7 +355,8 @@ from the <code>tibble</code> package:</p>
 </h3>
 <p>A <code>GInteractions</code> object consists of two sets of
 <strong><em>anchors</em></strong>: <code>anchors1</code> and
-<code>anchors2</code>.</p>
+<code>anchors2</code>. Each set can be accessed with the corresponding
+function (<code><a href="../reference/ginteractions-getters.html">anchors1()</a></code> or <code><a href="../reference/ginteractions-getters.html">anchors2()</a></code>):</p>
 <p><img src="../reference/figures/ginteractions.png"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"</span></span>
@@ -367,16 +425,16 @@ from the <code>tibble</code> package:</p>
 <strong><em>anchors</em></strong>, when used for
 <code>GInteractions</code>, refers to the “left-hand” or “right-hand”
 <code>GRanges</code> when looking at genomic interactions. This is
-different from the <code>anchor</code> term used in
-<code>plyranges</code>. This is due to the fact that <em>“anchor”</em>
-is used in the chromatin interaction field to refer to the ends of a
-potential chromatin loop.</p>
+different from the <code>anchor</code> term used in <em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>.
+This is due to the fact that <em>“anchor”</em> is used in the chromatin
+interaction field to refer to the ends of a potential chromatin
+loop.</p>
 </div>
 <div class="section level3">
 <h3 id="core-ginteractions-fields">Core <code>GInteractions</code> fields<a class="anchor" aria-label="anchor" href="#core-ginteractions-fields"></a>
 </h3>
-<p><code>seqnames</code>, <code>start</code>/<code>end</code>,
-<code>width</code> and <code>strand</code> return informative core
+<p><code><a href="https://rdrr.io/pkg/GenomeInfoDb/man/seqinfo.html" class="external-link">seqnames()</a></code>, <code><a href="https://rdrr.io/r/stats/start.html" class="external-link">start()</a></code>/<code><a href="https://rdrr.io/r/stats/start.html" class="external-link">end()</a></code>,
+<code><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width()</a></code> and <code><a href="https://rdrr.io/pkg/BiocGenerics/man/strand.html" class="external-link">strand()</a></code> return informative core
 fields of a <code>GRanges</code> object. Appending <code>1</code> or
 <code>2</code> to these functions allow the end-user to fetch the
 corresponding fields from <code>GInteractions</code> objects.</p>
@@ -410,7 +468,7 @@ corresponding fields from <code>GInteractions</code> objects.</p>
 </h3>
 <p><code>GInteractions</code> contain associated metadata stored as a
 <code>DataFrame</code> which can be recovered using the standard
-<code>mcols</code> function:</p>
+<code><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">mcols()</a></code> function:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">mcols</a></span><span class="op">(</span><span class="va">gi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; DataFrame with 4 rows and 1 column</span></span>
@@ -458,10 +516,10 @@ available.</p>
 <div class="section level2">
 <h2 id="pinned-and-anchored-ginteractions">Pinned (and anchored) <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#pinned-and-anchored-ginteractions"></a>
 </h2>
-<p>The anchoring approach developed in the <code>plyranges</code>
+<p>The anchoring approach developed in the <em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
 package allows handy control over the way a <code>GRanges</code> object
-is extended when using the <code>stretch</code> function. To enable such
-workflow for <code>GInteractions</code>, two classes were defined:
+is extended when using the <code><a href="https://rdrr.io/pkg/plyranges/man/stretch.html" class="external-link">stretch()</a></code> function. To enable
+such workflow for <code>GInteractions</code>, two classes were defined:
 <code>PinnedGInteractions</code> and
 <code>AnchoredPinnedGInteractions</code>.</p>
 <p><img src="../reference/figures/classes.png"></p>
@@ -471,7 +529,8 @@ workflow for <code>GInteractions</code>, two classes were defined:
 </h3>
 <p>Pinning a <code>GInteractions</code> object is used to specify which
 set of anchors (i.e. <code>anchors1</code> or <code>anchors2</code>)
-should be affected by <code>plyranges</code> functions.</p>
+should be affected by <em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
+functions.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## `pin_by` is used to pin a `GInteractions` on "first" (i.e. "left") or </span></span>
 <span><span class="co">## "second" (i.e. "right") anchors. </span></span>
@@ -522,13 +581,13 @@ unpinned <code>GInteractions</code> object.</p>
 <h3 id="anchoredpinnedginteractions">
 <code>AnchoredPinnedGInteractions</code><a class="anchor" aria-label="anchor" href="#anchoredpinnedginteractions"></a>
 </h3>
-<p>Some <code>plyranges</code> operations can work on
-“<code>anchored"</code> <strong><em><code>GRanges</code></em></strong>.
-To enable these operations either on <code>anchors1</code> or
-<code>anchors2</code> from a
-<strong><em><code>GInteractions</code></em></strong> object, the”pinned”
-<code>anchors{12}</code> of the <code>GInteractions</code> object can be
-further “anchored”.</p>
+<p>Some <em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
+operations can work on “<code>anchored"</code>
+<strong><em><code>GRanges</code></em></strong>. To enable these
+operations either on <code>anchors1</code> or <code>anchors2</code> from
+a <strong><em><code>GInteractions</code></em></strong> object,
+the”pinned” <code>anchors{12}</code> of the <code>GInteractions</code>
+object can be further “anchored”.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/ginteractions-pin.html">pin_by</a></span><span class="op">(</span><span class="st">"first"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-anchor.html" class="external-link">anchor_5p</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; AnchoredPinnedGInteractions object with 4 interactions and 1 metadata column:</span></span>
@@ -548,15 +607,16 @@ further “anchored”.</p>
 <h2 id="plyranges-operations-on-ginteractions">
 <code>plyranges</code> operations on <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#plyranges-operations-on-ginteractions"></a>
 </h2>
-<p><code>plyranges</code> arithmetic functions are available for
+<p><em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
+arithmetic functions are available for
 <code>(Anchored)PinnedGInteractions</code> objects.</p>
 <p><strong>Important note 1:</strong> <code>GInteractions</code> must be
 pinned to a specific anchor set (<code>anchors1</code> or
-<code>anchors2</code>) for <code>plyranges</code> functions to work.
-Please use <code><a href="../reference/ginteractions-pin.html">pin_by()</a></code> function to pin
+<code>anchors2</code>) for <em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
+functions to work. Please use <code><a href="../reference/ginteractions-pin.html">pin_by()</a></code> function to pin
 <code>GInteractions</code>.</p>
-<p><strong>Important note 2:</strong> the <code>stretch</code> function
-will behave on <code>PinnedGInteractions</code> and
+<p><strong>Important note 2:</strong> the <code><a href="https://rdrr.io/pkg/plyranges/man/stretch.html" class="external-link">stretch()</a></code>
+function will behave on <code>PinnedGInteractions</code> and
 <code>AnchoredPinnedGInteractions</code> objects similarly to
 <code>GRanges</code> or <code>AnchoredGRanges</code> objects.</p>
 <div class="section level3">
@@ -634,8 +694,8 @@ to specify which set of anchors should be affected by
 <h3 id="on-anchoredpinnedginteractions-objects">On <code>AnchoredPinnedGInteractions</code> objects<a class="anchor" aria-label="anchor" href="#on-anchoredpinnedginteractions-objects"></a>
 </h3>
 <p>When a pinned <code>GInteractions</code> is further anchored,
-<code>stretch</code>ing with <code>plyranges</code> relies on the
-anchoring:</p>
+<code>stretch</code>ing with <em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
+relies on the anchoring:</p>
 <p><img src="../reference/figures/stretch.png"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This pins the "first" (i.e. "left") anchors and strecthes them by 10bp, </span></span>
@@ -678,13 +738,13 @@ anchoring:</p>
 <p><em><a href="https://bioconductor.org/packages/3.18/plyinteractions" class="external-link">plyinteractions</a></em>
 provides a set of verbs for developing analysis pipelines based on
 <code>GInteractions</code> objects that represent genomic interactions.
-The verbs extend <code>dplyr</code> functionalities to operate on a
-<code>GInteractions</code> object as if it were a tabular data
-object.</p>
+The verbs extend <em><a href="https://CRAN.R-project.org/package=dplyr" class="external-link">dplyr</a></em>
+functionalities to operate on a <code>GInteractions</code> object as if
+it were a tabular data object.</p>
 <div class="section level3">
 <h3 id="mutating-columns">Mutating columns<a class="anchor" aria-label="anchor" href="#mutating-columns"></a>
 </h3>
-<p><code>mutate</code> supports accessing other existing columns:</p>
+<p><code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> supports accessing other existing columns:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This creates a new metadata column named `cis`</span></span>
 <span></span>
@@ -732,7 +792,7 @@ object.</p>
 <div class="section level3">
 <h3 id="grouping-columns">Grouping columns<a class="anchor" aria-label="anchor" href="#grouping-columns"></a>
 </h3>
-<p><code>group_by</code> supports accessing both core and metadata
+<p><code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> supports accessing both core and metadata
 columns:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This groups the `GInteractions` object using the `seqnames2` variable</span></span>
@@ -785,8 +845,8 @@ columns:</p>
 <div class="section level3">
 <h3 id="summarizing-columns">Summarizing columns<a class="anchor" aria-label="anchor" href="#summarizing-columns"></a>
 </h3>
-<p>Summarizing grouped <code>GInteractions</code> can be extremely
-powerful.</p>
+<p>Summarizing grouped <code>GInteractions</code> with
+<code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> can be extremely powerful.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This counts the number of occurences of each combination of the variables</span></span>
 <span><span class="co">## `strand1` and `strand2`</span></span>
@@ -826,7 +886,7 @@ powerful.</p>
 <div class="section level3">
 <h3 id="filtering-columns">Filtering columns<a class="anchor" aria-label="anchor" href="#filtering-columns"></a>
 </h3>
-<p><code>filter</code> supports logical expressions:</p>
+<p><code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> supports logical expressions:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seqnames1</span> <span class="op">==</span> <span class="st">'chr11'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GInteractions object with 0 interactions and 1 metadata column:</span></span>
@@ -858,7 +918,7 @@ powerful.</p>
 <div class="section level3">
 <h3 id="selecting-columns">Selecting columns<a class="anchor" aria-label="anchor" href="#selecting-columns"></a>
 </h3>
-<p><code>select</code> supports <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link"><code>&lt;tidy-select&gt;</code>
+<p><code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> supports <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link"><code>&lt;tidy-select&gt;</code>
 arguments</a>:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This only keeps the "type" column from the metadata columns, </span></span>
@@ -966,27 +1026,28 @@ results in the coercion of the selected columns into a
 <div class="section level2">
 <h2 id="overlapping-operations-on-ginteractions">Overlapping operations on <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#overlapping-operations-on-ginteractions"></a>
 </h2>
-<p>Several operlapping functions defined in <code>plyranges</code> are
-available for <code>GInteractions</code>:</p>
+<p>Several operlapping functions defined in <em><a href="https://bioconductor.org/packages/3.18/plyranges" class="external-link">plyranges</a></em>
+are available for <code>GInteractions</code>:</p>
 <ul>
 <li>
-<code>find_overlaps</code>;</li>
+<code><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps()</a></code>;</li>
 <li>
-<code>count_overlaps</code>;</li>
+<code><a href="https://rdrr.io/pkg/plyranges/man/ranges-count-overlaps.html" class="external-link">count_overlaps()</a></code>;</li>
 <li>
-<code>filter_by_overlaps</code> and
-<code>filter_by_non_overlaps</code>;</li>
+<code><a href="https://rdrr.io/pkg/plyranges/man/ranges-filter-overlaps.html" class="external-link">filter_by_overlaps()</a></code> and
+<code><a href="https://rdrr.io/pkg/plyranges/man/ranges-filter-overlaps.html" class="external-link">filter_by_non_overlaps()</a></code>;</li>
 <li>
-<code>join_overlap_left</code>.</li>
+<code><a href="https://rdrr.io/pkg/plyranges/man/overlap-joins.html" class="external-link">join_overlap_left()</a></code>.</li>
 </ul>
 <p>All these functions can take a <code>GInteractions</code> query and a
 <code>GRanges</code> subject to perform overlapping operations, and
 <code>maxgap</code> and <code>minoverlap</code> arguments are available
 to refine the query.</p>
 <p>These functions are <strong>unstranded</strong> by default.
-<code>find_overlaps</code>, <code>count_overlaps</code> and
-<code>join_overlap_left</code> functions have <code>*_directed</code>
-counterparts for when strandness is required.</p>
+<code><a href="https://rdrr.io/pkg/plyranges/man/ranges-overlaps.html" class="external-link">find_overlaps()</a></code>, <code><a href="https://rdrr.io/pkg/plyranges/man/ranges-count-overlaps.html" class="external-link">count_overlaps()</a></code> and
+<code><a href="https://rdrr.io/pkg/plyranges/man/overlap-joins.html" class="external-link">join_overlap_left()</a></code> functions have
+<code>*_directed()</code> counterparts for when strandness is
+required.</p>
 <div class="section level3">
 <h3 id="overlapping-ginteractions">Overlapping <code>GInteractions</code><a class="anchor" aria-label="anchor" href="#overlapping-ginteractions"></a>
 </h3>
@@ -1129,7 +1190,7 @@ to cite the package and the overall approach. Thank you!</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"plyinteractions"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite package 'plyinteractions' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Serizay J (2023). _plyinteractions: Extending tidy verbs to genomic interactions_. R package version 0.99.5, &lt;https://github.com/js2264/plyinteractions&gt;.</span></span>
+<span><span class="co">#&gt;   Serizay J (2023). _plyinteractions: Extending tidy verbs to genomic interactions_. R package version 0.99.7, &lt;https://github.com/js2264/plyinteractions&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1137,7 +1198,7 @@ to cite the package and the overall approach. Thank you!</p>
 <span><span class="co">#&gt;     title = {plyinteractions: Extending tidy verbs to genomic interactions},</span></span>
 <span><span class="co">#&gt;     author = {Jacques Serizay},</span></span>
 <span><span class="co">#&gt;     year = {2023},</span></span>
-<span><span class="co">#&gt;     note = {R package version 0.99.5},</span></span>
+<span><span class="co">#&gt;     note = {R package version 0.99.7},</span></span>
 <span><span class="co">#&gt;     url = {https://github.com/js2264/plyinteractions},</span></span>
 <span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
@@ -1201,7 +1262,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-10-08</span></span>
+<span><span class="co">#&gt;  date     2023-10-09</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -1228,14 +1289,14 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  digest                 0.6.33    <span style="color: #555555;">2023-07-07</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  dplyr                  1.1.3     <span style="color: #555555;">2023-09-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  evaluate               0.22      <span style="color: #555555;">2023-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  fansi                  1.0.4     <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  fansi                  1.0.5     <span style="color: #555555;">2023-10-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  fastmap                1.1.1     <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  fs                     1.6.3     <span style="color: #555555;">2023-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  generics               0.1.3     <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDb         * 1.37.6    <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDbData       1.2.10    <span style="color: #555555;">2023-09-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomicAlignments      1.37.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  GenomicRanges        * 1.53.1    <span style="color: #555555;">2023-05-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomicRanges        * 1.53.2    <span style="color: #555555;">2023-10-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  glue                   1.6.2     <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  htmltools              0.5.6.1   <span style="color: #555555;">2023-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  httr                   1.4.7     <span style="color: #555555;">2023-08-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -1255,7 +1316,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  pillar                 1.9.0     <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgconfig              2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  pkgdown                2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  plyinteractions      * 0.99.5    <span style="color: #555555;">2023-10-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  plyinteractions      * 0.99.7    <span style="color: #555555;">2023-10-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  plyr                   1.8.9     <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  plyranges              1.21.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  purrr                  1.0.2     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -1279,8 +1340,8 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  stringi                1.7.12    <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  stringr                1.5.0     <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  SummarizedExperiment * 1.31.1    <span style="color: #555555;">2023-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  systemfonts            1.0.4     <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  textshaping            0.3.6     <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  systemfonts            1.0.5     <span style="color: #555555;">2023-10-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  textshaping            0.3.7     <span style="color: #555555;">2023-10-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  tibble                 3.2.1     <span style="color: #555555;">2023-03-20</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  tidyselect             1.2.0     <span style="color: #555555;">2022-10-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  timechange             0.2.0     <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
@@ -1352,7 +1413,7 @@ Computing</em>. R Foundation for Statistical Computing. Vienna, Austria,
 <p>
 <a id="bib-serizay2023plyinteractions"></a><a href="#cite-serizay2023plyinteractions">[8]</a><cite>
 J. Serizay. <em>plyinteractions: Extending tidy verbs to genomic
-interactions</em>. R package version 0.99.5. 2023. URL:
+interactions</em>. R package version 0.99.7. 2023. URL:
 <a href="https://github.com/js2264/plyinteractions" class="external-link">https://github.com/js2264/plyinteractions</a>.</cite>
 </p>
 <p>
