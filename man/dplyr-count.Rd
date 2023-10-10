@@ -3,10 +3,13 @@
 \name{dplyr-count}
 \alias{dplyr-count}
 \alias{tally.GroupedGInteractions}
+\alias{count.GroupedGInteractions}
 \alias{count.GInteractions}
 \title{Count or tally GInteractions per group}
 \usage{
 \method{tally}{GroupedGInteractions}(x, wt = NULL, sort = FALSE, name = NULL)
+
+\method{count}{GroupedGInteractions}(x, ..., wt = NULL, sort = FALSE, name = NULL)
 
 \method{count}{GInteractions}(x, ..., wt = NULL, sort = FALSE, name = NULL)
 }
@@ -57,14 +60,16 @@ gi |> group_by(strand1) |> tally()
 
 gi |> group_by(type) |> tally()
 
+gi |> group_by(type) |> tally(wt = score)
+
 ####################################################################
 # 2. Count per groups
 ####################################################################
 
 gi |> count(type)
 
-gi |> group_by(type) |> count()
-
 gi |> group_by(type) |> count(strand1)
+
+gi |> group_by(type, strand1) |> count(wt = score)
 
 }

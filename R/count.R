@@ -44,15 +44,17 @@
 #' 
 #' gi |> group_by(type) |> tally()
 #' 
+#' gi |> group_by(type) |> tally(wt = score)
+#' 
 #' ####################################################################
 #' # 2. Count per groups
 #' ####################################################################
 #' 
 #' gi |> count(type)
 #' 
-#' gi |> group_by(type) |> count()
-#' 
 #' gi |> group_by(type) |> count(strand1)
+#' 
+#' gi |> group_by(type, strand1) |> count(wt = score)
 #' 
 #' @importFrom rlang local_options
 #' @importFrom rlang enquo
@@ -82,10 +84,29 @@ tally.GroupedGInteractions <- function(
 
     ## Sort by group by default
     if (sort) {
-        arrange(out, dplyr::desc(!!rlang::sym(name)))
+        o <- out[, name]
+        out[order(o, decreasing = TRUE), ]
     } else {
         out
     }
+
+}
+
+#' @rdname dplyr-count
+#' @export
+count.GroupedGInteractions <- function(
+    x, ..., wt = NULL, sort = FALSE, name = NULL
+) {
+
+    ## Add new groups before counting
+    if (!missing(...)) {
+        out <- group_by(x, ..., .add = TRUE)
+    } else {
+        out <- x
+    }
+
+    ## count through weighted tally
+    tally(out, wt = !!rlang::enquo(wt), sort = sort, name = name)
 
 }
 
@@ -97,7 +118,8 @@ count.GInteractions <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
     if (!missing(...)) {
         out <- group_by(x, ..., .add = TRUE)
     } else {
-        out <- x
+        x$group <- seq(1, length(x))
+        out <- group_by(x, group)
     }
 
     ## count through weighted tally
