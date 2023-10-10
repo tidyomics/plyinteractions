@@ -204,4 +204,150 @@ test_that("classes work", {
     gi |> ungroup() |> expect_error("GInteractions")
     show(ggi) |> expect_no_error()
 
+    ## DelegatingGInteractions
+    expect_identical(
+        anchors1(apgi), 
+        new("GRanges", seqnames = new("Rle", values = structure(1L, levels = c("chr1", 
+        "chr2"), class = "factor"), lengths = 4L, elementMetadata = NULL, 
+            metadata = list()), ranges = new("IRanges", start = c(11L, 
+        11L, 11L, 11L), width = c(10L, 10L, 20L, 20L), NAMES = NULL, 
+            elementType = "ANY", elementMetadata = NULL, metadata = list()), 
+            strand = new("Rle", values = structure(1:2, levels = c("+", 
+            "-", "*"), class = "factor"), lengths = c(2L, 2L), elementMetadata = NULL, 
+                metadata = list()), seqinfo = new("Seqinfo", seqnames = c("chr1", 
+            "chr2"), seqlengths = c(NA_integer_, NA_integer_), is_circular = c(NA, 
+            NA), genome = c(NA_character_, NA_character_)), elementMetadata = new("DFrame", 
+                rownames = NULL, nrows = 4L, elementType = "ANY", elementMetadata = NULL, 
+                metadata = list(), listData = structure(list(), names = character(0))), 
+            elementType = "ANY", metadata = list())
+    )
+    expect_identical(
+        ranges1(apgi), 
+        new("IRanges", start = c(11L, 11L, 11L, 11L), width = c(10L, 
+        10L, 20L, 20L), NAMES = NULL, elementType = "ANY", elementMetadata = NULL, 
+            metadata = list())
+    )
+    expect_identical(
+        seqnames1(apgi), 
+        new("Rle", values = structure(1L, levels = c("chr1", "chr2"), class = "factor"), 
+        lengths = 4L, elementMetadata = NULL, metadata = list())
+    )
+    expect_identical(
+        start1(apgi), 
+        c(11L, 11L, 11L, 11L)
+    )
+    expect_identical(
+        end1(apgi), 
+        c(20L, 20L, 30L, 30L)
+    )
+    expect_identical(
+        width1(apgi), 
+        c(10L, 10L, 20L, 20L)
+    )
+    expect_identical(
+        strand1(apgi), 
+        new("Rle", values = structure(1:2, levels = c("+", "-", "*"), class = "factor"), 
+        lengths = c(2L, 2L), elementMetadata = NULL, metadata = list())
+    )
+    expect_identical(
+        anchors2(apgi), 
+        new("GRanges", seqnames = new("Rle", values = structure(1:2, levels = c("chr1", 
+        "chr2"), class = "factor"), lengths = c(3L, 1L), elementMetadata = NULL, 
+            metadata = list()), ranges = new("IRanges", start = c(21L, 
+        51L, 51L, 51L), width = c(10L, 5L, 5L, 10L), NAMES = NULL, elementType = "ANY", 
+            elementMetadata = NULL, metadata = list()), strand = new("Rle", 
+            values = structure(1:2, levels = c("+", "-", "*"), class = "factor"), 
+            lengths = c(2L, 2L), elementMetadata = NULL, metadata = list()), 
+            seqinfo = new("Seqinfo", seqnames = c("chr1", "chr2"), seqlengths = c(NA_integer_, 
+            NA_integer_), is_circular = c(NA, NA), genome = c(NA_character_, 
+            NA_character_)), elementMetadata = new("DFrame", rownames = NULL, 
+                nrows = 4L, elementType = "ANY", elementMetadata = NULL, 
+                metadata = list(), listData = structure(list(), names = character(0))), 
+            elementType = "ANY", metadata = list())
+    )
+    expect_identical(
+        ranges2(apgi), 
+        new("IRanges", start = c(21L, 51L, 51L, 51L), width = c(10L, 
+        5L, 5L, 10L), NAMES = NULL, elementType = "ANY", elementMetadata = NULL, 
+            metadata = list())
+    )
+    expect_identical(
+        seqnames2(apgi), 
+        new("Rle", values = structure(1:2, levels = c("chr1", "chr2"), class = "factor"), 
+            lengths = c(3L, 1L), elementMetadata = NULL, metadata = list())
+    )
+    expect_identical(
+        start2(apgi), 
+        c(21L, 51L, 51L, 51L)
+    )
+    expect_identical(
+        end2(apgi), 
+        c(30L, 55L, 55L, 60L)
+    )
+    expect_identical(
+        width2(apgi), 
+        c(10L, 5L, 5L, 10L)
+    )
+    expect_identical(
+        strand2(apgi), 
+        new("Rle", values = structure(1:2, levels = c("+", "-", "*"), class = "factor"), 
+            lengths = c(2L, 2L), elementMetadata = NULL, metadata = list())
+    )
+    expect_identical(
+        anchors(apgi), 
+        list(first = new("GRanges", seqnames = new("Rle", values = structure(1L, levels = c("chr1", 
+        "chr2"), class = "factor"), lengths = 4L, elementMetadata = NULL, 
+            metadata = list()), ranges = new("IRanges", start = c(11L, 
+        11L, 11L, 11L), width = c(10L, 10L, 20L, 20L), NAMES = NULL, 
+            elementType = "ANY", elementMetadata = NULL, metadata = list()), 
+            strand = new("Rle", values = structure(1:2, levels = c("+", 
+            "-", "*"), class = "factor"), lengths = c(2L, 2L), elementMetadata = NULL, 
+                metadata = list()), seqinfo = new("Seqinfo", seqnames = c("chr1", 
+            "chr2"), seqlengths = c(NA_integer_, NA_integer_), is_circular = c(NA, 
+            NA), genome = c(NA_character_, NA_character_)), elementMetadata = new("DFrame", 
+                rownames = NULL, nrows = 4L, elementType = "ANY", elementMetadata = NULL, 
+                metadata = list(), listData = structure(list(), names = character(0))), 
+            elementType = "ANY", metadata = list()), second = new("GRanges", 
+            seqnames = new("Rle", values = structure(1:2, levels = c("chr1", 
+            "chr2"), class = "factor"), lengths = c(3L, 1L), elementMetadata = NULL, 
+                metadata = list()), ranges = new("IRanges", start = c(21L, 
+            51L, 51L, 51L), width = c(10L, 5L, 5L, 10L), NAMES = NULL, 
+                elementType = "ANY", elementMetadata = NULL, metadata = list()), 
+            strand = new("Rle", values = structure(1:2, levels = c("+", 
+            "-", "*"), class = "factor"), lengths = c(2L, 2L), elementMetadata = NULL, 
+                metadata = list()), seqinfo = new("Seqinfo", seqnames = c("chr1", 
+            "chr2"), seqlengths = c(NA_integer_, NA_integer_), is_circular = c(NA, 
+            NA), genome = c(NA_character_, NA_character_)), elementMetadata = new("DFrame", 
+                rownames = NULL, nrows = 4L, elementType = "ANY", elementMetadata = NULL, 
+                metadata = list(), listData = structure(list(), names = character(0))), 
+            elementType = "ANY", metadata = list()))
+    )
+    expect_identical(
+        regions(apgi), 
+        new("GRanges", seqnames = new("Rle", values = structure(1:2, levels = c("chr1", 
+        "chr2"), class = "factor"), lengths = c(5L, 1L), elementMetadata = NULL, 
+            metadata = list()), ranges = new("IRanges", start = c(11L, 
+        21L, 51L, 11L, 51L, 51L), width = c(10L, 10L, 5L, 20L, 5L, 10L
+        ), NAMES = NULL, elementType = "ANY", elementMetadata = NULL, 
+            metadata = list()), strand = new("Rle", values = structure(1:2, levels = c("+", 
+        "-", "*"), class = "factor"), lengths = c(3L, 3L), elementMetadata = NULL, 
+            metadata = list()), seqinfo = new("Seqinfo", seqnames = c("chr1", 
+        "chr2"), seqlengths = c(NA_integer_, NA_integer_), is_circular = c(NA, 
+        NA), genome = c(NA_character_, NA_character_)), elementMetadata = new("DFrame", 
+            rownames = NULL, nrows = 6L, elementType = "ANY", elementMetadata = NULL, 
+            metadata = list(), listData = structure(list(), names = character(0))), 
+            elementType = "ANY", metadata = list())
+    )
+    expect_identical(
+        seqinfo(apgi), 
+        new("Seqinfo", seqnames = c("chr1", "chr2"), seqlengths = c(NA_integer_, 
+        NA_integer_), is_circular = c(NA, NA), genome = c(NA_character_, 
+        NA_character_))
+    )
+    expect_identical(
+        mcols(apgi)[,2], 
+        c("cis", "cis", "cis", "trans")
+    )
+    show(apgi) |> expect_no_error()
+
 })
