@@ -28,6 +28,9 @@
     <loc>/reference/GM12878_HiCCUPS.html</loc>
   </url>
   <url>
+    <loc>/reference/add-pairdist.html</loc>
+  </url>
+  <url>
     <loc>/reference/ce10_ARCC.html</loc>
   </url>
   <url>
@@ -76,6 +79,9 @@
     <loc>/reference/ginteractions-count-overlaps.html</loc>
   </url>
   <url>
+    <loc>/reference/ginteractions-export.html</loc>
+  </url>
+  <url>
     <loc>/reference/ginteractions-filter-overlaps.html</loc>
   </url>
   <url>
@@ -98,6 +104,9 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pair-granges.html</loc>
   </url>
   <url>
     <loc>/reference/plyinteractions-package.html</loc>
