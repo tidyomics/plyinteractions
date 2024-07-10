@@ -1,129 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/plyinteractions.html</loc>
-  </url>
-  <url>
-    <loc>/articles/process_pairs.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/GM12878_HiCCUPS.html</loc>
-  </url>
-  <url>
-    <loc>/reference/add-pairdist.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ce10_ARCC.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ce10_REs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/delegating-ginteractions-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-arrange.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-count.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-filter.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-group_by.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-mutate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-rename.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-select.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-slice.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dplyr-summarize.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-anchor.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-annotate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-construct.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-count-overlaps.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-export.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-filter-overlaps.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-find-overlaps.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-getters.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-join-overlap-left.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-pin.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ginteractions-setters.html</loc>
-  </url>
-  <url>
-    <loc>/reference/group-group_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pair-granges.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plyinteractions-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plyranges-flank.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plyranges-shift.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plyranges-stretch.html</loc>
-  </url>
-  <url>
-    <loc>/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>/reference/replace_anchors.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/plyinteractions.html</loc></url>
+<url><loc>/articles/process_pairs.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/GM12878_HiCCUPS.html</loc></url>
+<url><loc>/reference/add-pairdist.html</loc></url>
+<url><loc>/reference/ce10_ARCC.html</loc></url>
+<url><loc>/reference/ce10_REs.html</loc></url>
+<url><loc>/reference/delegating-ginteractions-methods.html</loc></url>
+<url><loc>/reference/dplyr-arrange.html</loc></url>
+<url><loc>/reference/dplyr-count.html</loc></url>
+<url><loc>/reference/dplyr-filter.html</loc></url>
+<url><loc>/reference/dplyr-group_by.html</loc></url>
+<url><loc>/reference/dplyr-mutate.html</loc></url>
+<url><loc>/reference/dplyr-rename.html</loc></url>
+<url><loc>/reference/dplyr-select.html</loc></url>
+<url><loc>/reference/dplyr-slice.html</loc></url>
+<url><loc>/reference/dplyr-summarize.html</loc></url>
+<url><loc>/reference/ginteractions-anchor.html</loc></url>
+<url><loc>/reference/ginteractions-annotate.html</loc></url>
+<url><loc>/reference/ginteractions-construct.html</loc></url>
+<url><loc>/reference/ginteractions-count-overlaps.html</loc></url>
+<url><loc>/reference/ginteractions-export.html</loc></url>
+<url><loc>/reference/ginteractions-filter-overlaps.html</loc></url>
+<url><loc>/reference/ginteractions-find-overlaps.html</loc></url>
+<url><loc>/reference/ginteractions-getters.html</loc></url>
+<url><loc>/reference/ginteractions-join-overlap-left.html</loc></url>
+<url><loc>/reference/ginteractions-pin.html</loc></url>
+<url><loc>/reference/ginteractions-setters.html</loc></url>
+<url><loc>/reference/group-group_data.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/pair-granges.html</loc></url>
+<url><loc>/reference/plyinteractions-package.html</loc></url>
+<url><loc>/reference/plyranges-flank.html</loc></url>
+<url><loc>/reference/plyranges-shift.html</loc></url>
+<url><loc>/reference/plyranges-stretch.html</loc></url>
+<url><loc>/reference/reexports.html</loc></url>
+<url><loc>/reference/replace_anchors.html</loc></url>
 </urlset>
+
